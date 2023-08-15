@@ -81,7 +81,7 @@ function love.load()
     else
         -- is 3DS
         print("3DS detected, using 3DS controls")
-        input = (require "lib.baton") {
+        input = (require "lib.baton").new {
             controls = {
                 -- UI
                 uiLeft =    {'axis:leftx-', 'button:dpleft'},
