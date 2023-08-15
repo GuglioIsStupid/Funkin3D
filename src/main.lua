@@ -218,7 +218,7 @@ function love.draw(screen)
             -- draw debugg stuff
             love.graphics.print(
                 "FPS: " .. love.timer.getFPS() .. "\n" ..
-                "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n"
+                "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n",
                 0, 170
             )
         end
