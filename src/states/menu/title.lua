@@ -8,6 +8,10 @@ function title:enter()
     gfTitle.y = 25
     logoBumpin.x = -100
     logoBumpin.y = -25
+
+    if not title.music:isPlaying() then
+        title.music:play()
+    end
 end
 
 function title:update(dt)

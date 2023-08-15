@@ -3,6 +3,16 @@ function math.round(n, deci)
     return math.floor(n*deci+.5)/deci
 end
 
+function lerp(a,b,t)
+    return a + (b-a)*t
+end
+function coolLerp(a, b, t)
+    return lerp(a, b, t * 60 * love.timer.getDelta())
+end
+function clamp(a, b, c)
+    return math.max(math.min(a, c), b)
+end
+
 function table.find(t, v)
     for i, j in pairs(t) do
         if j == v then
@@ -122,6 +132,10 @@ function love.load()
             }
         }
     }
+    weekData = {
+        require "states.weeks.tutorial",
+        require "states.weeks.week1"
+    }
 
     -- States
     title = require "states.menu.title"
@@ -132,6 +146,29 @@ function love.load()
 
     menuSelect = require "states.menu.menuSelect"
     storyMode = require "states.menu.storyMode"
+    freeplay = require "states.menu.freeplay"
+
+    camera = {
+        zoom = 1,
+        toZoom = 1,
+        x=0,y=0,
+        zooming = true,
+        locked = false
+    }
+
+    uiScale = {
+        zoom = 1,
+        toZoom = 1,
+        x=0,y=0
+    }
+
+    spriteTimers = {
+		0, -- Girlfriend
+		0, -- Enemy
+		0 -- Boyfriend
+	}
+
+    weeks = require "states.weeks"
 
     font = love.graphics.newFont("assets/fonts/vcr.ttf", 12)
     uiFont = love.graphics.newFont("assets/fonts/vcr.ttf", 24)
@@ -177,6 +214,14 @@ function love.draw(screen)
 
         function()
             Gamestate.bottomDraw()
+
+            -- draw debugg stuff
+            love.graphics.print(
+                "FPS: " .. love.timer.getFPS() .. "\n" ..
+                "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n" ..
+                "Texture Memory: " .. math.round(love.graphics.getStats().texturememory / 1024 / 1024, 2) .. "MB\n",
+                0, 170
+            )
         end
     )
     love.graphics.setColor(1,1,1,1)

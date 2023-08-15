@@ -154,6 +154,10 @@ return {
 			end,
 
 			animate = function(self, animName, loopAnim)
+				-- check if it exists
+				if not anims[animName] then
+					return
+				end
 				anim.name = animName
 				anim.start = anims[animName].start
 				anim.stop = anims[animName].stop
