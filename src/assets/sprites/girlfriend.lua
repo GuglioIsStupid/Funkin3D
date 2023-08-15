@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("girlfriend")),
+	love.graphics.newImage(graphics.imagePath("GIRLFRIEND")),
 		-- Automatically generated from GIRLFRIEND.xml
 	{
 		{x = 0, y = 152.95, width = 161.69, height = 152.03, offsetX = 0, offsetY = 0.46, offsetWidth = 161.69, offsetHeight = 151.11}, -- 1: GF Cheer0000
