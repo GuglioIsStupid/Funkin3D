@@ -38,7 +38,7 @@ end
 
 local desktop = {"Windows", "Linux", "OS"}
 
-__DEBUG__ = true
+__DEBUG__ = false
 
 function love.load()
     if love.graphics.setDefaultFilter then
@@ -218,8 +218,7 @@ function love.draw(screen)
             -- draw debugg stuff
             love.graphics.print(
                 "FPS: " .. love.timer.getFPS() .. "\n" ..
-                "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n" ..
-                "Texture Memory: " .. math.round(love.graphics.getStats().texturememory / 1024 / 1024, 2) .. "MB\n",
+                "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n"
                 0, 170
             )
         end
