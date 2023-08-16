@@ -57,7 +57,6 @@ function offset:topDraw()
     love.graphics.rectangle("fill", 0, 0, 400, 240)
     graphics.setColor(1,1,1,0.5)
     if menuID == 1 then
-        print("Sprite Viewer")
         love.graphics.setColor(1, 1, 1)
 
         for i, v in ipairs(dirTable) do

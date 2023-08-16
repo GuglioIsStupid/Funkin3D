@@ -79,10 +79,17 @@ function weeks:initUI()
 
     for i = 1, 4 do
         enemyArrows[i].x = -170 + ((i-1) * 40)
-        enemyArrows[i].y = -90
+        
 
         boyfriendArrows[i].x = 50 + ((i-1) * 40)
-        boyfriendArrows[i].y = -90
+
+        if downscroll then
+            boyfriendArrows[i].y = 90
+            enemyArrows[i].y = 90
+        else
+            boyfriendArrows[i].y = -90
+            enemyArrows[i].y = -90
+        end
 
         enemyNotes[i] = {}
         boyfriendNotes[i] = {}
@@ -400,9 +407,9 @@ function weeks:update(dt)
             boyfriendNotes[i][j]:update(dt)
 
             if not downscroll then
-                boyfriendNotes[i][j].y = (-115 - (musicTime - boyfriendNotes[i][j].time) * (0.45 * speed))
+                boyfriendNotes[i][j].y = (-90 - (musicTime - boyfriendNotes[i][j].time) * (0.45 * speed))
             else
-                boyfriendNotes[i][j].y = (115 + (musicTime - boyfriendNotes[i][j].time) * (0.45 * speed))
+                boyfriendNotes[i][j].y = (90 + (musicTime - boyfriendNotes[i][j].time) * (0.45 * speed))
             end
         end
 

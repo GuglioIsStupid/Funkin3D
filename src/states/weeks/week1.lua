@@ -76,16 +76,27 @@ end
 function week1:topDraw()
     love.graphics.push()
         love.graphics.translate(200,120)
-        love.graphics.scale(camera.zoom*1.3, camera.zoom*1.3)
+        
+
+        love.graphics.push()
+        love.graphics.translate(camera.x*0.9, camera.y*0.9)
+            love.graphics.scale(camera.zoom*1.3, camera.zoom*1.3)
+            stageback:draw()
+            stagefront:draw()
+            girlfriend:draw()
+        love.graphics.pop()
+        
+        love.graphics.push()
         love.graphics.translate(camera.x, camera.y)
-
-        stageback:draw()
-        stagefront:draw()
-        stagecurtains:draw()
-
-        girlfriend:draw()
-        boyfriend:draw()
-        enemy:draw()
+            love.graphics.scale(camera.zoom*1.3, camera.zoom*1.3)
+            boyfriend:draw()
+            enemy:draw()
+        love.graphics.pop()
+        love.graphics.push()
+            love.graphics.translate(camera.x*1.1, camera.y*1.1)
+            love.graphics.scale(camera.zoom*1.3, camera.zoom*1.3)
+            stagecurtains:draw()
+        love.graphics.pop()
     love.graphics.pop()
     weeks:topDraw()
 end
