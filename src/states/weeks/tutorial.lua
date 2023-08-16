@@ -7,8 +7,6 @@ function tutorial:enter(song_)
     song = song_ or 1
     weeks:enter()
 
-    boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
-    girlfriend = love.filesystem.load("assets/sprites/girlfriend.lua")()
     enemy = girlfriend
 
     stageback = graphics.newImage(graphics.imagePath("stages/stage/stageback"))
@@ -91,6 +89,9 @@ function tutorial:bottomDraw()
 end
 
 function tutorial:leave()
+    stageback:release()
+    stagefront:release()
+    stagecurtains:release()
     weeks:leave()
 end
 

@@ -68,10 +68,10 @@ return graphics.newSprite(
 	},
 	{
         ["idle"] = {start = 57, stop = 63, speed = 12, offsetX = 0, offsetY = 0},
-        ["down"] = {start = 1, stop = 8, speed = 12, offsetX = 0, offsetY = 0},
-		["left"] = {start = 9, stop = 16, speed = 12, offsetX = 0, offsetY = 0},
-		["right"] = {start = 17, stop = 26, speed = 12, offsetX = 0, offsetY = 0},
-		["up"] = {start = 27, stop = 56, speed = 12, offsetX = 0, offsetY = 0},
+        ["down"] = {start = 1, stop = 8, speed = 12, offsetX = -4, offsetY = -3},
+		["left"] = {start = 9, stop = 16, speed = 12, offsetX = 1, offsetY = 1},
+		["right"] = {start = 17, stop = 26, speed = 12, offsetX = -4, offsetY = 3},
+		["up"] = {start = 27, stop = 56, speed = 12, offsetX = 0, offsetY = 6},
 	},
 	"idle",
 	false

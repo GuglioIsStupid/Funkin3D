@@ -130,11 +130,20 @@ function love.load()
                 "Fresh",
                 "Dadbattle"
             }
+        },
+        {
+            "Week 2",
+            {
+                "Spookeez",
+                "South",
+                "Monster"
+            }
         }
     }
     weekData = {
         require "states.weeks.tutorial",
-        require "states.weeks.week1"
+        require "states.weeks.week1",
+        require "states.weeks.week2"
     }
 
     -- States
@@ -147,6 +156,8 @@ function love.load()
     menuSelect = require "states.menu.menuSelect"
     storyMode = require "states.menu.storyMode"
     freeplay = require "states.menu.freeplay"
+
+    debugOffset = require "states.debug.offsets"
 
     camera = {
         zoom = 1,
@@ -194,6 +205,13 @@ function love.update(dt)
     end
 end
 
+function love.keypressed(k)
+    if k == "7" then
+        Gamestate.switch(debugOffset)
+    end
+    Gamestate.keypressed(k)
+end
+
 function love.draw(screen)
     graphics.setColor(1,1,1,1)
     dslayout:draw(
@@ -219,7 +237,7 @@ function love.draw(screen)
             love.graphics.print(
                 "FPS: " .. love.timer.getFPS() .. "\n" ..
                 "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n",
-                0, 170
+                0, 190
             )
         end
     )

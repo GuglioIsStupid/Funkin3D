@@ -17,6 +17,9 @@ local notMissed = {}
 local countdownFade = {}
 
 function weeks:enter()
+    boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
+    girlfriend = love.filesystem.load("assets/sprites/girlfriend.lua")()
+
     sounds = {
 
     }
@@ -646,7 +649,7 @@ function weeks:bottomDraw()
 end
 
 function weeks:leave()
-
+    camera.toZoom = 1
 end
 
 return weeks

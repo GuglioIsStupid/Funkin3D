@@ -132,7 +132,7 @@ return graphics.newSprite(
 		{x = 0, y = 387.78, width = 82.8, height = 99.82, offsetX = 0.23, offsetY = -1.84, offsetWidth = 86.94, offsetHeight = 102.58}, -- 128: BF NOTE UP MISS0007
 		{x = 0, y = 387.78, width = 82.8, height = 99.82, offsetX = 0.23, offsetY = -1.84, offsetWidth = 86.94, offsetHeight = 102.58}, -- 129: BF NOTE UP MISS0008
 		{x = 0, y = 387.78, width = 82.8, height = 99.82, offsetX = 0.23, offsetY = -1.84, offsetWidth = 86.94, offsetHeight = 102.58}, -- 130: BF NOTE UP MISS0009
-		{x = 0, y = 387.78, width = 82.8, height = 99.82, offsetX = 0.23, offsetY = -1.84, offsetWidth = 86.94, offsetHeight = 102.58}, -- 131: BF NOTE UP MISS0010
+		{x = 0, y = 387.78, width = 82.8, height = 99.82, offsetX = 0.23, offsetY = -1.84, offsetWidth = 86.94, offsetHeight = 102.58}, -- 1 31: BF NOTE UP MISS0010
 		{x = 0, y = 387.78, width = 82.8, height = 99.82, offsetX = 0.23, offsetY = -1.84, offsetWidth = 86.94, offsetHeight = 102.58}, -- 132: BF NOTE UP MISS0011
 		{x = 0, y = 387.78, width = 82.8, height = 99.82, offsetX = 0.23, offsetY = -1.84, offsetWidth = 86.94, offsetHeight = 102.58}, -- 133: BF NOTE UP MISS0012
 		{x = 280.6, y = 291.18, width = 94.3, height = 91.08, offsetX = 0.23, offsetY = -4.14, offsetWidth = 94.53, offsetHeight = 94.76}, -- 134: BF idle dance0000
@@ -149,15 +149,16 @@ return graphics.newSprite(
 	},
 	{
 		["hey"] = {start = 1, stop = 13, speed = 12, offsetX = 0, offsetY = 0},
-		["down"] = {start = 14, stop = 28, speed = 12, offsetX = 0, offsetY = 0},
-		["down miss"] = {start = 29, stop = 43, speed = 12, offsetX = 0, offsetY = 0},
-		["left"] = {start = 44, stop = 51, speed = 12, offsetX = 0, offsetY = 0},
-		["left miss"] = {start = 52, stop = 68, speed = 12, offsetX = 0, offsetY = 0},
-		["right"] = {start = 69, stop = 91, speed = 12, offsetX = 0, offsetY = 0},
-		["right miss"] = {start = 92, stop = 113, speed = 12, offsetX = 0, offsetY = 0},
-		["up"] = {start = 114, stop = 120, speed = 12, offsetX = 0, offsetY = 0},
-		["up miss"] = {start = 121, stop = 133, speed = 12, offsetX = 0, offsetY = 0},
+		["down"] = {start = 14, stop = 28, speed = 12, offsetX = -1, offsetY = -5},
+		["down miss"] = {start = 29, stop = 43, speed = 12, offsetX = -2, offsetY = -2},
+		["left"] = {start = 44, stop = 51, speed = 12, offsetX = 4, offsetY = 0},
+		["left miss"] = {start = 52, stop = 68, speed = 12, offsetX = 5, offsetY = 3},
+		["right"] = {start = 69, stop = 91, speed = 12, offsetX = -9, offsetY = 0},
+		["right miss"] = {start = 92, stop = 113, speed = 12, offsetX = -8, offsetY = 2},
+		["up"] = {start = 114, stop = 120, speed = 12, offsetX = -5, offsetY = 2},
+		["up miss"] = {start = 121, stop = 133, speed = 12, offsetX = -5, offsetY = 2},
 		["idle"] = {start = 134, stop = 142, speed = 16, offsetX = 0, offsetY = 0},
+		["shaking"] = {start = 143, stop = 144, speed = 8, offsetX = 0, offsetY = 1},
 	},
 	"idle",
 	false
