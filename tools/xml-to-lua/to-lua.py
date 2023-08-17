@@ -52,7 +52,7 @@ def convert_xml_to_lua(xml_file, lua_output_file, prefixes_file, image_path):
         else:
             frame_indices[animation_prefix]["stop"] = index + 1
 
-        lua_data += f"\t\t{{x = {x}, y = {y}, width = {width}, height = {height}, offsetX = {offsetX}, offsetY = {offsetY}, offsetWidth = {offsetWidth}, offsetHeight = {offsetHeight}}}, -- {name}\n"
+        lua_data += f"\t\t{{x = {x}, y = {y}, width = {width}, height = {height}, offsetX = {offsetX}, offsetY = {offsetY}, offsetWidth = {offsetWidth}, offsetHeight = {offsetHeight}}}, -- {index+1}: {name}\n"
 
     lua_data += "\t},\n"
     lua_data += "\t{\n"
