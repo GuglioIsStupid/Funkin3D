@@ -146,13 +146,22 @@ function love.load()
                 "Philly Nice",
                 "Blammed"
             }
+        },
+        {
+            "Week 4",
+            {
+                "Satin Panties",
+                "High",
+                "MILF"
+            }
         }
     }
     weekData = {
         require "states.weeks.tutorial",
         require "states.weeks.week1",
         require "states.weeks.week2",
-        require "states.weeks.week3"
+        require "states.weeks.week3",
+        require "states.weeks.week4"
     }
 
     -- States
