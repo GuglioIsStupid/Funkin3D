@@ -33,6 +33,8 @@ function weeks:enter()
 end
 
 function weeks:load()
+    if inst then inst:release() end
+    if voices then voices:release() end
     useAltAnims = false
     camera.x, camera.y = -boyfriend.x + 25, -boyfriend.y + 2
     for i = 1, 4 do

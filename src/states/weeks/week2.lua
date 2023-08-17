@@ -32,6 +32,7 @@ function week2:enter(from, song_, diff)
 end
 
 function week2:load()
+    weeks:load()
     if song == 1 then
         inst = love.audio.newSource("assets/songs/week2/spookeez/Inst.ogg", "stream")
         voices = love.audio.newSource("assets/songs/week2/spookeez/Voices.ogg", "stream")
@@ -46,7 +47,7 @@ function week2:load()
         enemy.sizeX, enemy.sizeY = 1.15, 1.15
         enemy.x, enemy.y = -85, 10
     end
-    weeks:load()
+    
     self:initUI()
 end
 

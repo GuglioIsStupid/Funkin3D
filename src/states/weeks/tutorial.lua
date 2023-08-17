@@ -24,8 +24,9 @@ function tutorial:enter(song_)
 end
 
 function tutorial:load()
-    inst = love.audio.newSource("assets/songs/tutorial/Inst.ogg", "stream")
     weeks:load()
+    inst = love.audio.newSource("assets/songs/tutorial/Inst.ogg", "stream")
+    
     self:initUI()
 end
 

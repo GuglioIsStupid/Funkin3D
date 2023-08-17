@@ -48,6 +48,7 @@ function week3:enter(from, song_, diff)
 end
 
 function week3:load()
+    weeks:load()
     if song == 1 then
         inst = love.audio.newSource("assets/songs/week3/pico/Inst.ogg", "stream")
         voices = love.audio.newSource("assets/songs/week3/pico/Voices.ogg", "stream")
@@ -58,7 +59,7 @@ function week3:load()
         inst = love.audio.newSource("assets/songs/week3/blammed/Inst.ogg", "stream")
         voices = love.audio.newSource("assets/songs/week3/blammed/Voices.ogg", "stream")
     end
-    weeks:load()
+    
     self:initUI()
 end
 

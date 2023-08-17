@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("menu/logoBumpin")),
+	love.graphics.newImage(graphics.imagePath("menu/logobumpin")),
 	-- Automatically generated from logoBumpin.xml
 	{
 		{x = 0, y = 0, width = 223.5, height = 167.5, offsetX = -5.5, offsetY = -4, offsetWidth = 234.75, offsetHeight = 175.75}, -- 1: logo bumpin0000
