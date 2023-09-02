@@ -58,23 +58,28 @@ function weeks:initUI()
     noteCounter = 0
     misses = 0
 
-    sprites.leftarrow = love.filesystem.load("assets/sprites/notes/left.lua")
-    sprites.downarrow = love.filesystem.load("assets/sprites/notes/down.lua")
-    sprites.uparrow = love.filesystem.load("assets/sprites/notes/up.lua")
-    sprites.rightarrow = love.filesystem.load("assets/sprites/notes/right.lua")
+    -- only reload if needed!!
+    if not sprites.leftarrow then sprites.leftarrow = love.filesystem.load("assets/sprites/notes/left.lua") end
+    if not sprites.downarrow then sprites.downarrow = love.filesystem.load("assets/sprites/notes/down.lua") end
+    if not sprites.uparrow then sprites.uparrow = love.filesystem.load("assets/sprites/notes/up.lua") end
+    if not sprites.rightarrow then sprites.rightarrow = love.filesystem.load("assets/sprites/notes/right.lua") end
 
-    enemyArrows = {
-        sprites.leftarrow(),
-        sprites.downarrow(),
-        sprites.uparrow(),
-        sprites.rightarrow()
-    }
-    boyfriendArrows = {
-        sprites.leftarrow(),
-        sprites.downarrow(),
-        sprites.uparrow(),
-        sprites.rightarrow()
-    }
+    if not enemyArrows then
+        enemyArrows = {
+            sprites.leftarrow(),
+            sprites.downarrow(),
+            sprites.uparrow(),
+            sprites.rightarrow()
+        }
+    end
+    if not boyfriendArrows then
+        boyfriendArrows = {
+            sprites.leftarrow(),
+            sprites.downarrow(),
+            sprites.uparrow(),
+            sprites.rightarrow()
+        }
+    end
 
     enemyNotes = {}
     boyfriendNotes = {}
@@ -682,6 +687,7 @@ end
 
 function weeks:bottomDraw()
     love.graphics.push()
+        -- Healthbar
         love.graphics.translate(23, 25)
         love.graphics.scale(0.85, 0.85)
         graphics.setColor(1,0,0)
@@ -694,7 +700,9 @@ function weeks:bottomDraw()
         graphics.setColor(1,1,1)
         love.graphics.setLineWidth(1)
         graphics.setColor(1,1,1)
+        -- 
     love.graphics.pop()
+    -- Score
     love.graphics.print(
         "Score: " .. score .. "\n" ..
         "Combo: " .. combo .. "\n" ..
@@ -724,14 +732,14 @@ function weeks:leave()
         boyfriendArrows[i]:release()
     end
 
-    events = {}
-    enemyNotes = {}
-    boyfriendNotes = {}
-    enemyArrows = {}
-    boyfriendArrows = {}
-    sprites = {}
-    sounds = {}
-    images = {}
+    events = nil 
+    enemyNotes = nil 
+    boyfriendNotes = nil 
+    enemyArrows = nil 
+    boyfriendArrows = nil 
+    sprites = nil 
+    sounds = nil 
+    images = nil 
     
     if inst then inst:release() end
     if voices then voices:release() end

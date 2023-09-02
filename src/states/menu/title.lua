@@ -39,7 +39,16 @@ function title:topDraw()
 end
 
 function title:bottomDraw()
-
+    love.graphics.push()
+        love.graphics.printf(
+            "Funkin 3DS" .. "\n" ..
+            "v" .. (version or "1 BETA") .. "\n" ..
+            "By: GuglioIsStupid" .. "\n\n" ..
+            "Special thanks to:" .. "\n" ..
+            "The Funkin Crew" .. "\n",
+            0, 0, 320, "right"
+        )
+    love.graphics.pop()
 end
 
 function title:leave()

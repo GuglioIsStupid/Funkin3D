@@ -83,6 +83,7 @@ end
 function menuSelect:leave()
     storymodeButton:release()
     freeplayButton:release()
+    menuBG:release()
 end
 
 return menuSelect

@@ -7,15 +7,12 @@ function week4:enter(from, song_, diff)
     difficulty = diff or ""
     weeks:enter()
 
-    boyfriend:release()
     girlfriend:release()
-    boyfriend = love.filesystem.load("assets/sprites/week4/boyfriend.lua")()
     girlfriend = love.filesystem.load("assets/sprites/week4/girlfriend.lua")()
     enemy = love.filesystem.load("assets/sprites/week4/mom.lua")()
 
     bgLimo = graphics.newImage(graphics.imagePath("stages/sunset/bgLimo"))
     limo = graphics.newImage(graphics.imagePath("stages/sunset/limoDrive"))
-
     sunset = graphics.newImage(graphics.imagePath("stages/sunset/limoSunset"))
 
     limo.y = 100
