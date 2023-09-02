@@ -13,9 +13,8 @@ function week4:enter(from, song_, diff)
     girlfriend = love.filesystem.load("assets/sprites/week4/girlfriend.lua")()
     enemy = love.filesystem.load("assets/sprites/week4/mom.lua")()
 
-    bgLimo = love.filesystem.load("assets/sprites/stages/sunset/bgLimo.lua")()
-    limoDancer = love.filesystem.load("assets/sprites/stages/sunset/limoDancer.lua")()
-    limo = love.filesystem.load("assets/sprites/stages/sunset/limoDrive.lua")()
+    bgLimo = graphics.newImage(graphics.imagePath("stages/sunset/bgLimo"))
+    limo = graphics.newImage(graphics.imagePath("stages/sunset/limoDrive"))
 
     sunset = graphics.newImage(graphics.imagePath("stages/sunset/limoSunset"))
 
@@ -32,7 +31,6 @@ function week4:enter(from, song_, diff)
     enemy.y = 5
 
     bgLimo.y = 65
-    limoDancer.y = -22
 
     self:load()
 end
@@ -70,18 +68,9 @@ function week4:update(dt)
     weeks:update(dt)
     weeks:updateEvents(dt)
 
-    limo:update(dt)
-    bgLimo:update(dt)
-    limoDancer:update(dt)
-
-    if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 120000 / bpm) < 100 then
-        limoDancer:animate("idle", false)
-
-        limoDancer:setAnimSpeed(8.2 / (60 / bpm))
-    end
-
     if song == 3 and musicTime > 56000 and musicTime < 67000 and musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 / bpm) < 100 then
         camera.zoom = camera.toZoom * 1.05
+        uiScale.zoom = uiScale.toZoom * 1.05
     end
 
     if not countingDown and not inst:isPlaying() then
@@ -103,10 +92,6 @@ function week4:topDraw()
             love.graphics.scale(camera.zoom * 1.55, camera.zoom*1.55)
             sunset:draw()
             bgLimo:draw()
-            for i = -100, 100, 100 do
-                limoDancer.x = i
-                limoDancer:draw()
-            end
 
         love.graphics.pop()
 
@@ -130,7 +115,6 @@ end
 function week4:leave()
     sunset:release()
     bgLimo:release()
-    limoDancer:release()
     limo:release()
     weeks:leave()
 end

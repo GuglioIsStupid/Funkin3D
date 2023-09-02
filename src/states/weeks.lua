@@ -169,13 +169,22 @@ function weeks:generateNotes(chart)
                             enemyNotes[id][c].time = noteTime + k
 
                             enemyNotes[id][c]:animate("hold", false)
+
+                            c = nil
                         end
 
                         c = #enemyNotes[id]
 
                         enemyNotes[id][c].offsetY = 2
                         enemyNotes[id][c]:animate("end", false)
+
+                        c = nil
                     end
+
+                    id = nil
+                    c = nil
+                    x = nil
+                    
                 elseif noteType < 4 and noteType >= 0 then
                     local id = noteType + 1
                     local c = #boyfriendNotes[id]+1
@@ -201,13 +210,21 @@ function weeks:generateNotes(chart)
                             boyfriendNotes[id][c].time = noteTime + k
 
                             boyfriendNotes[id][c]:animate("hold", false)
+
+                            c = nil
                         end
 
                         c = #boyfriendNotes[id]
 
                         boyfriendNotes[id][c].offsetY = 2
                         boyfriendNotes[id][c]:animate("end", false)
+
+                        c = nil
                     end
+
+                    id = nil
+                    c = nil
+                    x = nil
                 end
             else
                 -- now its swapped
@@ -236,13 +253,21 @@ function weeks:generateNotes(chart)
                             boyfriendNotes[id][c].time = noteTime + k
     
                             boyfriendNotes[id][c]:animate("hold", false)
+
+                            c = nil
                         end
     
                         c = #boyfriendNotes[id]
     
                         boyfriendNotes[id][c].offsetY = 2
                         boyfriendNotes[id][c]:animate("end", false)
+
+                        c = nil
                     end
+
+                    id = nil
+                    c = nil
+                    x = nil
                 elseif noteType < 4 and noteType >= 0 then
                     local id = noteType + 1
                     local c = #enemyNotes[id]+1
@@ -268,15 +293,31 @@ function weeks:generateNotes(chart)
                             enemyNotes[id][c].time = noteTime + k
     
                             enemyNotes[id][c]:animate("hold", false)
+
+                            c = nil
                         end
     
                         c = #enemyNotes[id]
     
                         enemyNotes[id][c].offsetY = 2
                         enemyNotes[id][c]:animate("end", false)
+
+                        c = nil
                     end
+
+                    id = nil
+                    c = nil
+                    x = nil
                 end
             end
+
+            sprite = nil
+            sectionNotes = nil
+            mustHitSection = nil
+            altAnim = nil
+            noteType = nil
+            noteTime = nil
+            noteVer = nil
         end
     end
 
@@ -312,6 +353,10 @@ function weeks:generateNotes(chart)
             end
         end
     end
+
+    -- Clear up memory of unused vars
+    chart = nil
+    eventBpm = nil
 end
 
 function weeks:safeAnimate(sprite, animName, loopAnim, timerID)
@@ -659,6 +704,37 @@ end
 
 function weeks:leave()
     camera.toZoom = 1
+    camera.zoom = 1
+    uiScale.toZoom = 1
+    uiScale.zoom = 1
+
+    -- Clear EVERYTHING, can't have unused stuff lying around!!!
+    -- The 3ds needs all the memory it can get!
+    for i = 1, 4 do
+        for j = 1, #enemyNotes[i] do
+            enemyNotes[i][j]:release()
+        end
+        for j = 1, #boyfriendNotes[i] do
+            boyfriendNotes[i][j]:release()
+        end
+    end
+
+    for i = 1, 4 do
+        enemyArrows[i]:release()
+        boyfriendArrows[i]:release()
+    end
+
+    events = {}
+    enemyNotes = {}
+    boyfriendNotes = {}
+    enemyArrows = {}
+    boyfriendArrows = {}
+    sprites = {}
+    sounds = {}
+    images = {}
+    
+    if inst then inst:release() end
+    if voices then voices:release() end
 end
 
 return weeks

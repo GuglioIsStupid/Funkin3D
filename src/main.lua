@@ -211,16 +211,17 @@ function love.load()
 end
 
 function love.update(dt)
+    dt = math.min(dt, 1/30)
     input:update()
     Timer.update(dt)    
     Gamestate.update(dt)
-    if __DEBUG__ then
+    --[[ if __DEBUG__ then
         -- graph stuffs
         graphs.fps:update(dt)
         graphs.mem:update(dt)
         graphs.texturememory:update(dt, love.graphics.getStats().texturememory/1024/1024)
         graphs.texturememory.label = "Texture Memory: " .. math.round(love.graphics.getStats().texturememory / 1024 / 1024, 2) .. "MB"
-    end
+    end ]]
 end
 
 function love.keypressed(k)
@@ -237,7 +238,7 @@ function love.draw(screen)
         function()
             Gamestate.topDraw()
 
-            if __DEBUG__ then
+            --[[ if __DEBUG__ then
                 love.graphics.push()
                     love.graphics.setColor(1,1,1,1)
                     love.graphics.scale(0.6, 0.6)
@@ -245,13 +246,13 @@ function love.draw(screen)
                         v:draw()
                     end
                 love.graphics.pop()
-            end
+            end ]]
         end,
 
         function()
             Gamestate.bottomDraw()
 
-            -- draw debugg stuff
+            -- draw debug stuff
             love.graphics.print(
                 "FPS: " .. love.timer.getFPS() .. "\n" ..
                 "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n",

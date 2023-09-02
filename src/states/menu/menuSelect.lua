@@ -2,7 +2,7 @@ local menuSelect = {}
 local curSelect = 1
 
 function menuSelect:enter()
-    menuBG = graphics.newImage(graphics.imagePath("menu/menuBG"))
+    menuBG = graphics.newImage(graphics.imagePath("menu/menubg"))
     menuBG.sizeY = 1.05
 
     -- ui buttons
