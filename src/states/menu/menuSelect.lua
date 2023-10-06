@@ -13,7 +13,7 @@ function menuSelect:enter()
     storymodeButton.y = -50
     freeplayButton.y = 50
 
-    graphics.fadeIn(0.5)
+    graphics.fadeIn(0.3)
 end
 
 function updateSelection(updown)

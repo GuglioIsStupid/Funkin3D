@@ -154,6 +154,14 @@ function love.load()
                 "High",
                 "MILF"
             }
+        },
+        {
+            "Week 5",
+            {
+                "Cocoa",
+                "Eggnog",
+                "Winter Horrorland"
+            }
         }
     }
     weekData = {
@@ -161,7 +169,8 @@ function love.load()
         require "states.weeks.week1",
         require "states.weeks.week2",
         require "states.weeks.week3",
-        require "states.weeks.week4"
+        require "states.weeks.week4",
+        require "states.weeks.week5"
     }
 
     -- States

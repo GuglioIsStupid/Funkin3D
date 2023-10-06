@@ -35,6 +35,7 @@ end
 function weeks:load()
     if inst then inst:release() end
     if voices then voices:release() end
+    collectgarbage()
     useAltAnims = false
     camera.x, camera.y = -boyfriend.x + 25, -boyfriend.y + 2
     for i = 1, 4 do
@@ -172,6 +173,7 @@ function weeks:generateNotes(chart)
                             enemyNotes[id][c].x = x
                             enemyNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
                             enemyNotes[id][c].time = noteTime + k
+                            enemyNotes[id][c].alpha = 0.6
 
                             enemyNotes[id][c]:animate("hold", false)
 
@@ -180,7 +182,7 @@ function weeks:generateNotes(chart)
 
                         c = #enemyNotes[id]
 
-                        enemyNotes[id][c].offsetY = 2
+                        enemyNotes[id][c].offsetY = -3
                         enemyNotes[id][c]:animate("end", false)
 
                         c = nil
@@ -213,6 +215,7 @@ function weeks:generateNotes(chart)
                             boyfriendNotes[id][c].x = x
                             boyfriendNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
                             boyfriendNotes[id][c].time = noteTime + k
+                            boyfriendNotes[id][c].alpha = 0.6
 
                             boyfriendNotes[id][c]:animate("hold", false)
 
@@ -221,7 +224,7 @@ function weeks:generateNotes(chart)
 
                         c = #boyfriendNotes[id]
 
-                        boyfriendNotes[id][c].offsetY = 2
+                        boyfriendNotes[id][c].offsetY = -3
                         boyfriendNotes[id][c]:animate("end", false)
 
                         c = nil
@@ -256,6 +259,7 @@ function weeks:generateNotes(chart)
                             boyfriendNotes[id][c].x = x
                             boyfriendNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
                             boyfriendNotes[id][c].time = noteTime + k
+                            boyfriendNotes[id][c].alpha = 0.6
     
                             boyfriendNotes[id][c]:animate("hold", false)
 
@@ -264,7 +268,7 @@ function weeks:generateNotes(chart)
     
                         c = #boyfriendNotes[id]
     
-                        boyfriendNotes[id][c].offsetY = 2
+                        boyfriendNotes[id][c].offsetY = -3
                         boyfriendNotes[id][c]:animate("end", false)
 
                         c = nil
@@ -296,6 +300,7 @@ function weeks:generateNotes(chart)
                             enemyNotes[id][c].x = x
                             enemyNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
                             enemyNotes[id][c].time = noteTime + k
+                            enemyNotes[id][c].alpha = 0.6
     
                             enemyNotes[id][c]:animate("hold", false)
 
@@ -304,7 +309,7 @@ function weeks:generateNotes(chart)
     
                         c = #enemyNotes[id]
     
-                        enemyNotes[id][c].offsetY = 2
+                        enemyNotes[id][c].offsetY = -3
                         enemyNotes[id][c]:animate("end", false)
 
                         c = nil
@@ -477,7 +482,7 @@ function weeks:update(dt)
                 if voices then voices:setVolume(1) end
 
                 if enemyNote[1].ver ~= "Hey!" then
-                    self:safeAnimate(enemy, animList[i], false, 2)
+                    self:safeAnimate(enemy, animList[i] .. (useAltAnims and " alt" or ""), false, 2)
                 else
                     self:safeAnimate(enemy, "hey", false, 2)
                 end
@@ -579,7 +584,7 @@ function weeks:update(dt)
             if voices then voices:setVolume(1) end
 
             boyfriendArrow:animate("confirm")
-            self:safeAnimate(boyfriend, animList[i], false, 2)
+            self:safeAnimate(boyfriend, animList[i] .. (useAltAnims and " alt" or ""), false, 2)
 
             health = health + 0.0125
 
@@ -651,8 +656,10 @@ function weeks:updateEvents(dt)
             if events[i].mustHitSection then
                 camTimer = Timer.tween(1.25, camera, {x=-boyfriend.x+10, y=-boyfriend.y+30}, "out-quad")
             else
-                camTimer = Timer.tween(1.25, camera, {x=-enemy.x+10,y=-enemy.y+25}, "out-quad")
+                camTimer = Timer.tween(1.25, camera, {x=-enemy.x-20,y=-enemy.y+25}, "out-quad")
             end
+
+            useAltAnims = events[i].altAnim
 
             table.remove(events, i)
 
@@ -743,6 +750,8 @@ function weeks:leave()
     
     if inst then inst:release() end
     if voices then voices:release() end
+
+    collectgarbage()
 end
 
 return weeks

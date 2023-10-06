@@ -166,6 +166,13 @@ return {
 			animate = function(self, animName, loopAnim)
 				-- check if it exists
 				if not anims[animName] then
+					if animName:find("alt") then -- remove " alt"
+						animName:gsub(" alt", "")
+						if not anims[animName] then -- check again
+							print("Animation " .. animName .. " alt does not exist!")
+							return
+						end
+					end
 					return
 				end
 				anim.name = animName

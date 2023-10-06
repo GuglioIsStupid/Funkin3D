@@ -62,6 +62,7 @@ function week1:update(dt)
 
     if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
         boyfriend:animate("hey", false)
+        girlfriend:animate("cheer", false)
     end
 
     if not countingDown and not inst:isPlaying() then
