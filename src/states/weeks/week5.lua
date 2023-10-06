@@ -53,7 +53,7 @@ function week5:initUI()
     elseif song == 2 then
         weeks:generateNotes("assets/data/week5/eggnog/eggnog"..difficulty..".json")
     elseif song == 3 then
-        weeks:generateNotes("assets/data/week5/dadbattle/dadbattle"..difficulty..".json")
+        weeks:generateNotes("assets/data/week5/winter-horrorland/winter-horrorland"..difficulty..".json")
     end
     weeks:setupCountdown()
 end

@@ -3,7 +3,7 @@ local song = 1
 local difficulty
 
 function week4:enter(from, song_, diff)
-    song = 3 or 1
+    song = song_ or 1
     difficulty = diff or ""
     weeks:enter()
 
