@@ -35,10 +35,10 @@ return graphics.newSprite(
 		{x = 484.61, y = 602.14, width = 161.46, height = 146.51, offsetX = 0.46, offsetY = -0.23, offsetWidth = 160.77, offsetHeight = 146.28} -- 31: gf sad0000
 	},
 	{
-		["danceLeft"] = {start = 6, stop = 8, speed = 12, offsetX = 0, offsetY = 0},
-        ["danceRight"] = {start = 9, stop = 13, speed = 12, offsetX = 0, offsetY = 0},
-		["sad"] = {start = 31, stop = 31, speed = 24, offsetX = 0, offsetY = -1},
-        ["fear"] = {start = 20, stop = 20, speed = 24, offsetX = 0, offsetY = 0},
+		["danceLeft"] = {start = 6, stop = 8, speed = 6, offsetX = 0, offsetY = 0},
+        ["danceRight"] = {start = 9, stop = 13, speed = 6, offsetX = 0, offsetY = 0},
+		["sad"] = {start = 31, stop = 31, speed = 12, offsetX = 0, offsetY = -1},
+        ["fear"] = {start = 20, stop = 20, speed = 12, offsetX = 0, offsetY = 0},
         ["down"] = {start = 15, stop = 19, speed = 12, offsetX = 0, offsetY = 0},
 		["left"] = {start = 27, stop = 30, speed = 12, offsetX = 0, offsetY = 0},
 		["right"] = {start = 21, stop = 24, speed = 12, offsetX = 0, offsetY = 0},

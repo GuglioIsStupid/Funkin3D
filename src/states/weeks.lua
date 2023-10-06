@@ -121,7 +121,7 @@ function weeks:generateNotes(chart)
         bpm = chart.bpm or 100
     end
 
-    speed = chart.speed * 0.5
+    speed = chart.speed * 0.333 -- 240 (3ds height) / 720(fnf game height) = 0.333*
 
     for i = 1, #chart.notes do
         for j = 1, #chart.notes[i].sectionNotes do
@@ -489,7 +489,7 @@ function weeks:update(dt)
         end
 
         if #boyfriendNote > 0 then
-            if (not downscroll and boyfriendNote[1].y < -115) or (downscroll and boyfriendNote[1].y > 115) then
+            if (not downscroll and boyfriendNote[1].y < -130) or (downscroll and boyfriendNote[1].y > 130) then
                 if voices then voices:setVolume(0) end
 
                 if combo >= 5 then
@@ -518,7 +518,7 @@ function weeks:update(dt)
             if #boyfriendNote > 0 then
                 for j = 1, #boyfriendNote do
                     if boyfriendNote[j] and boyfriendNote[j]:getAnimName() == "on" then
-                        if boyfriendNote[j].time - musicTime <= 250 then
+                        if boyfriendNote[j].time - musicTime <= 270 then
                             local notePos
                             local ratingAnim
 
@@ -528,13 +528,13 @@ function weeks:update(dt)
 
                             if voices then voices:setVolume(1) end
 
-                            if notePos <= 55 then
+                            if notePos <= 110 then
                                 score = score + 350
                                 ratingAnim = "sick"
-                            elseif notePos <= 90 then
+                            elseif notePos <= 180 then
                                 score = score + 200
                                 ratingAnim = "good"
-                            elseif notePos <= 120 then
+                            elseif notePos <= 240 then
                                 score = score + 100
                                 ratingAnim = "bad"
                             else

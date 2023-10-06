@@ -61,6 +61,8 @@ return {
 			offsetY = 0,
 			shearX = 0,
 			shearY = 0,
+			alpha = 1,
+			color = {1,1,1},
 
 			setImage = function(self, imageData)
 				image = imageData
@@ -79,10 +81,14 @@ return {
 				local x = self.x
 				local y = self.y
 
+				local curColor = {love.graphics.getColor()}
+
 				if options and options.floored then
 					x = math.floor(x)
 					y = math.floor(y)
 				end
+
+				love.graphics.setColor(self.color[1] * curColor[1], self.color[2] * curColor[2], self.color[3] * curColor[3], self.alpha * curColor[4])
 
 				love.graphics.draw(
 					image,
@@ -96,6 +102,8 @@ return {
 					self.shearX,
 					self.shearY
 				)
+
+				love.graphics.setColor(curColor)
 			end,
 
 			release = function(self)
@@ -141,6 +149,8 @@ return {
 			offsetY = 0,
 			shearX = 0,
 			shearY = 0,
+			alpha = 1,
+			color = {1,1,1},
 
 			setSheet = function(self, imageData)
 				sheet = imageData
@@ -208,6 +218,7 @@ return {
 			end,
 			draw = function(self)
 				local flooredFrame = math.floor(frame)
+				local curColor = {love.graphics.getColor()}
 
 				if flooredFrame <= anim.stop then
 					local x = self.x
@@ -240,6 +251,8 @@ return {
 						end
 					end
 
+					love.graphics.setColor(self.color[1] * curColor[1], self.color[2] * curColor[2], self.color[3] * curColor[3], self.alpha * curColor[4])
+
 					love.graphics.draw(
 						sheet,
 						frames[flooredFrame],
@@ -254,6 +267,8 @@ return {
 						self.shearY
 					)
 				end
+
+				love.graphics.setColor(curColor)
 			end,
 
 			release = function(self)

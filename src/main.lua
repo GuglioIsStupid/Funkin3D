@@ -36,7 +36,7 @@ function unpackLines(t, sep)
     return str
 end
 
-local desktop = {"Windows", "Linux", "OS"}
+local desktop = {"Windows", "Linux", "OSX"}
 
 __DEBUG__ = false
 
