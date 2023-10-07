@@ -119,6 +119,7 @@ function week2:leave()
     house:release()
 
     for i = 1, #thunder do
+        thunder[i]:release()
         thunder[i] = nil
     end
     weeks:leave()

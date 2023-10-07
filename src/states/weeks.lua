@@ -1,3 +1,4 @@
+local Fnf3dsRatio = 240/720 -- 240 (3ds height) / 720(fnf game height) = 0.3333*
 local weeks = {}
 
 local animList = {
@@ -122,7 +123,7 @@ function weeks:generateNotes(chart)
         bpm = chart.bpm or 100
     end
 
-    speed = chart.speed * 0.333 -- 240 (3ds height) / 720(fnf game height) = 0.333*
+    speed = chart.speed * Fnf3dsRatio
 
     for i = 1, #chart.notes do
         for j = 1, #chart.notes[i].sectionNotes do
@@ -728,16 +729,27 @@ function weeks:leave()
     for i = 1, 4 do
         for j = 1, #enemyNotes[i] do
             enemyNotes[i][j]:release()
+            enemyNotes[i][j] = nil
         end
         for j = 1, #boyfriendNotes[i] do
             boyfriendNotes[i][j]:release()
+            boyfriendNotes[i][j] = nil
         end
+        enemyArrows[i] = nil
+        boyfriendArrows[i] = nil
     end
 
     for i = 1, 4 do
         enemyArrows[i]:release()
         boyfriendArrows[i]:release()
+        
+        enemyArrows[i] = nil
+        boyfriendArrows[i] = nil
     end
+
+    enemy:release()
+    boyfriend:release()
+    girlfriend:release()
 
     events = nil 
     enemyNotes = nil 

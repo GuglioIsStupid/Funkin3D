@@ -109,12 +109,10 @@ function love.load()
 
     -- Modules
     graphics = require "modules.graphics"
-    audio = {
-        play = function(sound)
+    audio = {play = function(sound)
             sound:stop()
             sound:play()
-        end
-    }
+    end}
 
     weekList = {
         {
@@ -187,16 +185,16 @@ function love.load()
     debugOffset = require "states.debug.offsets"
 
     camera = {
-        zoom = 1,
-        toZoom = 1,
+        zoom=1,
+        toZoom=1,
         x=0,y=0,
-        zooming = true,
-        locked = false
+        zooming=true,
+        locked=false
     }
 
     uiScale = {
-        zoom = 1,
-        toZoom = 1,
+        zoom=1,
+        toZoom=1,
         x=0,y=0
     }
 
