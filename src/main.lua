@@ -1,41 +1,4 @@
-function math.round(n, deci)
-    deci = 10^(deci or 0)
-    return math.floor(n*deci+.5)/deci
-end
-
-function lerp(a,b,t)
-    return a + (b-a)*t
-end
-function coolLerp(a, b, t)
-    return lerp(a, b, t * 60 * love.timer.getDelta())
-end
-function clamp(a, b, c)
-    return math.max(math.min(a, c), b)
-end
-
-function table.find(t, v)
-    for i, j in pairs(t) do
-        if j == v then
-            return i
-        end
-    end
-    return nil
-end
-
-function unpackLines(t, sep)
-    -- t is a table, can have numbers or strings
-    -- sep is a string, the separator
-    local str = ""
-    for i, j in pairs(t) do
-        if type(j) == "table" then
-            str = str .. unpackLines(j, sep) .. sep
-        else
-            str = str .. j .. sep
-        end
-    end
-    return str
-end
-
+require "modules.overrides"
 local desktop = {"Windows", "Linux", "OSX"}
 
 __DEBUG__ = false
@@ -43,15 +6,6 @@ __DEBUG__ = false
 function love.load()
     if love.graphics.setDefaultFilter then
         love.graphics.setDefaultFilter("nearest", "nearest")
-    end
-    -- Load libraries
-    if __DEBUG__ then
-        debugGraph = require "lib.debugGraph"
-        graphs = {
-            fps = debugGraph:new("fps", 0, 0, 100, 50),
-            mem = debugGraph:new("mem", 0, 50, 100, 50),
-            texturememory = debugGraph:new("custom", 0, 150, 100, 50),
-        }
     end
     Timer = require "lib.timer"
     Gamestate = require "lib.gamestate"
@@ -80,7 +34,6 @@ function love.load()
         }
     else
         -- is 3DS
-        print("3DS detected, using 3DS controls")
         input = (require "lib.baton").new {
             controls = {
                 -- UI
@@ -110,8 +63,8 @@ function love.load()
     -- Modules
     graphics = require "modules.graphics"
     audio = {play = function(sound)
-            sound:stop()
-            sound:play()
+        sound:stop()
+        sound:play()
     end}
 
     weekList = {
@@ -218,7 +171,7 @@ function love.load()
 end
 
 function love.update(dt)
-    dt = math.min(dt, 1/30)
+    local dt = math.min(dt, 1/30)
     input:update()
     Timer.update(dt)    
     Gamestate.update(dt)
@@ -255,7 +208,6 @@ function love.draw(screen)
                 love.graphics.pop()
             end ]]
         end,
-
         function()
             Gamestate.bottomDraw()
 

@@ -19,7 +19,7 @@ return graphics.newSprite(
 		{x = 230.25, y = 178.25, width = 226.25, height = 169.75, offsetX = -4.25, offsetY = -3, offsetWidth = 234.75, offsetHeight = 175.75} -- 15: logo bumpin0014
 	},
 	{
-		["anim"] = {start = 1, stop = 15, speed = 12, offsetX = 0, offsetY = 0}
+		["anim"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"anim",
 	true

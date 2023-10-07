@@ -13,20 +13,21 @@ function menuSelect:enter()
     storymodeButton.y = -50
     freeplayButton.y = 50
 
+    storymodeButton.sizeX, storymodeButton.sizeY = 1.3, 1.3
+    freeplayButton.sizeX, freeplayButton.sizeY = 1.3, 1.3
+
     graphics.fadeIn(0.3)
 end
 
-function updateSelection(updown)
-    if updown == "up" then
-        curSelect = curSelect - 1
-        if curSelect < 1 then
-            curSelect = 2
-        end
-    elseif updown == "down" then
-        curSelect = curSelect + 1
-        if curSelect > 2 then
-            curSelect = 1
-        end
+function menuSelect:updateSelection(change)
+    local change = change or 0
+
+    curSelect = curSelect + change
+
+    if curSelect > 2 then
+        curSelect = 1
+    elseif curSelect < 1 then
+        curSelect = 2
     end
 
     if curSelect == 1 then
@@ -45,9 +46,9 @@ function menuSelect:update(dt)
     freeplayButton:update(dt)
 
     if input:pressed("uiUp") then
-        updateSelection("up")
+        self:updateSelection(-1)
     elseif input:pressed("uiDown") then
-        updateSelection("down")
+        self:updateSelection(1)
     end
 
     if input:pressed("uiConfirm") then
@@ -58,9 +59,9 @@ function menuSelect:update(dt)
                 Gamestate.switch(storyMode)
             end)
         elseif curSelect == 2 then
-            Timer.after(1, function()
+            Timer.after(1, function() -- freeplay not implemented yet.
                 graphics.fadeOut(0.5)
-                Gamestate.switch(freeplay)
+                Gamestate.switch(storyMode)
             end)
         end
     end

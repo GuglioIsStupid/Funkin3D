@@ -17,7 +17,7 @@ return graphics.newSprite(
 	},
 	{
 		["off"] = {start = 1, stop = 9, speed = 12, offsetX = 0, offsetY = 0},
-		["on"] = {start = 11, stop = 12, speed = 12, offsetX = 0, offsetY = 0}
+		["on"] = {start = 10, stop = 12, speed = 12, offsetX = 0, offsetY = 0}
 	},
 	"on",
 	true
