@@ -735,14 +735,8 @@ function weeks:leave()
             boyfriendNotes[i][j]:release()
             boyfriendNotes[i][j] = nil
         end
-        enemyArrows[i] = nil
-        boyfriendArrows[i] = nil
-    end
-
-    for i = 1, 4 do
         enemyArrows[i]:release()
         boyfriendArrows[i]:release()
-        
         enemyArrows[i] = nil
         boyfriendArrows[i] = nil
     end
