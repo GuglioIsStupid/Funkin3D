@@ -718,7 +718,7 @@ function weeks:bottomDraw()
     10, 75)
 end
 
-function weeks:leave()
+function weeks:exit()
     camera.toZoom = 1
     camera.zoom = 1
     uiScale.toZoom = 1

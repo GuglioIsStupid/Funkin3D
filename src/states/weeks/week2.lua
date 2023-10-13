@@ -83,7 +83,7 @@ function week2:update(dt)
     if not countingDown and not inst:isPlaying() then
         song = song + 1
         if song > 3 then
-            Gamestate.switch(title)
+            state.switch(title)
         else
             self:load()
         end
@@ -115,14 +115,14 @@ function week2:bottomDraw()
     weeks:bottomDraw()
 end
 
-function week2:leave()
+function week2:exit()
     house:release()
 
     for i = 1, #thunder do
         thunder[i]:release()
         thunder[i] = nil
     end
-    weeks:leave()
+    weeks:exit()
 end
 
 return week2

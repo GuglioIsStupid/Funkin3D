@@ -8,7 +8,7 @@ function love.load()
         love.graphics.setDefaultFilter("nearest", "nearest")
     end
     Timer = require "lib.timer"
-    Gamestate = require "lib.gamestate"
+    state = require "lib.state"
     json = require "lib.json"
     require "lib.dslayout"
 
@@ -164,7 +164,7 @@ function love.load()
     uiFont2 = love.graphics.newFont("assets/fonts/vcr.ttf", 18)
     love.graphics.setFont(uiFont)
 
-    Gamestate.switch(title)
+    state.switch(title)
 
     graphics.setFade(0)
     graphics.fadeIn(0.5)
@@ -174,7 +174,7 @@ function love.update(dt)
     local dt = math.min(dt, 1/30)
     input:update()
     Timer.update(dt)    
-    Gamestate.update(dt)
+    state.update(dt)
     --[[ if __DEBUG__ then
         -- graph stuffs
         graphs.fps:update(dt)
@@ -186,9 +186,9 @@ end
 
 function love.keypressed(k)
     if k == "7" then
-        Gamestate.switch(debugOffset)
+        state.switch(debugOffset)
     end
-    Gamestate.keypressed(k)
+    state.keypressed(k)
 end
 
 function love.draw(screen)
@@ -196,7 +196,7 @@ function love.draw(screen)
     dslayout:draw(
         screen,
         function()
-            Gamestate.topDraw()
+            state.topDraw()
 
             --[[ if __DEBUG__ then
                 love.graphics.push()
@@ -209,7 +209,7 @@ function love.draw(screen)
             end ]]
         end,
         function()
-            Gamestate.bottomDraw()
+            state.bottomDraw()
 
             -- draw debug stuff
             love.graphics.print(

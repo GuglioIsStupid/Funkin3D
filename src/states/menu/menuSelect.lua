@@ -56,12 +56,12 @@ function menuSelect:update(dt)
         if curSelect == 1 then
             Timer.after(1, function()
                 graphics.fadeOut(0.5)
-                Gamestate.switch(storyMode)
+                state.switch(storyMode)
             end)
         elseif curSelect == 2 then
             Timer.after(1, function() -- freeplay not implemented yet.
                 graphics.fadeOut(0.5)
-                Gamestate.switch(storyMode)
+                state.switch(storyMode)
             end)
         end
     end
@@ -81,7 +81,7 @@ function menuSelect:bottomDraw()
 
 end
 
-function menuSelect:leave()
+function menuSelect:exit()
     storymodeButton:release()
     freeplayButton:release()
     menuBG:release()

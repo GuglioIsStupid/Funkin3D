@@ -58,7 +58,7 @@ function story:update(dt)
 
         Timer.after(1, function()
             graphics.fadeOut(0.5)
-            Gamestate.switch(weekData[curSelect+1], 1, diffs[diffSelect])
+            state.switch(weekData[curSelect+1], 1, diffs[diffSelect])
             title.music:stop()
         end)
     end
@@ -84,7 +84,7 @@ function story:bottomDraw()
     love.graphics.pop()
 end
 
-function story:leave()
+function story:exit()
     
 end
 

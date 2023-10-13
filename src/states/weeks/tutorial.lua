@@ -100,11 +100,11 @@ function tutorial:bottomDraw()
     weeks:bottomDraw()
 end
 
-function tutorial:leave()
+function tutorial:exit()
     stageback:release()
     stagefront:release()
     stagecurtains:release()
-    weeks:leave()
+    weeks:exit()
 end
 
 return tutorial

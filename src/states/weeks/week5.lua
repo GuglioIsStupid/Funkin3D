@@ -103,7 +103,7 @@ function week5:update(dt)
     if not countingDown and not inst:isPlaying() then
         song = song + 1
         if song > 3 then
-            Gamestate.switch(title)
+            state.switch(title)
         else
             self:load()
         end
@@ -144,7 +144,7 @@ function week5:bottomDraw()
     weeks:bottomDraw()
 end
 
-function week5:leave()
+function week5:exit()
     if escalator then escalator:release() end
     walls:release()
     christmasTree:release()
@@ -152,7 +152,7 @@ function week5:leave()
     if upperBop then upperBop:release() end
     if bottomBop then bottomBop:release() end
     if santa then santa:release() end
-    weeks:leave()
+    weeks:exit()
 end
 
 return week5

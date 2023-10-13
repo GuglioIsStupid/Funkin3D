@@ -73,7 +73,7 @@ function week4:update(dt)
     if not countingDown and not inst:isPlaying() then
         song = song + 1
         if song > 3 then
-            Gamestate.switch(title)
+            state.switch(title)
         else
             self:load()
         end
@@ -109,11 +109,11 @@ function week4:bottomDraw()
     weeks:bottomDraw()
 end
 
-function week4:leave()
+function week4:exit()
     sunset:release()
     bgLimo:release()
     limo:release()
-    weeks:leave()
+    weeks:exit()
 end
 
 return week4

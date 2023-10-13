@@ -25,7 +25,7 @@ function title:update(dt)
         audio.play(uiConfirm)
         Timer.after(1, function()
             graphics.fadeOut(0.3, function()
-                Gamestate.switch(menuSelect)
+                state.switch(menuSelect)
             end)
         end)
     end
