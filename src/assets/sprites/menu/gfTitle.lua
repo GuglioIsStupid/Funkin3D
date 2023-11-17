@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("menu/gfdancetitle")),
+	love.graphics.newImage(graphics.imagePath("menu/gfDanceTitle")),
 		-- Automatically generated from gfDanceTitle.xml
 	{
 		{x = 180, y = 496.25, width = 180, height = 163, offsetX = 0, offsetY = -3, offsetWidth = 180.25, offsetHeight = 165.5}, -- 1: gfDance0000
