@@ -32,7 +32,8 @@ function week5:enter(from, song_, diff)
 
         santa.x, santa.y = -285, 115
         bottomBop.y = 100
-        upperBop.y = -70
+        upperBop.y = -38
+        upperBop.x = 50
     end
 
     girlfriend.x, girlfriend.y = 12, 94

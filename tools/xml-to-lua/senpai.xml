@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="senpai.png">
+	<!-- Created using the Spritesheet and XML generator -->
+	<!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+	<SubTexture name="Angry Senpai DOWN NOTE instance 0000" x="491" y="364" width="63" height="111" frameX="-28" frameY="-39" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai DOWN NOTE instance 0001" x="66" y="489" width="62" height="112" frameX="-29" frameY="-38" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai DOWN NOTE instance 0002" x="66" y="489" width="62" height="112" frameX="-29" frameY="-38" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai DOWN NOTE instance 0003" x="66" y="489" width="62" height="112" frameX="-29" frameY="-38" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai DOWN NOTE instance 0004" x="66" y="489" width="62" height="112" frameX="-29" frameY="-38" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai DOWN NOTE instance 0005" x="66" y="489" width="62" height="112" frameX="-29" frameY="-38" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai DOWN NOTE instance 0006" x="66" y="489" width="62" height="112" frameX="-29" frameY="-38" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai Idle instance 0000" x="206" y="246" width="70" height="116" frameX="-26" frameY="-33" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai Idle instance 0001" x="345" y="246" width="67" height="116" frameX="-27" frameY="-33" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai Idle instance 0002" x="69" y="372" width="67" height="117" frameX="-27" frameY="-32" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai Idle instance 0003" x="0" y="126" width="71" height="120" frameX="-27" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai Idle instance 0004" x="351" y="119" width="71" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai Idle instance 0005" x="351" y="119" width="71" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai Idle instance 0006" x="351" y="119" width="71" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai LEFT NOTE instance 0000" x="491" y="245" width="59" height="119" frameX="-27" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai LEFT NOTE instance 0001" x="491" y="126" width="61" height="119" frameX="-27" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai LEFT NOTE instance 0002" x="491" y="126" width="61" height="119" frameX="-27" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai LEFT NOTE instance 0003" x="491" y="126" width="61" height="119" frameX="-27" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai LEFT NOTE instance 0004" x="491" y="126" width="61" height="119" frameX="-27" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai LEFT NOTE instance 0005" x="491" y="126" width="61" height="119" frameX="-27" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai LEFT NOTE instance 0006" x="491" y="126" width="61" height="119" frameX="-27" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai RIGHT NOTE instance 0000" x="555" y="0" width="66" height="118" frameX="-31" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai RIGHT NOTE instance 0001" x="555" y="237" width="64" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai RIGHT NOTE instance 0002" x="555" y="237" width="64" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai RIGHT NOTE instance 0003" x="555" y="237" width="64" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai RIGHT NOTE instance 0004" x="555" y="237" width="64" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai RIGHT NOTE instance 0005" x="555" y="237" width="64" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai RIGHT NOTE instance 0006" x="555" y="237" width="64" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai UP NOTE instance 0000" x="491" y="0" width="64" height="126" frameX="-27" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai UP NOTE instance 0001" x="0" y="246" width="66" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai UP NOTE instance 0002" x="0" y="246" width="66" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai UP NOTE instance 0003" x="0" y="246" width="66" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai UP NOTE instance 0004" x="0" y="246" width="66" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai UP NOTE instance 0005" x="0" y="246" width="66" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="Angry Senpai UP NOTE instance 0006" x="0" y="246" width="66" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="164"/>
+	<SubTexture name="SENPAI DOWN NOTE instance 0000" x="136" y="372" width="67" height="111" frameX="-28" frameY="-38" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI DOWN NOTE instance 0001" x="0" y="489" width="66" height="112" frameX="-29" frameY="-37" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI DOWN NOTE instance 0002" x="0" y="489" width="66" height="112" frameX="-29" frameY="-37" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI DOWN NOTE instance 0003" x="0" y="489" width="66" height="112" frameX="-29" frameY="-37" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI DOWN NOTE instance 0004" x="0" y="489" width="66" height="112" frameX="-29" frameY="-37" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI DOWN NOTE instance 0005" x="0" y="489" width="66" height="112" frameX="-29" frameY="-37" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI DOWN NOTE instance 0006" x="0" y="489" width="66" height="112" frameX="-29" frameY="-37" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI LEFT NOTE instance 0000" x="555" y="355" width="63" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI LEFT NOTE instance 0001" x="555" y="118" width="65" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI LEFT NOTE instance 0002" x="555" y="118" width="65" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI LEFT NOTE instance 0003" x="555" y="118" width="65" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI LEFT NOTE instance 0004" x="555" y="118" width="65" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI LEFT NOTE instance 0005" x="555" y="118" width="65" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI LEFT NOTE instance 0006" x="555" y="118" width="65" height="119" frameX="-27" frameY="-30" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI RIGHT NOTE instance 0000" x="422" y="119" width="69" height="118" frameX="-31" frameY="-31" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI RIGHT NOTE instance 0001" x="213" y="126" width="67" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI RIGHT NOTE instance 0002" x="213" y="126" width="67" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI RIGHT NOTE instance 0003" x="213" y="126" width="67" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI RIGHT NOTE instance 0004" x="213" y="126" width="67" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI RIGHT NOTE instance 0005" x="213" y="126" width="67" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI RIGHT NOTE instance 0006" x="213" y="126" width="67" height="118" frameX="-30" frameY="-31" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI UP NOTE instance 0000" x="70" y="0" width="68" height="126" frameX="-27" frameY="-29" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI UP NOTE instance 0001" x="0" y="0" width="70" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI UP NOTE instance 0002" x="0" y="0" width="70" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI UP NOTE instance 0003" x="0" y="0" width="70" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI UP NOTE instance 0004" x="0" y="0" width="70" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI UP NOTE instance 0005" x="0" y="0" width="70" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="SENPAI UP NOTE instance 0006" x="0" y="0" width="70" height="126" frameX="-26" frameY="-29" frameWidth="125" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0000" x="66" y="246" width="70" height="118" frameX="-25" frameY="-31" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0001" x="422" y="0" width="69" height="119" frameX="-26" frameY="-30" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0002" x="0" y="372" width="69" height="117" frameX="-26" frameY="-32" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0003" x="138" y="0" width="71" height="120" frameX="-26" frameY="-29" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0004" x="280" y="0" width="71" height="119" frameX="-26" frameY="-30" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0005" x="280" y="119" width="71" height="119" frameX="-26" frameY="-30" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0006" x="71" y="126" width="71" height="119" frameX="-26" frameY="-30" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0007" x="136" y="246" width="70" height="116" frameX="-25" frameY="-33" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0008" x="276" y="246" width="69" height="116" frameX="-26" frameY="-33" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0009" x="422" y="237" width="69" height="117" frameX="-26" frameY="-32" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0010" x="209" y="0" width="71" height="120" frameX="-26" frameY="-29" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0011" x="351" y="0" width="71" height="119" frameX="-26" frameY="-30" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0012" x="280" y="119" width="71" height="119" frameX="-26" frameY="-30" frameWidth="124" frameHeight="163"/>
+	<SubTexture name="Senpai Idle instance 0013" x="142" y="126" width="71" height="119" frameX="-26" frameY="-30" frameWidth="124" frameHeight="163"/>
+</TextureAtlas>

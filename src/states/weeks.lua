@@ -36,7 +36,7 @@ end
 function weeks:load()
     if inst then inst:release() end
     if voices then voices:release() end
-    collectgarbage()
+    collectgarbage("collect")
     useAltAnims = false
     camera.x, camera.y = -boyfriend.x + 25, -boyfriend.y + 2
     for i = 1, 4 do
@@ -757,7 +757,7 @@ function weeks:exit()
     if inst then inst:release() end
     if voices then voices:release() end
 
-    collectgarbage()
+    collectgarbage("collect")
 end
 
 return weeks

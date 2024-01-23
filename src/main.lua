@@ -113,6 +113,14 @@ function love.load()
                 "Eggnog",
                 "Winter Horrorland"
             }
+        },
+        {
+            "Week 6",
+            {
+                "Senpai",
+                "Roses",
+                "Thorns"
+            }
         }
     }
     weekData = {
@@ -121,7 +129,8 @@ function love.load()
         require "states.weeks.week2",
         require "states.weeks.week3",
         require "states.weeks.week4",
-        require "states.weeks.week5"
+        require "states.weeks.week5",
+        require "states.weeks.week6"
     }
 
     -- States
@@ -214,7 +223,7 @@ function love.draw(screen)
             -- draw debug stuff
             love.graphics.print(
                 "FPS: " .. love.timer.getFPS() .. "\n" ..
-                "Memory: " .. math.round(collectgarbage("count")/1024, 2) .. "MB\n",
+                "Memory: " .. math.round(collectgarbage("count"), 2) .. "KB\n",
                 0, 190
             )
         end

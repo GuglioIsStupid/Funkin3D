@@ -62,7 +62,7 @@ gameDir = "game"
 # [bool]   @logging       : Whether or not to enable logging. Useful to see what the
 #                           application is doing, should it not be working correctly.
 [debug]
-logging = false
+logging = true
 # DO NOT MODIFY #
 version = "0.6.0"
 # ------------- #
