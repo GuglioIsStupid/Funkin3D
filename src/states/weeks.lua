@@ -53,6 +53,7 @@ function weeks:initUI()
     combo = 0
     score = 0
     musicTime = 0
+    musicPos = 0
     danceLeft = false
     beatHit = false
     curBeat = 0
@@ -442,6 +443,11 @@ function weeks:update(dt)
     elseif countingDown then
         musicTime = musicTime + 1000 * dt
     end
+    if downscroll then
+        musicPos = -musicTime * 0.45 * speed
+    else
+        musicPos = musicTime * 0.45 * speed
+    end
     absMusicTime = math.abs(musicTime)
     musicThres = math.floor(absMusicTime/100)
 
@@ -452,24 +458,6 @@ function weeks:update(dt)
         local boyfriendArrow = boyfriendArrows[i]
         local noteNum = i
         local curInput = inputList[i]
-        for j = 1, #enemyNotes[i] do
-            enemyNotes[i][j]:update(dt)
-
-            if not downscroll then
-                enemyNotes[i][j].y = (-90 - (musicTime - enemyNotes[i][j].time) * (0.45 * speed))
-            else
-                enemyNotes[i][j].y = (90 + (musicTime - enemyNotes[i][j].time) * (0.45 * speed))
-            end
-        end
-        for j = 1, #boyfriendNotes[i] do
-            boyfriendNotes[i][j]:update(dt)
-
-            if not downscroll then
-                boyfriendNotes[i][j].y = (-90 - (musicTime - boyfriendNotes[i][j].time) * (0.45 * speed))
-            else
-                boyfriendNotes[i][j].y = (90 + (musicTime - boyfriendNotes[i][j].time) * (0.45 * speed))
-            end
-        end
 
         enemyArrow:update(dt)
         boyfriendArrow:update(dt)
@@ -479,7 +467,7 @@ function weeks:update(dt)
 		end
 
         if #enemyNote > 0 then
-            if (not downscroll and enemyNote[1].y <= -90) or (downscroll and enemyNote[1].y >= 90) then
+            if (not downscroll and (enemyNote[1].y-musicPos) <= -90) or (downscroll and (enemyNote[1].y-musicPos) >= 90) then
                 if voices then voices:setVolume(1) end
 
                 if enemyNote[1].ver ~= "Hey!" then
@@ -495,7 +483,7 @@ function weeks:update(dt)
         end
 
         if #boyfriendNote > 0 then
-            if (not downscroll and boyfriendNote[1].y < -130) or (downscroll and boyfriendNote[1].y > 130) then
+            if (not downscroll and (boyfriendNote[1].y-musicPos) < -130) or (downscroll and (boyfriendNote[1].y-musicPos) > 130) then
                 if voices then voices:setVolume(0) end
 
                 if combo >= 5 then
@@ -581,7 +569,7 @@ function weeks:update(dt)
             end
         end
         
-        if #boyfriendNote > 0 and input:down(curInput) and ((not downscroll and boyfriendNote[1].y <= -90) or (downscroll and boyfriendNote[1].y >= 90)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
+        if #boyfriendNote > 0 and input:down(curInput) and ((not downscroll and (boyfriendNote[1].y-musicPos) <= -90) or (downscroll and (boyfriendNote[1].y-musicPos) >= 90)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
             if voices then voices:setVolume(1) end
 
             boyfriendArrow:animate("confirm")
@@ -678,17 +666,20 @@ function weeks:topDraw()
             boyfriendArrows[i]:draw()
 
             -- draw notes if they are on screen!
-            for j = #enemyNotes[i], 1, -1 do
-                if (not downscroll and enemyNotes[i][j].y < 120) or (downscroll and enemyNotes[i][j].y > -120) then
-                    enemyNotes[i][j]:draw()
+            love.graphics.push()
+                love.graphics.translate(0, -musicPos)
+                for j = #enemyNotes[i], 1, -1 do
+                    if (not downscroll and (enemyNotes[i][j].y-musicPos) < 120) or (downscroll and (enemyNotes[i][j].y-musicPos) > -120) then
+                        enemyNotes[i][j]:draw()
+                    end
                 end
-            end
 
-            for j = #boyfriendNotes[i], 1, -1 do
-                if (not downscroll and boyfriendNotes[i][j].y < 120) or (downscroll and boyfriendNotes[i][j].y > -120) then
-                    boyfriendNotes[i][j]:draw()
+                for j = #boyfriendNotes[i], 1, -1 do
+                    if (not downscroll and (boyfriendNotes[i][j].y-musicPos) < 120) or (downscroll and (boyfriendNotes[i][j].y-musicPos) > -120) then
+                        boyfriendNotes[i][j]:draw()
+                    end
                 end
-            end
+            love.graphics.pop()
         end
     love.graphics.pop()
 end
