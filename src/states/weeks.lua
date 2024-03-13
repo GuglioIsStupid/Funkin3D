@@ -369,6 +369,8 @@ function weeks:generateNotes(chart)
     -- Clear up memory of unused vars
     chart = nil
     eventBpm = nil
+
+    collectgarbage("collect")
 end
 
 function weeks:safeAnimate(sprite, animName, loopAnim, timerID)
@@ -479,6 +481,8 @@ function weeks:update(dt)
                 enemyArrow:animate("confirm")
 
                 table.remove(enemyNote, 1)
+
+                collectgarbage("step")
             end
         end
 
@@ -501,6 +505,8 @@ function weeks:update(dt)
                 end
 
                 table.remove(boyfriendNote, 1)
+
+                collectgarbage("step")
             end
         end
 
@@ -549,6 +555,8 @@ function weeks:update(dt)
                             end
 
                             table.remove(boyfriendNote, j)
+
+                            collectgarbage("step")
                         else
                             break
                         end
@@ -578,6 +586,8 @@ function weeks:update(dt)
             health = health + 0.0125
 
             table.remove(boyfriendNote, 1)
+
+            collectgarbage("step")
         end
 
         if input:released(curInput) then
@@ -652,6 +662,7 @@ function weeks:updateEvents(dt)
 
             table.remove(events, i)
 
+            collectgarbage("step")
             break
         end
     end
