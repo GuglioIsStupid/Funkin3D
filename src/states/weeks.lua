@@ -14,7 +14,6 @@ local inputList = {
     "gameUp",
     "gameRight",
 }
-local notMissed = {}
 local countdownFade = {}
 
 function weeks:enter()
@@ -30,7 +29,6 @@ function weeks:enter()
     sprites = {
 
     }
-    notMissed = {}
 end
 
 function weeks:load()
@@ -39,9 +37,6 @@ function weeks:load()
     collectgarbage("collect")
     useAltAnims = false
     camera.x, camera.y = -boyfriend.x + 25, -boyfriend.y + 2
-    for i = 1, 4 do
-        notMissed[i] = true
-    end
 
     camTimer = Timer.tween(1.25, camera, {x=-boyfriend.x+10, y=-boyfriend.y+20}, "out-quad")
 
@@ -85,12 +80,13 @@ function weeks:initUI()
     end
 
     enemyNotes = {}
+    enemyNotesDrawing = {}
     boyfriendNotes = {}
+    boyfriendNotesDrawing = {}
 
     for i = 1, 4 do
         enemyArrows[i].x = -170 + ((i-1) * 40)
         
-
         boyfriendArrows[i].x = 50 + ((i-1) * 40)
 
         if downscroll then
@@ -102,7 +98,9 @@ function weeks:initUI()
         end
 
         enemyNotes[i] = {}
+        enemyNotesDrawing[i] = {}
         boyfriendNotes[i] = {}
+        boyfriendNotesDrawing[i] = {}
     end
 end
 
@@ -138,7 +136,6 @@ function weeks:generateNotes(chart)
                 table.insert(events, {eventTime = section.sectionNotes[1][1], mustHitSection = mustHitSection, bpm = bpm, altAnim = altAnim})
             end
 
-            if noteVer == "Hurt Note" or noteType < 0 then goto continue end
             local id = noteType % 4 + 1
 
             local noteObject = sprites["arrow" .. id]()
@@ -175,14 +172,12 @@ function weeks:generateNotes(chart)
                 endNote.offsetY = -3
                 endNote:animate("end", false)
             end
-
-            ::continue::
         end
     end
 
     for i = 1, 4 do
-        table.sort(enemyNotes[i], function(a, b) return a.y < b.y end)
-        table.sort(boyfriendNotes[i], function(a, b) return a.y < b.y end)
+        table.sort(enemyNotes[i], function(a, b) return a.time < b.time end)
+        table.sort(boyfriendNotes[i], function(a, b) return a.time < b.time end)
     end
 
     -- Workarounds for bad charts that have multiple notes around the same place
@@ -215,6 +210,8 @@ function weeks:generateNotes(chart)
 
     -- Clear up memory of unused vars
     chart = nil
+
+    table.sort(events, function(a, b) return a.eventTime < b.eventTime end)
 
     collectgarbage("collect")
 end
@@ -340,8 +337,6 @@ function weeks:update(dt)
                     self:safeAnimate(girlfriend, "sad", true, 1)
                 end
 
-                notMissed[noteNum] = false
-
                 combo = 0
                 if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then 
                     health = health - 0.095
@@ -362,57 +357,51 @@ function weeks:update(dt)
             boyfriendArrow:animate("press")
 
             if #boyfriendNote > 0 then
-                for j = 1, #boyfriendNote do
-                    if boyfriendNote[j] and boyfriendNote[j]:getAnimName() == "on" then
-                        if boyfriendNote[j].time - musicTime <= 270 then
-                            local notePos
-                            local ratingAnim
+                if boyfriendNote[1] and boyfriendNote[1]:getAnimName() == "on" then
+                    if boyfriendNote[1].time - musicTime <= 270 then
+                        local notePos
+                        local ratingAnim
 
-                            notMissed[noteNum] = true
+                        notePos = math.abs(boyfriendNote[1].time - musicTime)
 
-                            notePos = math.abs(boyfriendNote[j].time - musicTime)
+                        if voices then voices:setVolume(1) end
 
-                            if voices then voices:setVolume(1) end
-
-                            if notePos <= 110 then
-                                score = score + 350
-                                ratingAnim = "sick"
-                            elseif notePos <= 180 then
-                                score = score + 200
-                                ratingAnim = "good"
-                            elseif notePos <= 240 then
-                                score = score + 100
-                                ratingAnim = "bad"
-                            else
-                                success = false
-                                ratingAnim = "shit"
-                            end
-                            combo = combo + 1
-                            noteCounter = noteCounter + 1
-
-                            if success then
-                                boyfriendArrow:animate("confirm")
-
-                                boyfriend:animate(animList[i])
-                                
-                                health = health + 0.095
-
-                                success = true
-                            end
-
-                            table.remove(boyfriendNote, j)
-
-                            collectgarbage("step")
+                        if notePos <= 110 then
+                            score = score + 350
+                            ratingAnim = "sick"
+                        elseif notePos <= 180 then
+                            score = score + 200
+                            ratingAnim = "good"
+                        elseif notePos <= 240 then
+                            score = score + 100
+                            ratingAnim = "bad"
                         else
-                            break
+                            success = false
+                            ratingAnim = "shit"
                         end
+                        combo = combo + 1
+                        noteCounter = noteCounter + 1
+
+                        if success then
+                            boyfriendArrow:animate("confirm")
+
+                            boyfriend:animate(animList[i])
+                                
+                            health = health + 0.095
+
+                            success = true
+                        end
+
+                        table.remove(boyfriendNote, 1)
+
+                        collectgarbage("step")
+                    else
+                        break
                     end
                 end
             end
 
             if not success then
-                notMissed[noteNum] = false
-
                 if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
                 boyfriend:animate(animList[i] .. " miss")
 
@@ -492,24 +481,23 @@ function weeks:update(dt)
 end
 
 function weeks:updateEvents(dt)
-    for i = 1, #events do
-        if events[i].eventTime <= absMusicTime then
+    if #events > 1 then
+        if events[1].eventTime <= absMusicTime then
             if camTimer then
                 Timer.cancel(camTimer)
             end
-            
-            if events[i].mustHitSection then
+                
+            if events[1].mustHitSection then
                 camTimer = Timer.tween(1.25, camera, {x=-boyfriend.x+10, y=-boyfriend.y+30}, "out-quad")
             else
                 camTimer = Timer.tween(1.25, camera, {x=-enemy.x-20,y=-enemy.y+25}, "out-quad")
             end
 
-            useAltAnims = events[i].altAnim
+            useAltAnims = events[1].altAnim
 
-            table.remove(events, i)
+            table.remove(events, 1)
 
             collectgarbage("step")
-            break
         end
     end
 end
@@ -525,15 +513,19 @@ function weeks:topDraw()
             -- draw notes if they are on screen!
             love.graphics.push()
                 love.graphics.translate(0, -musicPos)
-                for j = #enemyNotes[i], 1, -1 do
+                for j = 1, #enemyNotes[i] do
                     if (not downscroll and (enemyNotes[i][j].y-musicPos) < 120) or (downscroll and (enemyNotes[i][j].y-musicPos) > -120) then
                         enemyNotes[i][j]:draw()
+                    else
+                        break
                     end
                 end
 
-                for j = #boyfriendNotes[i], 1, -1 do
+                for j = 1, #boyfriendNotes[i] do
                     if (not downscroll and (boyfriendNotes[i][j].y-musicPos) < 120) or (downscroll and (boyfriendNotes[i][j].y-musicPos) > -120) then
                         boyfriendNotes[i][j]:draw()
+                    else
+                        break
                     end
                 end
             love.graphics.pop()

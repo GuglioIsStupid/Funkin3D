@@ -48,7 +48,7 @@ function title:bottomDraw()
             "By: GuglioIsStupid" .. "\n\n" ..
             "Special thanks to:" .. "\n" ..
             "The Funkin Crew" .. "\n",
-            0, 0, 320, "right"
+            0, 0, 320, "left"
         )
     love.graphics.pop()
 end

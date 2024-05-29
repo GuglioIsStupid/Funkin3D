@@ -183,13 +183,6 @@ function love.update(dt)
     input:update()
     Timer.update(dt)    
     state.update(dt)
-    --[[ if __DEBUG__ then
-        -- graph stuffs
-        graphs.fps:update(dt)
-        graphs.mem:update(dt)
-        graphs.texturememory:update(dt, love.graphics.getStats().texturememory/1024/1024)
-        graphs.texturememory.label = "Texture Memory: " .. math.round(love.graphics.getStats().texturememory / 1024 / 1024, 2) .. "MB"
-    end ]]
 end
 
 function love.keypressed(k)
@@ -205,16 +198,6 @@ function love.draw(screen)
         screen,
         function()
             state.topDraw()
-
-            --[[ if __DEBUG__ then
-                love.graphics.push()
-                    love.graphics.setColor(1,1,1,1)
-                    love.graphics.scale(0.6, 0.6)
-                    for k, v in pairs(graphs) do
-                        v:draw()
-                    end
-                love.graphics.pop()
-            end ]]
         end,
         function()
             state.bottomDraw()
