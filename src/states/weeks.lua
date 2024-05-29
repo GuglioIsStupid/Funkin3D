@@ -62,25 +62,25 @@ function weeks:initUI()
     misses = 0
 
     -- only reload if needed!!
-    if not sprites.leftarrow then sprites.leftarrow = love.filesystem.load("assets/sprites/notes/left.lua") end
-    if not sprites.downarrow then sprites.downarrow = love.filesystem.load("assets/sprites/notes/down.lua") end
-    if not sprites.uparrow then sprites.uparrow = love.filesystem.load("assets/sprites/notes/up.lua") end
-    if not sprites.rightarrow then sprites.rightarrow = love.filesystem.load("assets/sprites/notes/right.lua") end
+    if not sprites.arrow1 then sprites.arrow1 = love.filesystem.load("assets/sprites/notes/left.lua") end
+    if not sprites.arrow2 then sprites.arrow2 = love.filesystem.load("assets/sprites/notes/down.lua") end
+    if not sprites.arrow3 then sprites.arrow3 = love.filesystem.load("assets/sprites/notes/up.lua") end
+    if not sprites.arrow4 then sprites.arrow4 = love.filesystem.load("assets/sprites/notes/right.lua") end
 
     if not enemyArrows then
         enemyArrows = {
-            sprites.leftarrow(),
-            sprites.downarrow(),
-            sprites.uparrow(),
-            sprites.rightarrow()
+            sprites.arrow1(),
+            sprites.arrow2(),
+            sprites.arrow3(),
+            sprites.arrow4()
         }
     end
     if not boyfriendArrows then
         boyfriendArrows = {
-            sprites.leftarrow(),
-            sprites.downarrow(),
-            sprites.uparrow(),
-            sprites.rightarrow()
+            sprites.arrow1(),
+            sprites.arrow2(),
+            sprites.arrow3(),
+            sprites.arrow4()
         }
     end
 
@@ -107,10 +107,9 @@ function weeks:initUI()
 end
 
 function weeks:generateNotes(chart)
-    local eventBpm
     events = {}
 
-    chart = json.decode(love.filesystem.read(chart)).song
+    chart = love.filesystem.load(chart)().song
     songname = chart.song
 
     for i = 1, #chart.notes do
@@ -126,210 +125,58 @@ function weeks:generateNotes(chart)
 
     speed = chart.speed * Fnf3dsRatio
 
-    for i = 1, #chart.notes do
-        for j = 1, #chart.notes[i].sectionNotes do
-            local sprite
-            local sectionNotes = chart.notes[i].sectionNotes
-
-            local mustHitSection = chart.notes[i].mustHitSection
-            local altAnim = chart.notes[i].altAnim or false
-            local noteType = sectionNotes[j][2]
-            local noteTime = sectionNotes[j][1]
-            local noteVer = sectionNotes[j][4] or "normal"
+    for _, section in ipairs(chart.notes) do
+        local mustHitSection = section.mustHitSection or false
+        for _, noteData in ipairs(section.sectionNotes) do
+            local time = noteData[1]
+            local noteType = noteData[2]
+            local noteVer = noteData[4] or "normal"
+            local holdLength = noteData[3] or 0
+            local altAnim = section.altAnim or false
             
             if j == 1 then
-                table.insert(events, {eventTime = sectionNotes[1][1], mustHitSection = mustHitSection, bpm = bpm, altAnim = altAnim})
+                table.insert(events, {eventTime = section.sectionNotes[1][1], mustHitSection = mustHitSection, bpm = bpm, altAnim = altAnim})
             end
 
-            if noteType == 0 or noteType == 4 then
-                sprite = sprites.leftarrow
-            elseif noteType == 1 or noteType == 5 then
-                sprite = sprites.downarrow
-            elseif noteType == 2 or noteType == 6 then
-                sprite = sprites.uparrow
-            elseif noteType == 3 or noteType == 7 then
-                sprite = sprites.rightarrow
-            end
+            if noteVer == "Hurt Note" or noteType < 0 then goto continue end
+            local id = noteType % 4 + 1
 
-            if mustHitSection then
-                if noteType >= 4 then
-                    local id = noteType - 3 
-                    local c = #enemyNotes[id]+1
-                    local x = enemyArrows[id].x
+            local noteObject = sprites["arrow" .. id]()
 
-                    table.insert(enemyNotes[id], sprite())
-                    enemyNotes[id][c].x = x
-                    enemyNotes[id][c].y = -90 + noteTime * 0.45 * speed
-                    enemyNotes[id][c].time = noteTime
-                    enemyNotes[id][c].ver = noteVer
+            noteObject.y = -90 + time * 0.45 * speed
+            noteObject.time = time
+            noteObject.ver = noteVer
+            noteObject:animate("on", false)
 
-                    enemyNotes[id][c]:animate("on", false)
+            local isEnemyNote = (mustHitSection and noteType >= 4) or (not mustHitSection and noteType < 4)
+            local notesTable = isEnemyNote and enemyNotes or boyfriendNotes
+            local arrowsTable = isEnemyNote and enemyArrows or boyfriendArrows
 
-                    if sectionNotes[j][3] > 0 then
-                        local c
+            noteObject.x = arrowsTable[id].x
 
-                        for k = 24 / speed, sectionNotes[j][3], 24 / speed do
-                            local c = #enemyNotes[id]+1
+            table.insert(notesTable[id], noteObject)
 
-                            table.insert(enemyNotes[id], sprite())
-                            enemyNotes[id][c].x = x
-                            enemyNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
-                            enemyNotes[id][c].time = noteTime + k
-                            enemyNotes[id][c].alpha = 0.6
+            if holdLength > 0 then
+                for k = 24 / speed, holdLength, 24 / speed do
+                    local holdNote = sprites["arrow" .. id]()
 
-                            enemyNotes[id][c]:animate("hold", false)
+                    holdNote.y = -90 + (time + k) * 0.45 * speed
+                    holdNote.time = time + k
+                    holdNote.alpha = 0.6
+                    holdNote:animate("hold", false)
 
-                            c = nil
-                        end
+                    holdNote.x = arrowsTable[id].x
 
-                        c = #enemyNotes[id]
-
-                        enemyNotes[id][c].offsetY = -3
-                        enemyNotes[id][c]:animate("end", false)
-
-                        c = nil
-                    end
-
-                    id = nil
-                    c = nil
-                    x = nil
-                    
-                elseif noteType < 4 and noteType >= 0 then
-                    local id = noteType + 1
-                    local c = #boyfriendNotes[id]+1
-                    local x = boyfriendArrows[id].x
-
-                    table.insert(boyfriendNotes[id], sprite())
-                    boyfriendNotes[id][c].x = x
-                    boyfriendNotes[id][c].y = -90 + noteTime * 0.45 * speed
-                    boyfriendNotes[id][c].time = noteTime
-                    boyfriendNotes[id][c].ver = noteVer
-
-                    boyfriendNotes[id][c]:animate("on", false)
-
-                    if sectionNotes[j][3] > 0 then
-                        local c
-
-                        for k = 24 / speed, sectionNotes[j][3], 24 / speed do
-                            local c = #boyfriendNotes[id]+1
-
-                            table.insert(boyfriendNotes[id], sprite())
-                            boyfriendNotes[id][c].x = x
-                            boyfriendNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
-                            boyfriendNotes[id][c].time = noteTime + k
-                            boyfriendNotes[id][c].alpha = 0.6
-
-                            boyfriendNotes[id][c]:animate("hold", false)
-
-                            c = nil
-                        end
-
-                        c = #boyfriendNotes[id]
-
-                        boyfriendNotes[id][c].offsetY = -3
-                        boyfriendNotes[id][c]:animate("end", false)
-
-                        c = nil
-                    end
-
-                    id = nil
-                    c = nil
-                    x = nil
+                    table.insert(notesTable[id], holdNote)
                 end
-            else
-                -- now its swapped
-                if noteType >= 4 then
-                    local id = noteType - 3 
-                    local c = #boyfriendNotes[id]+1
-                    local x = boyfriendArrows[id].x
-    
-                    table.insert(boyfriendNotes[id], sprite())
-                    boyfriendNotes[id][c].x = x
-                    boyfriendNotes[id][c].y = -90 + noteTime * 0.45 * speed
-                    boyfriendNotes[id][c].time = noteTime
-                    boyfriendNotes[id][c].ver = noteVer
-    
-                    boyfriendNotes[id][c]:animate("on", false)
-    
-                    if sectionNotes[j][3] > 0 then
-                        local c
-    
-                        for k = 24 / speed, sectionNotes[j][3], 24 / speed do
-                            local c = #boyfriendNotes[id]+1
-    
-                            table.insert(boyfriendNotes[id], sprite())
-                            boyfriendNotes[id][c].x = x
-                            boyfriendNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
-                            boyfriendNotes[id][c].time = noteTime + k
-                            boyfriendNotes[id][c].alpha = 0.6
-    
-                            boyfriendNotes[id][c]:animate("hold", false)
 
-                            c = nil
-                        end
-    
-                        c = #boyfriendNotes[id]
-    
-                        boyfriendNotes[id][c].offsetY = -3
-                        boyfriendNotes[id][c]:animate("end", false)
+                local endNote = notesTable[id][#notesTable[id]]
 
-                        c = nil
-                    end
-
-                    id = nil
-                    c = nil
-                    x = nil
-                elseif noteType < 4 and noteType >= 0 then
-                    local id = noteType + 1
-                    local c = #enemyNotes[id]+1
-                    local x = enemyArrows[id].x
-    
-                    table.insert(enemyNotes[id], sprite())
-                    enemyNotes[id][c].x = x
-                    enemyNotes[id][c].y = -90 + noteTime * 0.45 * speed
-                    enemyNotes[id][c].time = noteTime
-                    enemyNotes[id][c].ver = noteVer
-    
-                    enemyNotes[id][c]:animate("on", false)
-    
-                    if sectionNotes[j][3] > 0 then
-                        local c
-    
-                        for k = 24 / speed, sectionNotes[j][3], 24 / speed do
-                            local c = #enemyNotes[id]+1
-    
-                            table.insert(enemyNotes[id], sprite())
-                            enemyNotes[id][c].x = x
-                            enemyNotes[id][c].y = -90 + (noteTime + k) * 0.45 * speed
-                            enemyNotes[id][c].time = noteTime + k
-                            enemyNotes[id][c].alpha = 0.6
-    
-                            enemyNotes[id][c]:animate("hold", false)
-
-                            c = nil
-                        end
-    
-                        c = #enemyNotes[id]
-    
-                        enemyNotes[id][c].offsetY = -3
-                        enemyNotes[id][c]:animate("end", false)
-
-                        c = nil
-                    end
-
-                    id = nil
-                    c = nil
-                    x = nil
-                end
+                endNote.offsetY = -3
+                endNote:animate("end", false)
             end
 
-            sprite = nil
-            sectionNotes = nil
-            mustHitSection = nil
-            altAnim = nil
-            noteType = nil
-            noteTime = nil
-            noteVer = nil
+            ::continue::
         end
     end
 
@@ -368,7 +215,6 @@ function weeks:generateNotes(chart)
 
     -- Clear up memory of unused vars
     chart = nil
-    eventBpm = nil
 
     collectgarbage("collect")
 end

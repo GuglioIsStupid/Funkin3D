@@ -64,11 +64,11 @@ function week5:initUI()
     weeks:initUI()
 
     if song == 1 then
-        weeks:generateNotes("assets/data/week5/cocoa/cocoa"..difficulty..".json")
+        weeks:generateNotes("assets/data/week5/cocoa/cocoa"..difficulty..".lua")
     elseif song == 2 then
-        weeks:generateNotes("assets/data/week5/eggnog/eggnog"..difficulty..".json")
+        weeks:generateNotes("assets/data/week5/eggnog/eggnog"..difficulty..".lua")
     elseif song == 3 then
-        weeks:generateNotes("assets/data/week5/winter-horrorland/winter-horrorland"..difficulty..".json")
+        weeks:generateNotes("assets/data/week5/winter-horrorland/winter-horrorland"..difficulty..".lua")
         if walls then walls:release() end
         if christmasTree then christmasTree:release() end
         if escalator then escalator:release() end

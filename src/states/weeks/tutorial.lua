@@ -32,7 +32,7 @@ end
 
 function tutorial:initUI()
     weeks:initUI()
-    weeks:generateNotes("assets/data/tutorial/tutorial.json")
+    weeks:generateNotes("assets/data/tutorial/tutorial.lua")
     weeks:setupCountdown()
 end
 

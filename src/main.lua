@@ -9,7 +9,6 @@ function love.load()
     end
     Timer = require "lib.timer"
     state = require "lib.state"
-    json = require "lib.json"
     require "lib.dslayout"
 
     if table.find(desktop, love.system.getOS()) then

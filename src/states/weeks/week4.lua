@@ -52,11 +52,11 @@ function week4:initUI()
     weeks:initUI()
 
     if song == 1 then
-        weeks:generateNotes("assets/data/week4/satin-panties/satin-panties"..difficulty..".json")
+        weeks:generateNotes("assets/data/week4/satin-panties/satin-panties"..difficulty..".lua")
     elseif song == 2 then
-        weeks:generateNotes("assets/data/week4/high/high"..difficulty..".json")
+        weeks:generateNotes("assets/data/week4/high/high"..difficulty..".lua")
     elseif song == 3 then
-        weeks:generateNotes("assets/data/week4/milf/milf"..difficulty..".json")
+        weeks:generateNotes("assets/data/week4/milf/milf"..difficulty..".lua")
     end
     weeks:setupCountdown()
 end

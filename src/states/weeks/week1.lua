@@ -47,11 +47,11 @@ function week1:initUI()
     weeks:initUI()
 
     if song == 1 then
-        weeks:generateNotes("assets/data/week1/bopeebo/bopeebo"..difficulty..".json")
+        weeks:generateNotes("assets/data/week1/bopeebo/bopeebo"..difficulty..".lua")
     elseif song == 2 then
-        weeks:generateNotes("assets/data/week1/fresh/fresh"..difficulty..".json")
+        weeks:generateNotes("assets/data/week1/fresh/fresh"..difficulty..".lua")
     elseif song == 3 then
-        weeks:generateNotes("assets/data/week1/dadbattle/dadbattle"..difficulty..".json")
+        weeks:generateNotes("assets/data/week1/dadbattle/dadbattle"..difficulty..".lua")
     end
     weeks:setupCountdown()
 end

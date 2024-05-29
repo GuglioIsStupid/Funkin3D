@@ -54,11 +54,11 @@ function week6:initUI()
     weeks:initUI()
 
     if song == 1 then
-        weeks:generateNotes("assets/data/week6/senpai/senpai"..difficulty..".json")
+        weeks:generateNotes("assets/data/week6/senpai/senpai"..difficulty..".lua")
     elseif song == 2 then
-        weeks:generateNotes("assets/data/week6/roses/roses"..difficulty..".json")
+        weeks:generateNotes("assets/data/week6/roses/roses"..difficulty..".lua")
     elseif song == 3 then
-        weeks:generateNotes("assets/data/week6/thorns/thorns"..difficulty..".json")
+        weeks:generateNotes("assets/data/week6/thorns/thorns"..difficulty..".lua")
     end
     weeks:setupCountdown()
 end
