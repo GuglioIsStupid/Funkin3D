@@ -62,6 +62,8 @@ function story:update(dt)
             title.music:stop()
         end)
     end
+
+    isErect = input:down("uiErectButton")
 end
 
 function story:topDraw()

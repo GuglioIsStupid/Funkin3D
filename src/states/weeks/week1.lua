@@ -30,14 +30,14 @@ end
 function week1:load()
     weeks:load()
     if song == 1 then
-        inst = love.audio.newSource("assets/songs/week1/bopeebo/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week1/bopeebo/Voices.ogg", "stream")
+        inst = love.audio.newSource("assets/songs/week1/bopeebo/Inst" .. (isErect and "-erect" or "") .. ".ogg", "stream")
+        voices = love.audio.newSource("assets/songs/week1/bopeebo/Voices" .. (isErect and "-erect" or "") .. ".ogg", "stream")
     elseif song == 2 then
-        inst = love.audio.newSource("assets/songs/week1/fresh/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week1/fresh/Voices.ogg", "stream")
+        inst = love.audio.newSource("assets/songs/week1/fresh/Inst" .. (isErect and "-erect" or "") .. ".ogg", "stream")
+        voices = love.audio.newSource("assets/songs/week1/fresh/Voices" .. (isErect and "-erect" or "") .. ".ogg", "stream")
     elseif song == 3 then
-        inst = love.audio.newSource("assets/songs/week1/dadbattle/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week1/dadbattle/Voices.ogg", "stream")
+        inst = love.audio.newSource("assets/songs/week1/dadbattle/Inst" .. (isErect and "-erect" or "") .. ".ogg", "stream")
+        voices = love.audio.newSource("assets/songs/week1/dadbattle/Voices" .. (isErect and "-erect" or "") .. ".ogg", "stream")
     end
     
     self:initUI()
@@ -45,6 +45,13 @@ end
 
 function week1:initUI()
     weeks:initUI()
+    if isErect then
+        if difficulty == "-easy" or difficulty == "" then
+            difficulty = "-erect"
+        else
+            difficulty = "-nightmare"
+        end
+    end
 
     if song == 1 then
         weeks:generateNotes("assets/data/week1/bopeebo/bopeebo"..difficulty..".lua")
@@ -60,9 +67,11 @@ function week1:update(dt)
     weeks:update(dt)
     weeks:updateEvents(dt)
 
-    if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
-        boyfriend:animate("hey", false)
-        girlfriend:animate("cheer", false)
+    if not isErect then
+        if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
+            boyfriend:animate("hey", false)
+            girlfriend:animate("cheer", false)
+        end
     end
 
     if not countingDown and not inst:isPlaying() then

@@ -16,18 +16,19 @@ function love.load()
         input = (require "lib.baton").new {
             controls = {
                 -- UI
-                uiLeft =    {'axis:leftx-', 'button:dpleft'},
-                uiRight =   {'axis:leftx+', 'button:dpright'},
-                uiUp =      {'axis:lefty-', 'button:dpup'},
-                uiDown =    {'axis:lefty+', 'button:dpdown'},
-                uiConfirm = {'button:a'},
-                uiBack =    {'button:b'},
+                uiLeft =        { "axis:leftx-", "button:dpleft"  },
+                uiRight =       { "axis:leftx+", "button:dpright" },
+                uiUp =          { "axis:lefty-", "button:dpup"    },
+                uiDown =        { "axis:lefty+", "button:dpdown"  },
+                uiConfirm =     { "button:a"    },
+                uiBack =        { "button:b"    },
+                uiErectButton = { "button:back" },
                 
                 -- Gameplay
-                gameLeft =  {'axis:leftx-', 'button:dpleft', "axis:rightx-", "button:x", "axis:triggerleft+"},
-                gameDown =  {'axis:lefty+', 'button:dpdown', "axis:righty+", "button:y", "button:leftshoulder"},
-                gameUp =    {'axis:lefty-', 'button:dpup', "axis:righty-", "button:a", "button:rightshoulder"},
-                gameRight = {'axis:leftx+', 'button:dpright', "axis:rightx+", "button:b", "axis:triggerright+"},
+                gameLeft =  { "axis:leftx-", "button:dpleft",  "axis:rightx-", "button:x", "axis:triggerleft+"    },
+                gameDown =  { "axis:lefty+", "button:dpdown",  "axis:righty+", "button:y", "button:leftshoulder"  },
+                gameUp =    { "axis:lefty-", "button:dpup",    "axis:righty-", "button:a", "button:rightshoulder" },
+                gameRight = { "axis:leftx+", "button:dpright", "axis:rightx+", "button:b", "axis:triggerright+"   },
             },
             joystick = love.joystick.getJoysticks()[1],
         }
@@ -36,18 +37,19 @@ function love.load()
         input = (require "lib.baton").new {
             controls = {
                 -- UI
-                uiLeft =    {'axis:leftx-', 'button:dpleft'},
-                uiRight =   {'axis:leftx+', 'button:dpright'},
-                uiUp =      {'axis:lefty-', 'button:dpup'},
-                uiDown =    {'axis:lefty+', 'button:dpdown'},
-                uiConfirm = {'button:a'},
-                uiBack =    {'button:b'},
+                uiLeft =        { "axis:leftx-", "button:dpleft"  },
+                uiRight =       { "axis:leftx+", "button:dpright" },
+                uiUp =          { "axis:lefty-", "button:dpup"    },
+                uiDown =        { "axis:lefty+", "button:dpdown"  },
+                uiConfirm =     { "button:a"    },
+                uiBack =        { "button:b"    },
+                uiErectButton = { "button:back" },
                 
                 -- Gameplay
-                gameLeft =  {"button:leftshoulder", "axis:leftx-", "axis:rightx-", "button:dpleft", "button:y"},
-                gameDown =  {"axis:lefty+", "axis:righty+", "axis:triggerleft+", "button:dpdown", "button:b"},
-                gameUp =    {"axis:lefty-", "axis:righty-", "axis:triggerright+", "button:dpup", "button:x"},
-                gameRight = {"button:rightshoulder", "axis:leftx+", "axis:rightx+", "button:dpright", "button:a"},
+                gameLeft =  { "button:leftshoulder",  "axis:leftx-",  "axis:rightx-",       "button:dpleft",  "button:y"   },
+                gameDown =  { "axis:lefty+",          "axis:righty+", "axis:triggerleft+",  "button:dpdown",  "button:b"   },
+                gameUp =    { "axis:lefty-",          "axis:righty-", "axis:triggerright+", "button:dpup",    "button:x"   },
+                gameRight = { "button:rightshoulder", "axis:leftx+",  "axis:rightx+",       "button:dpright", "button:a"   },
             },
             joystick = love.joystick.getJoysticks()[1],
         }
@@ -65,6 +67,8 @@ function love.load()
         sound:stop()
         sound:play()
     end}
+
+    isErect = false
 
     weekList = {
         {

@@ -138,7 +138,7 @@ return graphics.newSprite(
 		{x = 270.48, y = 579.83, width = 67.62, height = 93.84, offsetX = 0.46, offsetY = 0.46, offsetWidth = 67.39, offsetHeight = 92.92}, -- 135: gf sad0079
 	},
 	{
-		["Cheer"] = {start = 1, stop = 21, speed = 12, offsetX = 0, offsetY = 0},
+		["cheer"] = {start = 1, stop = 21, speed = 12, offsetX = 0, offsetY = 0},
 		["danceLeft"] = {start = 22, stop = 36, speed = 24, offsetX = 0, offsetY = 0},
 		["danceRight"] = {start = 37, stop = 51, speed = 24, offsetX = 0, offsetY = 0},
 		["fear"] = {start = 52, stop = 55, speed = 12, offsetX = 0, offsetY = 0},

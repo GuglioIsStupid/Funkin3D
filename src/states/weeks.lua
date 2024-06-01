@@ -17,7 +17,7 @@ local inputList = {
 local countdownFade = {}
 local ratingAnim = ""
 local ratingPos = {
-    x = 185, y = 75
+    x = 200, y = 75
 }
 local ratingTimers = {}
 
@@ -116,7 +116,7 @@ function weeks:generateNotes(chart)
     songname = chart.song
 
     for i = 1, #chart.notes do
-        bpm = chart.notes[i].bpm
+        bpm = chart.notes[i].changeBPM and chart.notes[i].bpm or bpm or 100
 
         if bpm then
             break
@@ -386,7 +386,7 @@ function weeks:update(dt)
                         combo = combo + 1
                         noteCounter = noteCounter + 1
                         if ratingTimers[1] then Timer.cancel(ratingTimers[1]) end
-                        ratingPos.x, ratingPos.y = 185, 75
+                        ratingPos.x, ratingPos.y = 200, 75
                         ratingTimers[1] = Timer.tween(
                             0.5, ratingPos, {
                                 y = 95
