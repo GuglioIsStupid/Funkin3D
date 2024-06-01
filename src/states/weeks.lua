@@ -15,6 +15,11 @@ local inputList = {
     "gameRight",
 }
 local countdownFade = {}
+local ratingAnim = ""
+local ratingPos = {
+    x = 185, y = 75
+}
+local ratingTimers = {}
 
 function weeks:enter()
     boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
@@ -125,7 +130,7 @@ function weeks:generateNotes(chart)
 
     for _, section in ipairs(chart.notes) do
         local mustHitSection = section.mustHitSection or false
-        for _, noteData in ipairs(section.sectionNotes) do
+        for j, noteData in ipairs(section.sectionNotes) do
             local time = noteData[1]
             local noteType = noteData[2]
             local noteVer = noteData[4] or "normal"
@@ -358,21 +363,20 @@ function weeks:update(dt)
 
             if #boyfriendNote > 0 then
                 if boyfriendNote[1] and boyfriendNote[1]:getAnimName() == "on" then
-                    if boyfriendNote[1].time - musicTime <= 270 then
+                    if boyfriendNote[1].time - musicTime <= 200 then
                         local notePos
-                        local ratingAnim
 
                         notePos = math.abs(boyfriendNote[1].time - musicTime)
 
                         if voices then voices:setVolume(1) end
 
-                        if notePos <= 110 then
+                        if notePos <= 40 then
                             score = score + 350
                             ratingAnim = "sick"
-                        elseif notePos <= 180 then
+                        elseif notePos <= 110 then
                             score = score + 200
                             ratingAnim = "good"
-                        elseif notePos <= 240 then
+                        elseif notePos <= 170 then
                             score = score + 100
                             ratingAnim = "bad"
                         else
@@ -381,6 +385,14 @@ function weeks:update(dt)
                         end
                         combo = combo + 1
                         noteCounter = noteCounter + 1
+                        if ratingTimers[1] then Timer.cancel(ratingTimers[1]) end
+                        ratingPos.x, ratingPos.y = 185, 75
+                        ratingTimers[1] = Timer.tween(
+                            0.5, ratingPos, {
+                                y = 95
+                            }, "out-sine"
+                        )
+                        ratingAnim = ratingAnim .. "!"
 
                         if success then
                             boyfriendArrow:animate("confirm")
@@ -395,8 +407,6 @@ function weeks:update(dt)
                         table.remove(boyfriendNote, 1)
 
                         collectgarbage("step")
-                    else
-                        break
                     end
                 end
             end
@@ -556,6 +566,11 @@ function weeks:bottomDraw()
         "Combo: " .. combo .. "\n" ..
         "Misses: " .. misses .. "\n",
     10, 75)
+
+    love.graphics.print(
+        string.capitalize(ratingAnim),
+        ratingPos.x, ratingPos.y
+    )
 end
 
 function weeks:exit()
@@ -593,6 +608,7 @@ function weeks:exit()
     sprites = nil 
     sounds = nil 
     images = nil 
+    ratingAnim = ""
     
     if inst then inst:release() end
     if voices then voices:release() end

@@ -18,7 +18,7 @@ function week1:enter(from, song_, diff)
     stagefront.y = 92
     stagecurtains.y = -23
 
-    girlfriend.y = -15
+    girlfriend.y = -30
     boyfriend.y = 35
     boyfriend.x = 85
 

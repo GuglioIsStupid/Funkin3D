@@ -151,6 +151,7 @@ return {
 			shearY = 0,
 			alpha = 1,
 			color = {1,1,1},
+			secondary = optionsTable and optionsTable.secondary or nil,
 
 			setSheet = function(self, imageData)
 				sheet = imageData
@@ -222,6 +223,12 @@ return {
 						isAnimated = false
 					end
 				end
+
+				if self.secondary then
+					self.secondary.x = self.x
+					self.secondary.y = self.y + 60
+					self.secondary:update(dt)
+				end
 			end,
 			draw = function(self)
 				local flooredFrame = math.floor(frame)
@@ -259,6 +266,10 @@ return {
 					end
 
 					love.graphics.setColor(self.color[1] * curColor[1], self.color[2] * curColor[2], self.color[3] * curColor[3], self.alpha * curColor[4])
+
+					if self.secondary then
+						self.secondary:draw()
+					end
 
 					love.graphics.draw(
 						sheet,

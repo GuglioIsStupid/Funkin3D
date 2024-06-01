@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="SPEAKER_Assets.png">
+  <!-- Created using the Spritesheet and XML generator -->
+  <!-- https://uncertainprod.github.io/FNF-Spritesheet-XML-generator-Web -->
+  <SubTexture name="Speaker0000" x="161.69" y="81.88" width="161.69" height="81.88" frameX="0" frameY="0.46" frameWidth="161.69" frameHeight="81.19" />
+  <SubTexture name="Speaker0001" x="0" y="0" width="162.61" height="81.88" frameX="0.46" frameY="0.46" frameWidth="161.69" frameHeight="81.19" />
+  <SubTexture name="Speaker0002" x="161.69" y="163.76" width="161.46" height="81.88" frameX="0" frameY="0.46" frameWidth="161.69" frameHeight="81.19" />
+  <SubTexture name="Speaker0003" x="0" y="163.76" width="161.69" height="81.88" frameX="0" frameY="0.46" frameWidth="161.69" frameHeight="81.19" />
+  <SubTexture name="Speaker0004" x="0" y="163.76" width="161.69" height="81.88" frameX="0" frameY="0.46" frameWidth="161.69" frameHeight="81.19" />
+  <SubTexture name="Speaker0005" x="0" y="81.88" width="161.69" height="81.88" frameX="0" frameY="0.46" frameWidth="161.69" frameHeight="81.19" />
+  <SubTexture name="Speaker0006" x="162.61" y="0" width="161.69" height="81.88" frameX="0" frameY="0.46" frameWidth="161.69" frameHeight="81.19" />
+  <SubTexture name="Speaker0007" x="324.3" y="0" width="161.46" height="81.65" frameX="0" frameY="0.23" frameWidth="161.69" frameHeight="81.19" />
+</TextureAtlas>

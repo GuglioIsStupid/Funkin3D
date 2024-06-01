@@ -35,3 +35,7 @@ function unpackLines(t, sep)
     end
     return str
 end
+
+function string.capitalize(str)
+    return str:gsub("^%l", string.upper)
+end

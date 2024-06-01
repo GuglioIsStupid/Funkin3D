@@ -2,3 +2,6 @@ build/*
 tools/json-to-lua/charts/*
 
 !*.gitkeep
+
+art/*.png
+art/*.xml
