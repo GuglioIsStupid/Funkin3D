@@ -596,9 +596,9 @@ function weeks:exit()
         boyfriendArrows[i] = nil
     end
 
-    enemy:release()
-    boyfriend:release()
-    girlfriend:release()
+    enemy:release();enemy = nil
+    boyfriend:release();boyfriend = nil
+    girlfriend:release();girlfriend = nil
 
     events = nil 
     enemyNotes = nil 
