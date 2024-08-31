@@ -28,19 +28,23 @@ function tutorial:enter(song_)
     boyfriend.y = 35
     boyfriend.x = 85
 
+    stageback.depth = 2.5
+    stagefront.depth = 2.5
+    stagecurtains.depth = 2.5
+
     self:load()
 end
 
 function tutorial:load()
     weeks:load()
-    inst = love.audio.newSource("assets/songs/" .. self.songs[song].."/Inst.ogg", "stream")
+    inst = love.audio.newSource("assets/songs/" .. self.songs[1].."/Inst.ogg", "stream")
     
     self:initUI()
 end
 
 function tutorial:initUI()
     weeks:initUI()
-    weeks:generateNotes("assets/data/tutorial/tutorial.lua")
+    weeks:generateNotes("assets/data/" .. self.songs[1].."/" .. self.songs[1]..".lua")
     weeks:setupCountdown()
 end
 

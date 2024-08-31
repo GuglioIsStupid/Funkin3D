@@ -35,6 +35,11 @@ function week6:enter(from, song_, diff)
 
         --petals = love.filesystem.load("assets/sprites/stages/school/petals.lua")()
         --freaks = love.filesystem.load("assets/sprites/stages/school/freaks.lua")()
+
+        sky.depth = 1
+        school.depth = 2
+        street.depth = 2
+        treesBack.depth = 2
     end
 
     girlfriend.y = -15
@@ -58,13 +63,8 @@ end
 function week6:initUI()
     weeks:initUI()
 
-    if song == 1 then
-        weeks:generateNotes("assets/data/week6/senpai/senpai"..difficulty..".lua")
-    elseif song == 2 then
-        weeks:generateNotes("assets/data/week6/roses/roses"..difficulty..".lua")
-    elseif song == 3 then
-        weeks:generateNotes("assets/data/week6/thorns/thorns"..difficulty..".lua")
-    end
+    weeks:generateNotes("assets/data/week6/" .. self.songs[song].."/" .. self.songs[song]..difficulty..".lua")
+
     weeks:setupCountdown()
 end
 

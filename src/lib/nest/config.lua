@@ -66,13 +66,14 @@ local function clamp(value, low, high)
 end
 
 local function nil_or_whitespace(s)
-    return s == nil or #s == 0 or s:match("%s")
+    return s == nil or #s == 0
 end
 
 ---Initialize the configuration for later. \
 ---If args.console is `nil`, disable nest.
 ---@param args { scale?: integer, console: string, emulateJoystick: boolean, docked?: boolean, mode?: string }
 function config.set(args)
+    
     if nil_or_whitespace(args.console) then
         config._loaded = false
         return false

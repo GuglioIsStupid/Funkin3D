@@ -85,14 +85,18 @@ function weeks:initUI()
     end
 
     enemyNotes = {}
-    enemyNotesDrawing = {}
     boyfriendNotes = {}
-    boyfriendNotesDrawing = {}
+
+    boyfriend.depth = 3
+    girlfriend.depth = 3
+    enemy.depth = 3
 
     for i = 1, 4 do
         enemyArrows[i].x = -170 + ((i-1) * 40)
+        enemyArrows[i].depth = 6
         
         boyfriendArrows[i].x = 50 + ((i-1) * 40)
+        boyfriendArrows[i].depth = 6
 
         if downscroll then
             boyfriendArrows[i].y = 90
@@ -103,9 +107,7 @@ function weeks:initUI()
         end
 
         enemyNotes[i] = {}
-        enemyNotesDrawing[i] = {}
         boyfriendNotes[i] = {}
-        boyfriendNotesDrawing[i] = {}
     end
 end
 
@@ -148,6 +150,7 @@ function weeks:generateNotes(chart)
             noteObject.y = -90 + time * 0.45 * speed
             noteObject.time = time
             noteObject.ver = noteVer
+            noteObject.depth = 6
             noteObject:animate("on", false)
 
             local isEnemyNote = (mustHitSection and noteType >= 4) or (not mustHitSection and noteType < 4)
@@ -165,6 +168,7 @@ function weeks:generateNotes(chart)
                     holdNote.y = -90 + (time + k) * 0.45 * speed
                     holdNote.time = time + k
                     holdNote.alpha = 0.6
+                    holdNote.depth = 6
                     holdNote:animate("hold", false)
 
                     holdNote.x = arrowsTable[id].x

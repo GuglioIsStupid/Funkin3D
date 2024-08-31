@@ -16,6 +16,9 @@ function menuSelect:enter()
     storymodeButton.sizeX, storymodeButton.sizeY = 1.3, 1.3
     freeplayButton.sizeX, freeplayButton.sizeY = 1.3, 1.3
 
+    storymodeButton.depth = 3
+    freeplayButton.depth = 3
+
     graphics.fadeIn(0.3)
 end
 

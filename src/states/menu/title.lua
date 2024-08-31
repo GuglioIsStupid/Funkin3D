@@ -13,6 +13,9 @@ function title:enter()
     logoBumpin.sizeX, logoBumpin.sizeY = 1.3, 1.3
     gfTitle.sizeX, gfTitle.sizeY = 1.15, 1.15
 
+    logoBumpin.depth = 3
+    gfTitle.depth = 3
+
     if not title.music:isPlaying() then
         title.music:play()
     end

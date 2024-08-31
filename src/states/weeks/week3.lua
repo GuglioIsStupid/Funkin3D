@@ -56,6 +56,12 @@ function week3:enter(from, song_, diff)
     enemy.y = 25
     enemy.sizeX = -1
 
+    sky.depth = 1
+    city.depth = 1.5
+    cityWindows.depth = 1.5
+    behindTrain.depth = 1.75
+    street.depth = 3
+
     self:load()
 end
 
@@ -71,13 +77,8 @@ end
 function week3:initUI()
     weeks:initUI()
 
-    if song == 1 then
-        weeks:generateNotes("assets/data/week3/pico/pico"..difficulty..".lua")
-    elseif song == 2 then
-        weeks:generateNotes("assets/data/week3/philly/philly"..difficulty..".lua")
-    elseif song == 3 then
-        weeks:generateNotes("assets/data/week3/blammed/blammed"..difficulty..".lua")
-    end
+    weeks:generateNotes("assets/data/week3/" .. self.songs[song].."/" .. self.songs[song]..difficulty..".lua")
+
     weeks:setupCountdown()
 end
 

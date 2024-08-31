@@ -36,6 +36,10 @@ function week1:enter(from, song_, diff)
 
     enemy.x = -85
 
+    stageback.depth = 1.25
+    stagefront.depth = 3
+    stagecurtains.depth = 4
+
     self:load()
 end
 
@@ -58,13 +62,8 @@ function week1:initUI()
         end
     end
 
-    if song == 1 then
-        weeks:generateNotes("assets/data/week1/bopeebo/bopeebo"..difficulty..".lua")
-    elseif song == 2 then
-        weeks:generateNotes("assets/data/week1/fresh/fresh"..difficulty..".lua")
-    elseif song == 3 then
-        weeks:generateNotes("assets/data/week1/dadbattle/dadbattle"..difficulty..".lua")
-    end
+    weeks:generateNotes("assets/data/week1/" .. self.songs[song].."/" .. self.songs[song]..difficulty..".lua")
+
     weeks:setupCountdown()
 end
 

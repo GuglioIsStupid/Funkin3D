@@ -45,6 +45,13 @@ return {
 	getImageType = function()
 		return imageType
 	end,
+	screenDepth = function(screen)
+		local depth = screen ~= "bottom" and -love.graphics.getDepth() or 0
+		if screen == "right" then
+			depth = -depth
+		end
+		return depth
+	end,
 
 	newImage = function(imageData, optionsTable)
 		local image, width, height
@@ -63,6 +70,7 @@ return {
 			shearY = 0,
 			alpha = 1,
 			color = {1,1,1},
+			depth = 0,
 
 			setImage = function(self, imageData)
 				image = imageData
@@ -92,7 +100,7 @@ return {
 
 				love.graphics.draw(
 					image,
-					self.x,
+					self.x - (graphics.screenDepth(love.graphics.getActiveScreen()) * self.depth),
 					self.y,
 					self.orientation,
 					self.sizeX,
@@ -152,6 +160,7 @@ return {
 			alpha = 1,
 			color = {1,1,1},
 			secondary = optionsTable and optionsTable.secondary or nil,
+			depth = 0,
 
 			setSheet = function(self, imageData)
 				sheet = imageData
@@ -274,7 +283,7 @@ return {
 					love.graphics.draw(
 						sheet,
 						frames[flooredFrame],
-						x,
+						x - (graphics.screenDepth(love.graphics.getActiveScreen()) * self.depth),
 						y,
 						self.orientation,
 						self.sizeX,

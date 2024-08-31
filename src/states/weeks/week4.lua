@@ -41,6 +41,10 @@ function week4:enter(from, song_, diff)
 
     bgLimo.y = 65
 
+    sunset.depth = 1
+    bgLimo.depth = 2
+    limo.depth = 3
+
     self:load()
 end
 
@@ -56,13 +60,8 @@ end
 function week4:initUI()
     weeks:initUI()
 
-    if song == 1 then
-        weeks:generateNotes("assets/data/week4/satin-panties/satin-panties"..difficulty..".lua")
-    elseif song == 2 then
-        weeks:generateNotes("assets/data/week4/high/high"..difficulty..".lua")
-    elseif song == 3 then
-        weeks:generateNotes("assets/data/week4/milf/milf"..difficulty..".lua")
-    end
+    weeks:generateNotes("assets/data/week4/" .. self.songs[song].."/" .. self.songs[song]..difficulty..".lua")
+
     weeks:setupCountdown()
 end
 

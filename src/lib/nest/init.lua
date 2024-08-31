@@ -68,6 +68,7 @@ function nest.init(args)
     end
 
     local video = nest._require("modules.video")
+    nest.video = video
 
     local options = { scale = config.get("scale"), docked = config.get("docked"), mode = config.get("mode") }
     video.init(config.get("console"), options)

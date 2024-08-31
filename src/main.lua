@@ -1,7 +1,7 @@
 require "modules.overrides"
-local desktop = {"Windows", "Linux", "OSX"}
+local desktop = {"Windows", "Linux", "OS X"}
 IS_DESKTOP = false
-nest = require("lib.nest").init({ console = "3ds", scale = 1.25 })
+nest = require("lib.nest").init({ console = "3ds", scale = 1, mode = "720" })
 
 __DEBUG__ = false
 
@@ -139,11 +139,23 @@ function love.keypressed(k)
         state.switch(debugOffset)
     end
     state.keypressed(k)
+    nest.video.keypressed(k)
 end
 
 function love.draw(screen)
+    love.graphics.push()
+    if love._console and love._console == "Wii U" then
+        if screen == "gamepad" then
+            love.graphics.scale(2, 2)
+            love.graphics.translate(60, 0)
+        else
+            love.graphics.scale(3, 3)
+            love.graphics.translate(12, 0)
+        end
+    end
     graphics.setColor(1,1,1,1)
-    if screen == "bottom" then
+
+    if screen == "bottom" or screen == "gamepad" then
         state.bottomDraw()
 
         -- draw debug stuff
@@ -155,6 +167,8 @@ function love.draw(screen)
     else
         state.topDraw()
     end
+
+    love.graphics.pop()
     
     love.graphics.setColor(1,1,1,1)
 end

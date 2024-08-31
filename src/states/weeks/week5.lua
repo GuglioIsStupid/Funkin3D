@@ -46,6 +46,14 @@ function week5:enter(from, song_, diff)
         bottomBop.y = 100
         upperBop.y = -38
         upperBop.x = 50
+
+        walls.depth = 2
+        christmasTree.depth = 2
+        escalator.depth = 2
+        snow.depth = 4
+        bottomBop.depth = 2.25
+        upperBop.depth = 2
+        santa.depth = 3
     end
 
     girlfriend.x, girlfriend.y = 12, 94
@@ -68,12 +76,9 @@ end
 function week5:initUI()
     weeks:initUI()
 
-    if song == 1 then
-        weeks:generateNotes("assets/data/week5/cocoa/cocoa"..difficulty..".lua")
-    elseif song == 2 then
-        weeks:generateNotes("assets/data/week5/eggnog/eggnog"..difficulty..".lua")
-    elseif song == 3 then
-        weeks:generateNotes("assets/data/week5/winter-horrorland/winter-horrorland"..difficulty..".lua")
+    weeks:generateNotes("assets/data/week5/" .. self.songs[song].."/" .. self.songs[song]..difficulty..".lua")
+
+    if song == 3 then
         if walls then walls:release() end
         if christmasTree then christmasTree:release() end
         if escalator then escalator:release() end
@@ -92,6 +97,10 @@ function week5:initUI()
 
         snow.y = 196
         snow.sizeX, snow.sizeY = 2, 2
+
+        walls.depth = 2
+        christmasTree.depth = 2
+        snow.depth = 4
     end
     weeks:setupCountdown()
 end
