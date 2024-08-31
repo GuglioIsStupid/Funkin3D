@@ -1,4 +1,12 @@
-local tutorial = {}
+local tutorial = {
+    weekName = "Tutorial",
+    songs = {
+        "tutorial"
+    },
+    list = {
+        "Tutorial"
+    }
+}
 local song = 1
 
 local stageback, stagefront, stagecurtains
@@ -25,7 +33,7 @@ end
 
 function tutorial:load()
     weeks:load()
-    inst = love.audio.newSource("assets/songs/tutorial/Inst.ogg", "stream")
+    inst = love.audio.newSource("assets/songs/" .. self.songs[song].."/Inst.ogg", "stream")
     
     self:initUI()
 end

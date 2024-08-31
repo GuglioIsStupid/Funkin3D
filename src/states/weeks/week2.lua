@@ -1,4 +1,16 @@
-local week2 = {}
+local week2 = {
+    weekName = "Week 2",
+    songs = {
+        "spookeez",
+        "south",
+        "monster"
+    },
+    list = {
+        "Spookeez",
+        "South",
+        "Monster"
+    }
+}
 local song = 1
 local difficulty
 
@@ -33,15 +45,10 @@ end
 
 function week2:load()
     weeks:load()
-    if song == 1 then
-        inst = love.audio.newSource("assets/songs/week2/spookeez/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week2/spookeez/Voices.ogg", "stream")
-    elseif song == 2 then
-        inst = love.audio.newSource("assets/songs/week2/south/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week2/south/Voices.ogg", "stream")
-    elseif song == 3 then
-        inst = love.audio.newSource("assets/songs/week2/monster/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week2/monster/Voices.ogg", "stream")
+    inst = love.audio.newSource("assets/songs/" .. self.songs[song].."/spookeez/Inst.ogg", "stream")
+    voices = love.audio.newSource("assets/songs/" .. self.songs[song].."/spookeez/Voices.ogg", "stream")
+
+    if song == 3 then
         enemy:release()
         enemy = love.filesystem.load("assets/sprites/week2/monster.lua")()
         enemy.sizeX, enemy.sizeY = 1.15, 1.15
@@ -73,7 +80,7 @@ function week2:update(dt)
         house:animate("normal")
     end
     if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 * (love.math.random(17) + 7) / bpm) < 100 then
-        audio.play(thunder[love.math.random(2)])
+        audio.play(thunder[love.math.random(#thunder)])
 
         house:animate("lightning", false)
         girlfriend:animate("fear", false)

@@ -17,10 +17,10 @@ function updateSelection(change)
 
     curSelect = curSelect + change
 
-    if curSelect > #weekList-1 then
+    if curSelect > #weekData-1 then
         curSelect = 0
     elseif curSelect < 0 then
-        curSelect = #weekList-1
+        curSelect = #weekData-1
     end
 
     audio.play(uiScroll)
@@ -77,9 +77,9 @@ function story:bottomDraw()
     love.graphics.push()
         love.graphics.translate(160, 120)
         love.graphics.setFont(uiFont)
-        love.graphics.printf(weekList[curSelect+1][1], -150, -100, 320, "center")
+        love.graphics.printf(weekData[curSelect+1].weekName, -150, -100, 320, "center")
         love.graphics.setFont(uiFont2)
-        love.graphics.printf(unpackLines(weekList[curSelect+1][2], "\n"), -150, -50, 320, "center")
+        love.graphics.printf(unpackLines(weekData[curSelect+1].list, "\n"), -150, -50, 320, "center")
 
         love.graphics.setFont(uiFont)
         love.graphics.printf({{1,1,1},"Difficulty: ", diffColours[diffSelect],diffNames[diffSelect]}, -150, 50, 320, "center")

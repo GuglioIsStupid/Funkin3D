@@ -1,4 +1,16 @@
-local week1 = {}
+local week1 = {
+    weekName = "Week 1",
+    songs = {
+        "bopeebo",
+        "fresh",
+        "dadbattle"
+    },
+    list = {
+        "Bopeebo",
+        "Fresh",
+        "Dadbattle"
+    }
+}
 local song = 1
 local difficulty
 
@@ -29,16 +41,9 @@ end
 
 function week1:load()
     weeks:load()
-    if song == 1 then
-        inst = love.audio.newSource("assets/songs/week1/bopeebo/Inst" .. (isErect and "-erect" or "") .. ".ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week1/bopeebo/Voices" .. (isErect and "-erect" or "") .. ".ogg", "stream")
-    elseif song == 2 then
-        inst = love.audio.newSource("assets/songs/week1/fresh/Inst" .. (isErect and "-erect" or "") .. ".ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week1/fresh/Voices" .. (isErect and "-erect" or "") .. ".ogg", "stream")
-    elseif song == 3 then
-        inst = love.audio.newSource("assets/songs/week1/dadbattle/Inst" .. (isErect and "-erect" or "") .. ".ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week1/dadbattle/Voices" .. (isErect and "-erect" or "") .. ".ogg", "stream")
-    end
+
+    inst = love.audio.newSource("assets/songs/week1/" .. self.songs[song].."/Inst" .. (isErect and "-erect" or "") .. ".ogg", "stream")
+    voices = love.audio.newSource("assets/songs/week1/" .. self.songs[song].."/Voices" .. (isErect and "-erect" or "") .. ".ogg", "stream")
     
     self:initUI()
 end

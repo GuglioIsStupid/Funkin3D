@@ -1,5 +1,7 @@
 require "modules.overrides"
 local desktop = {"Windows", "Linux", "OSX"}
+IS_DESKTOP = false
+nest = require("lib.nest").init({ console = "3ds", scale = 1.25 })
 
 __DEBUG__ = false
 
@@ -9,26 +11,27 @@ function love.load()
     end
     Timer = require "lib.timer"
     state = require "lib.state"
-    require "lib.dslayout"
 
-    if table.find(desktop, love.system.getOS()) then
+    IS_DESKTOP = table.find(desktop, love.system.getOS())
+
+    if IS_DESKTOP then
         -- is desktop (used for testing)
         input = (require "lib.baton").new {
             controls = {
                 -- UI
-                uiLeft =        { "axis:leftx-", "button:dpleft"  },
-                uiRight =       { "axis:leftx+", "button:dpright" },
-                uiUp =          { "axis:lefty-", "button:dpup"    },
-                uiDown =        { "axis:lefty+", "button:dpdown"  },
-                uiConfirm =     { "button:a"    },
-                uiBack =        { "button:b"    },
-                uiErectButton = { "button:back" },
+                uiLeft =        { "axis:leftx-", "button:dpleft",  "key:left"  },
+                uiRight =       { "axis:leftx+", "button:dpright", "key:right" },
+                uiUp =          { "axis:lefty-", "button:dpup",    "key:up"    },
+                uiDown =        { "axis:lefty+", "button:dpdown",  "key:down"  },
+                uiConfirm =     { "button:a",    "key:return"    },
+                uiBack =        { "button:b",    "key:escape"    },
+                uiErectButton = { "button:back", "key:tab"       },
                 
                 -- Gameplay
-                gameLeft =  { "axis:leftx-", "button:dpleft",  "axis:rightx-", "button:x", "axis:triggerleft+"    },
-                gameDown =  { "axis:lefty+", "button:dpdown",  "axis:righty+", "button:y", "button:leftshoulder"  },
-                gameUp =    { "axis:lefty-", "button:dpup",    "axis:righty-", "button:a", "button:rightshoulder" },
-                gameRight = { "axis:leftx+", "button:dpright", "axis:rightx+", "button:b", "axis:triggerright+"   },
+                gameLeft =  { "axis:leftx-", "button:dpleft",  "axis:rightx-", "button:x", "axis:triggerleft+",    "key:left",  "key:a"   },
+                gameDown =  { "axis:lefty+", "button:dpdown",  "axis:righty+", "button:y", "button:leftshoulder",  "key:down",  "key:s"   },
+                gameUp =    { "axis:lefty-", "button:dpup",    "axis:righty-", "button:a", "button:rightshoulder", "key:up",    "key:w"   },
+                gameRight = { "axis:leftx+", "button:dpright", "axis:rightx+", "button:b", "axis:triggerright+",   "key:right", "key:d"   },
             },
             joystick = love.joystick.getJoysticks()[1],
         }
@@ -59,8 +62,6 @@ function love.load()
     uiBack = love.audio.newSource("assets/sounds/cancelMenu.ogg", "static")
     uiScroll = love.audio.newSource("assets/sounds/scrollMenu.ogg", "static")
 
-    dslayout:init {color={r=0.2,g=0.2,b=0.2,a=1}, title="Funkin 3DS"}
-
     -- Modules
     graphics = require "modules.graphics"
     audio = {play = function(sound)
@@ -70,62 +71,6 @@ function love.load()
 
     isErect = false
 
-    weekList = {
-        {
-            "Tutorial",
-            {
-                "Tutorial"
-            }
-        },
-        {
-            "Week 1",
-            {
-                "Bopeebo",
-                "Fresh",
-                "Dadbattle"
-            }
-        },
-        {
-            "Week 2",
-            {
-                "Spookeez",
-                "South",
-                "Monster"
-            }
-        },
-        {
-            "Week 3",
-            {
-                "Pico",
-                "Philly Nice",
-                "Blammed"
-            }
-        },
-        {
-            "Week 4",
-            {
-                "Satin Panties",
-                "High",
-                "MILF"
-            }
-        },
-        {
-            "Week 5",
-            {
-                "Cocoa",
-                "Eggnog",
-                "Winter Horrorland"
-            }
-        },
-        {
-            "Week 6",
-            {
-                "Senpai",
-                "Roses",
-                "Thorns"
-            }
-        }
-    }
     weekData = {
         require "states.weeks.tutorial",
         require "states.weeks.week1",
@@ -198,21 +143,18 @@ end
 
 function love.draw(screen)
     graphics.setColor(1,1,1,1)
-    dslayout:draw(
-        screen,
-        function()
-            state.topDraw()
-        end,
-        function()
-            state.bottomDraw()
+    if screen == "bottom" then
+        state.bottomDraw()
 
-            -- draw debug stuff
-            love.graphics.print(
-                "FPS: " .. love.timer.getFPS() .. "\n" ..
-                "Memory: " .. math.round(collectgarbage("count"), 2) .. "KB\n",
-                0, 190
-            )
-        end
-    )
+        -- draw debug stuff
+        love.graphics.print(
+            "FPS: " .. love.timer.getFPS() .. "\n" ..
+            "Memory: " .. math.round(collectgarbage("count"), 2) .. "KB\n",
+            0, 190
+        )
+    else
+        state.topDraw()
+    end
+    
     love.graphics.setColor(1,1,1,1)
 end

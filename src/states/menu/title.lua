@@ -1,4 +1,5 @@
 local title = {}
+local confirmPressed = false
 
 function title:enter()
     gfTitle = love.filesystem.load("assets/sprites/menu/gfTitle.lua")()
@@ -15,14 +16,16 @@ function title:enter()
     if not title.music:isPlaying() then
         title.music:play()
     end
+    confirmPressed = false
 end
 
 function title:update(dt)
     gfTitle:update(dt)
     logoBumpin:update(dt)
 
-    if input:pressed("uiConfirm") then
+    if input:pressed("uiConfirm") and not confirmPressed then
         audio.play(uiConfirm)
+        confirmPressed = true
         Timer.after(1, function()
             graphics.fadeOut(0.3, function()
                 state.switch(menuSelect)

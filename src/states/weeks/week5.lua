@@ -1,4 +1,16 @@
-local week5 = {}
+local week5 = {
+    weekName = "Week 5",
+    songs = {
+        "cocoa",
+        "eggnog",
+        "winter-horrorland"
+    },
+    list = {
+        "Cocoa",
+        "Eggnog",
+        "Winter Horrorland"
+    }
+}
 local song = 1
 local difficulty
 
@@ -46,16 +58,9 @@ end
 
 function week5:load()
     weeks:load()
-    if song == 1 then
-        inst = love.audio.newSource("assets/songs/week5/cocoa/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week5/cocoa/Voices.ogg", "stream")
-    elseif song == 2 then
-        inst = love.audio.newSource("assets/songs/week5/eggnog/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week5/eggnog/Voices.ogg", "stream")
-    elseif song == 3 then
-        inst = love.audio.newSource("assets/songs/week5/winter-horrorland/Inst.ogg", "stream")
-        voices = love.audio.newSource("assets/songs/week5/winter-horrorland/Voices.ogg", "stream")
-    end
+
+    inst = love.audio.newSource("assets/songs/week5/" .. self.songs[song].."/Inst.ogg", "stream")
+    voices = love.audio.newSource("assets/songs/week5/" .. self.songs[song].."/Voices.ogg", "stream")
     
     self:initUI()
 end
