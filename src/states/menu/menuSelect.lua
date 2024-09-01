@@ -58,15 +58,24 @@ function menuSelect:update(dt)
         audio.play(uiConfirm)
         if curSelect == 1 then
             Timer.after(1, function()
-                graphics.fadeOut(0.5)
-                state.switch(storyMode)
+                graphics.fadeOut(0.3, function()
+                    state.switch(storyMode)
+                end)
             end)
         elseif curSelect == 2 then
             Timer.after(1, function() -- freeplay not implemented yet.
-                graphics.fadeOut(0.5)
-                state.switch(storyMode)
+                graphics.fadeOut(0.3, function()
+                    state.switch(storyMode)
+                end)
             end)
         end
+    end
+
+    if input:pressed("uiBack") then
+        audio.play(uiBack)
+        graphics.fadeOut(0.3, function()
+            state.switch(title)
+        end)
     end
 end
 

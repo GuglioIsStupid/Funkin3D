@@ -20,6 +20,9 @@ function title:enter()
         title.music:play()
     end
     confirmPressed = false
+
+    graphics.setFade(0)
+    graphics.fadeIn(0.3)
 end
 
 function title:update(dt)
@@ -33,6 +36,13 @@ function title:update(dt)
             graphics.fadeOut(0.3, function()
                 state.switch(menuSelect)
             end)
+        end)
+    end
+
+    if input:pressed("uiBack") then
+        audio.play(uiBack)
+        graphics.fadeOut(0.5, function()
+            love.event.quit()
         end)
     end
 end

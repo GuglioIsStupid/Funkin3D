@@ -57,9 +57,17 @@ function story:update(dt)
         audio.play(uiConfirm)
 
         Timer.after(1, function()
-            graphics.fadeOut(0.5)
-            state.switch(weekData[curSelect+1], 1, diffs[diffSelect])
+            graphics.fadeOut(0.3, function()
+                state.switch(weekData[curSelect+1], 1, diffs[diffSelect])
+            end)
             title.music:stop()
+        end)
+    end
+
+    if input:pressed("uiBack") then
+        audio.play(uiBack)
+        graphics.fadeOut(0.3, function()
+            state.switch(menuSelect)
         end)
     end
 
