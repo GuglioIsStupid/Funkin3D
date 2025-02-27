@@ -164,7 +164,9 @@ return {
 
 			setSheet = function(self, imageData)
 				sheet = imageData
-				sheet:setWrap("clampzero", "clampzero")
+				if sheet.setWrap then
+					sheet:setWrap("clampzero", "clampzero")
+				end
 				sheetWidth = sheet:getWidth()
 				sheetHeight = sheet:getHeight()
 			end,

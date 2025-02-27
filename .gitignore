@@ -5,3 +5,5 @@ tools/json-to-lua/charts/*
 
 art/*.png
 art/*.xml
+
+*.zip
