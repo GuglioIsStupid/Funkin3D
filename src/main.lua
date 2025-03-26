@@ -130,7 +130,7 @@ end
 function love.update(dt)
     local dt = math.min(dt, 1/30)
     input:update()
-    Timer.update(dt)    
+    Timer.update(dt)
     state.update(dt)
 end
 
