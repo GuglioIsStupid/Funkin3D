@@ -1,2 +1,2 @@
 # Funkin3D
-3DS "Demake" of the game "Friday Night Funkin'"
+3DS "Demake" of the game "Friday Night Funkin'" by "retardlio"
