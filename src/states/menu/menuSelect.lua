@@ -1,5 +1,6 @@
 local menuSelect = {}
 local curSelect = 1
+local confirmPressed = false
 
 function menuSelect:enter()
     menuBG = graphics.newImage(graphics.imagePath("menu/menuBG"))
@@ -18,6 +19,8 @@ function menuSelect:enter()
 
     storymodeButton.depth = 3
     freeplayButton.depth = 3
+
+    confirmPressed = false
 
     graphics.fadeIn(0.3)
 end
@@ -54,20 +57,18 @@ function menuSelect:update(dt)
         self:updateSelection(1)
     end
 
-    if input:pressed("uiConfirm") then
-        audio.play(uiConfirm)
+    if input:pressed("uiConfirm") and not confirmPressed then
+        confirmPressed = true
         if curSelect == 1 then
+            audio.play(uiConfirm)
             Timer.after(1, function()
                 graphics.fadeOut(0.3, function()
                     state.switch(storyMode)
                 end)
             end)
         elseif curSelect == 2 then
-            Timer.after(1, function() -- freeplay not implemented yet.
-                graphics.fadeOut(0.3, function()
-                    state.switch(storyMode)
-                end)
-            end)
+            audio.play(uiBack)
+            confirmPressed = false
         end
     end
 
@@ -85,7 +86,9 @@ function menuSelect:topDraw()
         menuBG:draw()
 
         storymodeButton:draw()
+        graphics.setColor(0.5, 0.5, 0.5)
         freeplayButton:draw()
+        graphics.setColor(1, 1, 1)
     love.graphics.pop()
 end
 

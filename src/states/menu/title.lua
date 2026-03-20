@@ -60,7 +60,7 @@ function title:bottomDraw()
     love.graphics.push()
         love.graphics.printf(
             "Funkin 3DS" .. "\n" ..
-            "Beta" .. (version or "4") .. "\n" ..
+            __VERSION__ .. "\n" ..
             "By: GuglioIsStupid" .. "\n\n" ..
             "Special thanks to:" .. "\n" ..
             "The Funkin Crew" .. "\n",

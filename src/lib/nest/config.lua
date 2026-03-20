@@ -61,7 +61,7 @@ local function title_case(s)
 end
 
 local function clamp(value, low, high)
-    value = round(value)
+    value = value
     return math.max(low, math.min(value, high))
 end
 

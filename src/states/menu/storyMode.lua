@@ -4,6 +4,7 @@ local diffs = {"-easy", "", "-hard"}
 local diffNames = {"Easy", "Normal", "Hard"}
 local diffColours = {{0, 1, 0}, {1, 1, 0}, {1, 0, 0}}
 local diffSelect = 2
+local confirmPressed = false
 
 function story:enter()
     curSelect = 0
@@ -12,7 +13,7 @@ function story:enter()
     graphics.fadeIn(0.5)
 end
 
-function updateSelection(change)
+local function updateSelection(change)
     local change = change or 0
 
     curSelect = curSelect + change
@@ -26,7 +27,7 @@ function updateSelection(change)
     audio.play(uiScroll)
 end
 
-function updateDiffSelection(change)
+local function updateDiffSelection(change)
     local change = change or -1
 
     diffSelect = diffSelect + change
