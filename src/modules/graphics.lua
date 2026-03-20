@@ -163,6 +163,9 @@ return {
 			depth = 0,
 
 			setSheet = function(self, imageData)
+				if type(imageData) == "string" then
+					imageData = love.graphics.newImage(imageData)
+				end
 				sheet = imageData
 				if sheet.setWrap then
 					sheet:setWrap("clampzero", "clampzero")

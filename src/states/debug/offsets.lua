@@ -2,7 +2,8 @@ local offset = {}
 
 local menuID, selection
 local curDir, dirTable
-local sprite, spriteAnims, overlaySprite
+local sprite, overlay, spriteAnims
+local svMode
 
 function offset:spriteViewerSearch(dir)
     if curDir then
