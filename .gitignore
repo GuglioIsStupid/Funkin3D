@@ -1,5 +1,4 @@
 build/*
-tools/json-to-lua/charts/*
 
 !*.gitkeep
 
@@ -9,3 +8,7 @@ art/*.xml
 *.zip
 
 *.3dsx
+
+tools/json-to-lua/charts/*
+tools/xml-to-json/*.lua
+tools/xml-to-json/*.xml
