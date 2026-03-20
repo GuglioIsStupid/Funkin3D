@@ -20,16 +20,22 @@ local ratingPos = {
     x = 200, y = 75
 }
 local ratingTimers = {}
+local isPixelStage = false
+function weeks:enter(opts)
+    opts = opts or {}
+    if not opts.dontLoadChars then
+        boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
+        girlfriend = love.filesystem.load("assets/sprites/girlfriend.lua")()
+    end
 
-function weeks:enter()
-    boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
-    girlfriend = love.filesystem.load("assets/sprites/girlfriend.lua")()
+    isPixelStage = opts.pixelStage or false
+    local uiFolder = "ui/" .. (isPixelStage and "pixel" or "default")
 
     sounds = {
 
     }
     images = {
-        notes = love.graphics.newImage(graphics.imagePath("notes"))
+        notes = love.graphics.newImage(graphics.imagePath(uiFolder .. "/notes")),
     }
     sprites = {
 
@@ -41,11 +47,40 @@ function weeks:load()
     if voices then voices:release() end
     collectgarbage("collect")
     useAltAnims = false
-    camera.x, camera.y = -boyfriend.x + 25, -boyfriend.y + 2
+    local camRefPos = {25, 2}
+    if boyfriend then
+        camRefPos[1] = -boyfriend.x + 25
+        camRefPos[2] = -boyfriend.y + 2
+    end
+    camera.x, camera.y = camRefPos[1], camRefPos[2]
 
-    camTimer = Timer.tween(1.25, camera, {x=-boyfriend.x+10, y=-boyfriend.y+20}, "out-quad")
+    local target = {10, 20}
+    if boyfriend then
+        target[1] = -boyfriend.x + 10
+        target[2] = -boyfriend.y + 20
+    end
+    camTimer = Timer.tween(1.25, camera, {x=target[1], y=target[2]}, "out-quad")
 
     graphics.fadeIn(0.5)
+end
+
+function weeks:retargetCamera()
+    if camTimer then
+        Timer.cancel(camTimer)
+    end
+
+    local camRefPos = {25, 2}
+    if boyfriend then
+        camRefPos[1] = -boyfriend.x + 25
+        camRefPos[2] = -boyfriend.y + 2
+    end
+    camera.x, camera.y = camRefPos[1], camRefPos[2]
+    local target = {10, 20}
+    if boyfriend then
+        target[1] = -boyfriend.x + 10
+        target[2] = -boyfriend.y + 20
+    end
+    camTimer = Timer.tween(1.25, camera, {x=target[1], y=target[2]}, "out-quad")
 end
 
 function weeks:initUI()
@@ -87,9 +122,9 @@ function weeks:initUI()
     enemyNotes = {}
     boyfriendNotes = {}
 
-    boyfriend.depth = 3
-    girlfriend.depth = 3
-    enemy.depth = 3
+    if boyfriend then boyfriend.depth = 3 end
+    if girlfriend then girlfriend.depth = 3 end
+    if enemy then enemy.depth = 3 end
 
     for i = 1, 4 do
         enemyArrows[i].x = -170 + ((i-1) * 40)
@@ -280,9 +315,9 @@ end
 
 function weeks:update(dt)
     oldMusicThres = musicThres
-    boyfriend:update(dt)
-    girlfriend:update(dt)
-    enemy:update(dt)
+    if boyfriend then boyfriend:update(dt) end
+    if girlfriend then girlfriend:update(dt) end
+    if enemy then enemy:update(dt) end
     if not graphics.isFading() and not countingDown then
         local time = love.timer.getTime()
         local seconds = inst:tell("seconds")
@@ -324,10 +359,12 @@ function weeks:update(dt)
             if (not downscroll and (enemyNote[1].y-musicPos) <= -90) or (downscroll and (enemyNote[1].y-musicPos) >= 90) then
                 if voices then voices:setVolume(1) end
 
-                if enemyNote[1].ver ~= "Hey!" then
-                    self:safeAnimate(enemy, animList[i] .. (useAltAnims and " alt" or ""), false, 2)
-                else
-                    self:safeAnimate(enemy, "hey", false, 2)
+                if enemy then
+                    if enemyNote[1].ver ~= "Hey!" then
+                        self:safeAnimate(enemy, animList[i] .. (useAltAnims and " alt" or ""), false, 2)
+                    else
+                        self:safeAnimate(enemy, "hey", false, 2)
+                    end
                 end
 
                 enemyArrow:animate("confirm")
@@ -342,8 +379,10 @@ function weeks:update(dt)
             if (not downscroll and (boyfriendNote[1].y-musicPos) < -130) or (downscroll and (boyfriendNote[1].y-musicPos) > 130) then
                 if voices then voices:setVolume(0) end
 
-                if combo >= 5 then
-                    self:safeAnimate(girlfriend, "sad", true, 1)
+                if girlfriend then
+                    if combo >= 5 then
+                        self:safeAnimate(girlfriend, "sad", true, 1)
+                    end
                 end
 
                 combo = 0
@@ -401,7 +440,9 @@ function weeks:update(dt)
                         if success then
                             boyfriendArrow:animate("confirm")
 
-                            boyfriend:animate(animList[i])
+                            if boyfriend then
+                                boyfriend:animate(animList[i])
+                            end
                                 
                             health = health + 0.095
 
@@ -416,8 +457,12 @@ function weeks:update(dt)
             end
 
             if not success then
-                if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
-                boyfriend:animate(animList[i] .. " miss")
+                if girlfriend then
+                    if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end
+                end
+                if boyfriend then
+                    boyfriend:animate(animList[i] .. " miss")
+                end
 
                 score = score - 10
                 combo = 0
@@ -430,7 +475,9 @@ function weeks:update(dt)
             if voices then voices:setVolume(1) end
 
             boyfriendArrow:animate("confirm")
-            self:safeAnimate(boyfriend, animList[i] .. (useAltAnims and " alt" or ""), false, 2)
+            if boyfriend then
+                self:safeAnimate(boyfriend, animList[i] .. (useAltAnims and " alt" or ""), false, 2)
+            end
 
             health = health + 0.0125
 
@@ -456,12 +503,14 @@ function weeks:update(dt)
         lastBeat = curBeat
         beatHit = false
         danceLeft = not danceLeft
-        if ((girlfriend:getAnimName() ~= "danceLeft" and girlfriend:getAnimName() ~= "danceRight") and not girlfriend:isAnimated()) or 
-            (girlfriend:getAnimName() == "danceLeft" or girlfriend:getAnimName() == "danceRight") or girlfriend:getAnimName() == "sad" then
-            if danceLeft then
-                self:safeAnimate(girlfriend, "danceLeft", false, 1)
-            else
-                self:safeAnimate(girlfriend, "danceRight", false, 1)
+        if girlfriend then
+            if ((girlfriend:getAnimName() ~= "danceLeft" and girlfriend:getAnimName() ~= "danceRight") and not girlfriend:isAnimated()) or 
+                (girlfriend:getAnimName() == "danceLeft" or girlfriend:getAnimName() == "danceRight") or girlfriend:getAnimName() == "sad" then
+                if danceLeft then
+                    self:safeAnimate(girlfriend, "danceLeft", false, 1)
+                else
+                    self:safeAnimate(girlfriend, "danceRight", false, 1)
+                end
             end
         end
 
@@ -477,11 +526,15 @@ function weeks:update(dt)
     end
 
     if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 120000 / bpm) < 100 then
-        if spriteTimers[2] == 0 and ((enemy:getAnimName() ~= "idle" and not enemy:isAnimated()) or enemy:getAnimName() == "idle") then
-            self:safeAnimate(enemy, "idle", false, 2)
+        if enemy then
+            if spriteTimers[2] == 0 and ((enemy:getAnimName() ~= "idle" and not enemy:isAnimated()) or enemy:getAnimName() == "idle") then
+                self:safeAnimate(enemy, "idle", false, 2)
+            end
         end
-        if spriteTimers[3] == 0 and ((boyfriend:getAnimName() ~= "idle" and not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle") then
-            self:safeAnimate(boyfriend, "idle", false, 3)
+        if boyfriend then
+            if spriteTimers[3] == 0 and ((boyfriend:getAnimName() ~= "idle" and not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle") then
+                self:safeAnimate(boyfriend, "idle", false, 3)
+            end
         end
     end
 
@@ -600,9 +653,9 @@ function weeks:exit()
         boyfriendArrows[i] = nil
     end
 
-    enemy:release();enemy = nil
-    boyfriend:release();boyfriend = nil
-    girlfriend:release();girlfriend = nil
+    if enemy then enemy:release();enemy = nil end
+    if boyfriend then boyfriend:release();boyfriend = nil end
+    if girlfriend then girlfriend:release();girlfriend = nil end
 
     events = nil 
     enemyNotes = nil 

@@ -18,36 +18,16 @@ local sky, school, street, treesBack
 local trees, petals, freaks
 
 function week6:enter(from, song_, diff)
-    song = song_ or 1
+    song = _song or 1
     difficulty = diff or ""
-    weeks:enter()
+    weeks:enter({ dontLoadChars = true })
 
-    enemy = love.filesystem.load("assets/sprites/week6/senpai.lua")()
-    boyfriend:release()
     boyfriend = love.filesystem.load("assets/sprites/week6/boyfriend.lua")()
-    girlfriend:release()
     girlfriend = love.filesystem.load("assets/sprites/week6/girlfriend.lua")()
-
-    if song ~= 3 then
-        sky = graphics.newImage(graphics.imagePath("stages/school/weebSky"))
-        school = graphics.newImage(graphics.imagePath("stages/school/weebSchool"))
-        street = graphics.newImage(graphics.imagePath("stages/school/weebStreet"))
-        treesBack = graphics.newImage(graphics.imagePath("stages/school/weebTreesBack"))
-
-        --petals = love.filesystem.load("assets/sprites/stages/school/petals.lua")()
-        --freaks = love.filesystem.load("assets/sprites/stages/school/freaks.lua")()
-
-        sky.depth = 1
-        school.depth = 2
-        street.depth = 2
-        treesBack.depth = 2
-    end
 
     girlfriend.y = -15
     boyfriend.y = 35
     boyfriend.x = 85
-
-    enemy.x = -85
 
     self:load()
 end
@@ -57,7 +37,42 @@ function week6:load()
 
     inst = love.audio.newSource("assets/songs/week6/" .. self.songs[song].."/Inst.ogg", "stream")
     voices = love.audio.newSource("assets/songs/week6/" .. self.songs[song].."/Voices.ogg", "stream")
-    
+
+    if song == 1 then
+        enemy = love.filesystem.load("assets/sprites/week6/senpai.lua")()
+    elseif song == 2 then
+        if enemy then enemy:release() end
+        enemy = love.filesystem.load("assets/sprites/week6/senpai-angry.lua")()
+    elseif song == 3 then
+        if enemy then enemy:release() end
+        enemy = love.filesystem.load("assets/sprites/week6/spirit.lua")()
+    end
+    if enemy then enemy.x = -85 end
+
+    if song ~= 3 and not sky then
+        sky = graphics.newImage(graphics.imagePath("stages/school/weebSky"))
+        school = graphics.newImage(graphics.imagePath("stages/school/weebSchool"))
+        street = graphics.newImage(graphics.imagePath("stages/school/weebStreet"))
+        treesBack = graphics.newImage(graphics.imagePath("stages/school/weebTreesBack"))
+
+        sky.depth = 1
+        school.depth = 2
+        street.depth = 2
+        treesBack.depth = 2
+    elseif song == 3 then
+        if sky then sky:release() end
+        if school then school:release() end
+        if street then street:release() end
+        if treesBack then treesBack:release() end
+        school = graphics.newImage(graphics.imagePath("stages/evil-school/weebSchool"))
+        street = graphics.newImage(graphics.imagePath("stages/evil-school/weebStreet"))
+        treesBack = graphics.newImage(graphics.imagePath("stages/evil-school/weebBackTrees"))
+
+        school.depth = 2
+        street.depth = 2
+        treesBack.depth = 2
+    end
+
     self:initUI()
 end
 
@@ -99,14 +114,12 @@ function week6:topDraw()
         love.graphics.push()
         love.graphics.translate(camera.x, camera.y)
             love.graphics.scale(camera.zoom*1.45, camera.zoom*1.45)
-            if song ~= 3 then
-                street:draw()
-                treesBack:draw()
+            street:draw()
+            treesBack:draw()
 
-                --trees:draw()
-                --petals:draw()
-                --freaks:draw()
-            end
+            --trees:draw()
+            --petals:draw()
+            --freaks:draw()
             girlfriend:draw()
             boyfriend:draw()
             enemy:draw()
