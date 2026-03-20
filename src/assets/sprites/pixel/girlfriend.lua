@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("week6/girlfriend")),
+	love.graphics.newImage(graphics.imagePath("pixel/girlfriend")),
 	{
         {x = 317.0, y = 0.0, width = 102.0, height = 99.0, offsetX = -9.0, offsetY = -7.0, offsetWidth = 120.0, offsetHeight = 106.0}, -- 30: GF IDLE0029
 		{x = 107.0, y = 0.0, width = 108.0, height = 96.0, offsetX = -6.0, offsetY = -10.0, offsetWidth = 120.0, offsetHeight = 106.0}, -- 1: GF IDLE0000

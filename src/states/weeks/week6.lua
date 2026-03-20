@@ -20,10 +20,7 @@ local trees, petals, freaks
 function week6:enter(from, song_, diff)
     song = _song or 1
     difficulty = diff or ""
-    weeks:enter({ dontLoadChars = true })
-
-    boyfriend = love.filesystem.load("assets/sprites/week6/boyfriend.lua")()
-    girlfriend = love.filesystem.load("assets/sprites/week6/girlfriend.lua")()
+    weeks:enter({ pixelStage = true })
 
     girlfriend.y = -15
     boyfriend.y = 35

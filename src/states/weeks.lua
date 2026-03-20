@@ -23,13 +23,17 @@ local ratingTimers = {}
 local isPixelStage = false
 function weeks:enter(opts)
     opts = opts or {}
-    if not opts.dontLoadChars then
-        boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
-        girlfriend = love.filesystem.load("assets/sprites/girlfriend.lua")()
-    end
-
     isPixelStage = opts.pixelStage or false
     local uiFolder = "ui/" .. (isPixelStage and "pixel" or "default")
+    if not opts.dontLoadChars then
+        if not isPixelStage then
+            boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
+            girlfriend = love.filesystem.load("assets/sprites/girlfriend.lua")()
+        else
+            boyfriend = love.filesystem.load("assets/sprites/pixel/boyfriend.lua")()
+            girlfriend = love.filesystem.load("assets/sprites/pixel/girlfriend.lua")()
+        end
+    end
 
     sounds = {
 
@@ -97,10 +101,11 @@ function weeks:initUI()
     misses = 0
 
     -- only reload if needed!!
-    if not sprites.arrow1 then sprites.arrow1 = love.filesystem.load("assets/sprites/notes/left.lua") end
-    if not sprites.arrow2 then sprites.arrow2 = love.filesystem.load("assets/sprites/notes/down.lua") end
-    if not sprites.arrow3 then sprites.arrow3 = love.filesystem.load("assets/sprites/notes/up.lua") end
-    if not sprites.arrow4 then sprites.arrow4 = love.filesystem.load("assets/sprites/notes/right.lua") end
+    local uiFolder = "assets/sprites/ui/" .. (isPixelStage and "pixel" or "default") .. "/"
+    if not sprites.arrow1 then sprites.arrow1 = love.filesystem.load(uiFolder .. "notes/left.lua") end
+    if not sprites.arrow2 then sprites.arrow2 = love.filesystem.load(uiFolder .. "notes/down.lua") end
+    if not sprites.arrow3 then sprites.arrow3 = love.filesystem.load(uiFolder .. "notes/up.lua") end
+    if not sprites.arrow4 then sprites.arrow4 = love.filesystem.load(uiFolder .. "notes/right.lua") end
 
     if not enemyArrows then
         enemyArrows = {
@@ -139,6 +144,11 @@ function weeks:initUI()
         else
             boyfriendArrows[i].y = -90
             enemyArrows[i].y = -90
+        end
+
+        if isPixelStage then
+            enemyArrows[i]:setScale(2)
+            boyfriendArrows[i]:setScale(2)
         end
 
         enemyNotes[i] = {}
@@ -186,6 +196,9 @@ function weeks:generateNotes(chart)
             noteObject.time = time
             noteObject.ver = noteVer
             noteObject.depth = 6
+            if isPixelStage then
+                noteObject:setScale(2)
+            end
             noteObject:animate("on", false)
 
             local isEnemyNote = (mustHitSection and noteType >= 4) or (not mustHitSection and noteType < 4)
@@ -202,9 +215,11 @@ function weeks:generateNotes(chart)
 
                     holdNote.y = -90 + (time + k) * 0.45 * speed
                     holdNote.time = time + k
-                    holdNote.alpha = 0.6
                     holdNote.depth = 6
                     holdNote:animate("hold", false)
+                    if isPixelStage then
+                        holdNote:setScale(2)
+                    end
 
                     holdNote.x = arrowsTable[id].x
 
@@ -214,6 +229,9 @@ function weeks:generateNotes(chart)
                 local endNote = notesTable[id][#notesTable[id]]
 
                 endNote.offsetY = -3
+                if isPixelStage then
+                    endNote.offsetY = 0
+                end
                 endNote:animate("end", false)
             end
         end
@@ -429,10 +447,10 @@ function weeks:update(dt)
                         combo = combo + 1
                         noteCounter = noteCounter + 1
                         if ratingTimers[1] then Timer.cancel(ratingTimers[1]) end
-                        ratingPos.x, ratingPos.y = 200, 75
+                        ratingPos.x, ratingPos.y = 210, 100
                         ratingTimers[1] = Timer.tween(
                             0.5, ratingPos, {
-                                y = 95
+                                y = 120
                             }, "out-sine"
                         )
                         ratingAnim = ratingAnim .. "!"
@@ -618,6 +636,8 @@ function weeks:bottomDraw()
         -- 
     love.graphics.pop()
     -- Score
+    local lastFont = love.graphics.getFont()
+    love.graphics.setFont(isPixelStage and pixelUiFont or uiFont)
     love.graphics.print(
         "Score: " .. score .. "\n" ..
         "Combo: " .. combo .. "\n" ..
@@ -628,6 +648,7 @@ function weeks:bottomDraw()
         string.capitalize(ratingAnim),
         ratingPos.x, ratingPos.y
     )
+    love.graphics.setFont(lastFont)
 end
 
 function weeks:exit()

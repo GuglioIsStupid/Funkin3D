@@ -83,6 +83,11 @@ function love.load()
     font = love.graphics.newFont("assets/fonts/vcr.ttf", 12)
     uiFont = love.graphics.newFont("assets/fonts/vcr.ttf", 24)
     uiFont2 = love.graphics.newFont("assets/fonts/vcr.ttf", 18)
+
+    pixelFont = love.graphics.newFont("assets/fonts/pixel.ttf", 12)
+    pixelUiFont = love.graphics.newFont("assets/fonts/pixel.ttf", 24)
+    pixelUiFont2 = love.graphics.newFont("assets/fonts/pixel.ttf", 18)
+
     love.graphics.setFont(uiFont)
 
     state.switch(title)

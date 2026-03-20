@@ -167,15 +167,21 @@ return {
 					imageData = love.graphics.newImage(imageData)
 				end
 				sheet = imageData
-				if sheet.setWrap then
+				--[[ if sheet.setWrap then
 					sheet:setWrap("clampzero", "clampzero")
-				end
+				end ]]
 				sheetWidth = sheet:getWidth()
 				sheetHeight = sheet:getHeight()
 			end,
 
 			getSheet = function(self)
 				return sheet
+			end,
+
+			setScale = function(self, scaleX, scaleY)
+				scaleX = scaleX or 1
+				self.sizeX = scaleX
+				self.sizeY = scaleY or scaleX
 			end,
 
 			animate = function(self, animName, loopAnim)

@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("week6/boyfriend")),
+	love.graphics.newImage(graphics.imagePath("pixel/boyfriend")),
 	{
 		{x = 123.0, y = 137.0, width = 59.0, height = 57.0, offsetX = -3.0, offsetY = -18.0, offsetWidth = 73.0, offsetHeight = 73.0}, -- 1: BF DOWN MISS instance 0000
 		{x = 315.0, y = 123.0, width = 57.0, height = 61.0, offsetX = -3.0, offsetY = -14.0, offsetWidth = 73.0, offsetHeight = 73.0}, -- 2: BF DOWN MISS instance 0001
