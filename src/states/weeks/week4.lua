@@ -14,6 +14,8 @@ local week4 = {
 local song = 1
 local difficulty
 
+local bgLimo, limo, sunset
+
 function week4:enter(from, song_, diff)
     song = song_ or 1
     difficulty = diff or ""
@@ -41,7 +43,7 @@ function week4:enter(from, song_, diff)
 
     bgLimo.y = 65
 
-    sunset.depth = 1
+    --sunset.depth = 1
     bgLimo.depth = 2
     limo.depth = 3
 
@@ -76,7 +78,7 @@ function week4:update(dt)
 
     if not countingDown and not inst:isPlaying() then
         song = song + 1
-        if song > 3 then
+        if song > 3 or not storyMode then
             state.switch(title)
         else
             self:load()

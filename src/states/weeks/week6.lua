@@ -52,7 +52,7 @@ function week6:load()
         street = graphics.newImage(graphics.imagePath("stages/school/weebStreet"))
         treesBack = graphics.newImage(graphics.imagePath("stages/school/weebTreesBack"))
 
-        sky.depth = 1
+        --sky.depth = 1
         school.depth = 2
         street.depth = 2
         treesBack.depth = 2
@@ -87,7 +87,7 @@ function week6:update(dt)
 
     if not countingDown and not inst:isPlaying() then
         song = song + 1
-        if song > 3 then
+        if song > 3 or not storyMode then
             state.switch(title)
         else
             self:load()

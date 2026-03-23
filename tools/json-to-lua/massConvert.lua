@@ -6,17 +6,31 @@ local filePath = "charts/"
 -- recursive search for files
 local files = {}
 
+local isWindows = os.getenv("OS") == "Windows_NT"
+
 local function scanDir(directory)
-    -- use os to get list of folders
-    local f = io.popen("ls " .. directory)
+    local cmdPath = isWindows and directory:gsub("/", "\\") or directory
     print("Scanning directory: " .. directory)
+
+    local fileCmd = isWindows and "dir /B /A:-D \"" or "ls -p \""
+    local f = io.popen(fileCmd .. cmdPath .. "\"")
     for file in f:lines() do
-        if file:sub(-4) == "json" then
+        file = file:gsub("\r", "")
+        if file ~= "" and file:sub(-4) == "json" then
             table.insert(files, directory .. file)
-        else
-            scanDir(directory .. file .. "/")
         end
     end
+    f:close()
+
+    local dirCmd = isWindows and "dir /B /A:D \"" or "ls -d */ \""
+    local d = io.popen(dirCmd .. cmdPath .. "\"")
+    for subdir in d:lines() do
+        subdir = subdir:gsub("\r", "")
+        if subdir ~= "" and subdir ~= "." and subdir ~= ".." then
+            scanDir(directory .. subdir .. "/")
+        end
+    end
+    d:close()
 end
 
 scanDir(filePath)

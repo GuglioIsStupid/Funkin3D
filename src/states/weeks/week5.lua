@@ -117,7 +117,7 @@ function week5:update(dt)
 
     if not countingDown and not inst:isPlaying() then
         song = song + 1
-        if song > 3 then
+        if song > 3 or not storyMode then
             state.switch(title)
         else
             self:load()

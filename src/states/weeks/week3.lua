@@ -56,7 +56,7 @@ function week3:enter(from, song_, diff)
     enemy.y = 25
     enemy.sizeX = -1
 
-    sky.depth = 1
+    --sky.depth = 1
     city.depth = 1.5
     cityWindows.depth = 1.5
     behindTrain.depth = 1.75
@@ -101,7 +101,7 @@ function week3:update(dt)
 
     if not countingDown and not inst:isPlaying() then
         song = song + 1
-        if song > 3 then
+        if song > 3 or not storyMode then
             state.switch(title)
         else
             self:load()
@@ -122,7 +122,7 @@ function week3:topDraw()
             love.graphics.scale(camera.zoom * 1.3, camera.zoom*1.3)
             sky:draw()
         love.graphics.pop()
-        
+
         love.graphics.push()
             love.graphics.translate(camera.x * 0.5, camera.y * 0.5)
             love.graphics.scale(camera.zoom * 1.3, camera.zoom*1.3)
@@ -131,7 +131,6 @@ function week3:topDraw()
             cityWindows:draw()
             graphics.setColor(1,1,1)
         love.graphics.pop()
-        
 
         love.graphics.push()
             love.graphics.translate(camera.x * 0.9, camera.y * 0.9)
@@ -141,8 +140,6 @@ function week3:topDraw()
             girlfriend:draw()
         love.graphics.pop()
 
-       
-        
         love.graphics.push()
             love.graphics.translate(camera.x, camera.y)
             love.graphics.scale(camera.zoom * 1.3, camera.zoom*1.3)

@@ -41,7 +41,8 @@ function love.load()
         require "states.weeks.week3",
         require "states.weeks.week4",
         require "states.weeks.week5",
-        require "states.weeks.week6"
+        require "states.weeks.week6",
+        require "states.weeks.week7"
     }
 
     -- States

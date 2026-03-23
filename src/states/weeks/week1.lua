@@ -36,7 +36,7 @@ function week1:enter(from, song_, diff)
 
     enemy.x = -85
 
-    stageback.depth = 1.25
+    --stageback.depth = 1.25
     stagefront.depth = 3
     stagecurtains.depth = 4
 
@@ -80,7 +80,7 @@ function week1:update(dt)
 
     if not countingDown and not inst:isPlaying() then
         song = song + 1
-        if song > 3 then
+        if song > 3 or not storyMode then
             state.switch(title)
         else
             self:load()

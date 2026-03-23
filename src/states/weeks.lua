@@ -210,6 +210,9 @@ function weeks:generateNotes(chart)
             noteObject:animate("on", false)
 
             local isEnemyNote = (mustHitSection and noteType >= 4) or (not mustHitSection and noteType < 4)
+            if state.current().weirdChartFormat then
+                isEnemyNote = noteType >= 4
+            end
             local notesTable = isEnemyNote and enemyNotes or boyfriendNotes
             local arrowsTable = isEnemyNote and enemyArrows or boyfriendArrows
 

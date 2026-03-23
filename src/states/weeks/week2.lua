@@ -40,7 +40,7 @@ function week2:enter(from, song_, diff)
         love.audio.newSource("assets/sounds/thunder_2.ogg", "static")
     }
 
-    house.depth = 2.5
+    --house.depth = 2.5
 
     self:load()
 end
@@ -86,7 +86,7 @@ function week2:update(dt)
 
     if not countingDown and not inst:isPlaying() then
         song = song + 1
-        if song > 3 then
+        if song > 3 or not storyMode then
             state.switch(title)
         else
             self:load()
