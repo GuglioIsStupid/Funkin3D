@@ -1,4 +1,4 @@
-local menuSelect = {}
+local menuSelect = state()
 local curSelect = 1
 local confirmPressed = false
 
@@ -10,17 +10,23 @@ function menuSelect:enter()
     curSelect = 1
     storymodeButton = love.filesystem.load("assets/sprites/menu/menu_storymode.lua")()
     freeplayButton = love.filesystem.load("assets/sprites/menu/menu_freeplay.lua")()
+    optionsButton = love.filesystem.load("assets/sprites/menu/menu_options.lua")()
 
-    storymodeButton.y = -50
-    freeplayButton.y = 50
+    storymodeButton.y = -70
+    freeplayButton.y = 0
+    optionsButton.y = 70
 
     storymodeButton.sizeX, storymodeButton.sizeY = 1.3, 1.3
-    freeplayButton.sizeX, freeplayButton.sizeY = 1.3, 1.3
+    freeplayButton.sizeX, freeplayButton.sizeY = 1.55, 1.55
+    optionsButton.sizeX, optionsButton.sizeY = 1.3, 1.3
 
     storymodeButton.depth = 3
     freeplayButton.depth = 3
+    optionsButton.depth = 3
 
     confirmPressed = false
+
+    self:updateSelection(0)
 
     graphics.fadeIn(0.3)
 end
@@ -30,26 +36,33 @@ function menuSelect:updateSelection(change)
 
     curSelect = curSelect + change
 
-    if curSelect > 2 then
+    if curSelect > 3 then
         curSelect = 1
     elseif curSelect < 1 then
-        curSelect = 2
+        curSelect = 3
     end
 
     if curSelect == 1 then
         storymodeButton:animate("on", true)
         freeplayButton:animate("off", true)
+        optionsButton:animate("off", true)
     elseif curSelect == 2 then
         storymodeButton:animate("off", true)
         freeplayButton:animate("on", true)
+        optionsButton:animate("off", true)
+    elseif curSelect == 3 then
+        storymodeButton:animate("off", true)
+        freeplayButton:animate("off", true)
+        optionsButton:animate("on", true)
     end
 
-    audio.play(uiScroll)
+    audio.playSound(uiScroll)
 end
 
 function menuSelect:update(dt)
     storymodeButton:update(dt)
     freeplayButton:update(dt)
+    optionsButton:update(dt)
 
     if input:pressed("uiUp") then
         self:updateSelection(-1)
@@ -59,21 +72,22 @@ function menuSelect:update(dt)
 
     if input:pressed("uiConfirm") and not confirmPressed then
         confirmPressed = true
-        if curSelect == 1 then
-            audio.play(uiConfirm)
-            Timer.after(1, function()
-                graphics.fadeOut(0.3, function()
+        audio.playSound(uiConfirm)
+        Timer.after(1, function()
+            graphics.fadeOut(0.3, function()
+                if curSelect == 1 then
                     state.switch(storyMode)
-                end)
+                elseif curSelect == 2 then
+                    state.switch(freeplay)
+                elseif curSelect == 3 then
+                    state.switch(settingsMenu)
+                end
             end)
-        elseif curSelect == 2 then
-            audio.play(uiBack)
-            confirmPressed = false
-        end
+        end)
     end
 
     if input:pressed("uiBack") then
-        audio.play(uiBack)
+        audio.playSound(uiBack)
         graphics.fadeOut(0.3, function()
             state.switch(title)
         end)
@@ -86,9 +100,8 @@ function menuSelect:topDraw()
         menuBG:draw()
 
         storymodeButton:draw()
-        graphics.setColor(0.5, 0.5, 0.5)
         freeplayButton:draw()
-        graphics.setColor(1, 1, 1)
+        optionsButton:draw()
     love.graphics.pop()
 end
 
@@ -99,6 +112,7 @@ end
 function menuSelect:exit()
     storymodeButton:release()
     freeplayButton:release()
+    optionsButton:release()
     menuBG:release()
 end
 

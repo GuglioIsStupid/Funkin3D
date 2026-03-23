@@ -79,12 +79,15 @@ function tutorial:update(dt)
             break
         end
     end
+
+    if not countingDown and not inst:isPlaying() then
+        state.switch(title)
+    end
 end
 
 function tutorial:topDraw()
     love.graphics.push()
         love.graphics.translate(200,120)
-        
 
         love.graphics.push()
         love.graphics.translate(camera.x*0.9, camera.y*0.9)

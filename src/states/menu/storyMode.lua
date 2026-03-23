@@ -24,7 +24,7 @@ local function updateSelection(change)
         curSelect = #weekData-1
     end
 
-    audio.play(uiScroll)
+    audio.playSound(uiScroll)
 end
 
 local function updateDiffSelection(change)
@@ -38,7 +38,7 @@ local function updateDiffSelection(change)
         diffSelect = #diffs
     end
 
-    audio.play(uiScroll)
+    audio.playSound(uiScroll)
 end
 
 function story:update(dt)
@@ -55,7 +55,7 @@ function story:update(dt)
     end
 
     if input:pressed("uiConfirm") then
-        audio.play(uiConfirm)
+        audio.playSound(uiConfirm)
 
         Timer.after(1, function()
             graphics.fadeOut(0.3, function()
@@ -66,7 +66,7 @@ function story:update(dt)
     end
 
     if input:pressed("uiBack") then
-        audio.play(uiBack)
+        audio.playSound(uiBack)
         graphics.fadeOut(0.3, function()
             state.switch(menuSelect)
         end)

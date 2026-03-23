@@ -29,6 +29,7 @@ function weeks:enter(opts)
         if not isPixelStage then
             boyfriend = love.filesystem.load("assets/sprites/boyfriend.lua")()
             girlfriend = love.filesystem.load("assets/sprites/girlfriend.lua")()
+            girlfriend:setScale(1.15)
         else
             boyfriend = love.filesystem.load("assets/sprites/pixel/boyfriend.lua")()
             girlfriend = love.filesystem.load("assets/sprites/pixel/girlfriend.lua")()
@@ -47,8 +48,12 @@ function weeks:enter(opts)
 end
 
 function weeks:load()
+    audio.stopMusic(inst)
+    audio.stopMusic(voices)
     if inst then inst:release() end
     if voices then voices:release() end
+    inst = nil
+    voices = nil
     collectgarbage("collect")
     useAltAnims = false
     local camRefPos = {25, 2}
@@ -138,7 +143,7 @@ function weeks:initUI()
         boyfriendArrows[i].x = 50 + ((i-1) * 40)
         boyfriendArrows[i].depth = 6
 
-        if downscroll then
+        if settingsHandler:get("downscroll") then
             boyfriendArrows[i].y = 90
             enemyArrows[i].y = 90
         else
@@ -193,6 +198,9 @@ function weeks:generateNotes(chart)
             local noteObject = sprites["arrow" .. id]()
 
             noteObject.y = -90 + time * 0.45 * speed
+            if settingsHandler:get("downscroll") then
+                noteObject.y = 90 - time * 0.45 * speed
+            end
             noteObject.time = time
             noteObject.ver = noteVer
             noteObject.depth = 6
@@ -214,6 +222,9 @@ function weeks:generateNotes(chart)
                     local holdNote = sprites["arrow" .. id]()
 
                     holdNote.y = -90 + (time + k) * 0.45 * speed
+                    if settingsHandler:get("downscroll") then
+                        holdNote.y = 90 - (time + k) * 0.45 * speed
+                    end
                     holdNote.time = time + k
                     holdNote.depth = 6
                     holdNote:animate("hold", false)
@@ -228,7 +239,12 @@ function weeks:generateNotes(chart)
 
                 local endNote = notesTable[id][#notesTable[id]]
 
-                endNote.offsetY = -3
+                if settingsHandler:get("downscroll") then
+                    endNote.offsetY = 3
+                    endNote.flipY = true
+                else
+                    endNote.offsetY = -3
+                end
                 if isPixelStage then
                     endNote.offsetY = 0
                 end
@@ -238,8 +254,16 @@ function weeks:generateNotes(chart)
     end
 
     for i = 1, 4 do
-        table.sort(enemyNotes[i], function(a, b) return a.time < b.time end)
-        table.sort(boyfriendNotes[i], function(a, b) return a.time < b.time end)
+        --[[ table.sort(enemyNotes[i], function(a, b) return a.time < b.time end)
+        table.sort(boyfriendNotes[i], function(a, b) return a.time < b.time end) ]]
+        -- above but also for downscroll
+        if not settingsHandler:get("downscroll") then
+            table.sort(enemyNotes[i], function(a, b) return a.y < b.y end)
+            table.sort(boyfriendNotes[i], function(a, b) return a.y < b.y end)
+        else
+            table.sort(enemyNotes[i], function(a, b) return a.y > b.y end)
+            table.sort(boyfriendNotes[i], function(a, b) return a.y > b.y end)
+        end
     end
 
     -- Workarounds for bad charts that have multiple notes around the same place
@@ -249,7 +273,7 @@ function weeks:generateNotes(chart)
         for j = 2, #enemyNotes[i] do
             local index = j - offset
 
-            if enemyNotes[i][index]:getAnimName() == "on" and enemyNotes[i][index - 1]:getAnimName() == "on" and ((enemyNotes[i][index].y - enemyNotes[i][index - 1].y <= 10)) then
+            if enemyNotes[i][index]:getAnimName() == "on" and enemyNotes[i][index - 1]:getAnimName() == "on" and (math.abs(enemyNotes[i][index].y - enemyNotes[i][index - 1].y) <= 10) then
                 table.remove(enemyNotes[i], index)
 
                 offset = offset + 1
@@ -262,7 +286,7 @@ function weeks:generateNotes(chart)
         for j = 2, #boyfriendNotes[i] do
             local index = j - offset
 
-            if boyfriendNotes[i][index]:getAnimName() == "on" and boyfriendNotes[i][index - 1]:getAnimName() == "on" and ((boyfriendNotes[i][index].y - boyfriendNotes[i][index - 1].y <= 10)) then
+            if boyfriendNotes[i][index]:getAnimName() == "on" and boyfriendNotes[i][index - 1]:getAnimName() == "on" and (math.abs(boyfriendNotes[i][index].y - boyfriendNotes[i][index - 1].y) <= 10) then
                 table.remove(boyfriendNotes[i], index)
 
                 offset = offset + 1
@@ -319,8 +343,8 @@ function weeks:setupCountdown()
                                     previousFrameTime = love.timer.getTime() * 1000
                                     musicTime = 0
 
-                                    if inst then inst:play() end
-                                    if voices then voices:play() end
+                                    audio.playMusic(inst)
+                                    audio.playMusic(voices)
                                 end
                             )
                         end
@@ -350,7 +374,7 @@ function weeks:update(dt)
     elseif countingDown then
         musicTime = musicTime + 1000 * dt
     end
-    if downscroll then
+    if settingsHandler:get("downscroll") then
         musicPos = -musicTime * 0.45 * speed
     else
         musicPos = musicTime * 0.45 * speed
@@ -374,8 +398,8 @@ function weeks:update(dt)
 		end
 
         if #enemyNote > 0 then
-            if (not downscroll and (enemyNote[1].y-musicPos) <= -90) or (downscroll and (enemyNote[1].y-musicPos) >= 90) then
-                if voices then voices:setVolume(1) end
+            if (not settingsHandler:get("downscroll") and (enemyNote[1].y-musicPos) <= -90) or (settingsHandler:get("downscroll") and (enemyNote[1].y-musicPos) >= 90) then
+                if voices then audio.setMusicVolume(voices, 1) end
 
                 if enemy then
                     if enemyNote[1].ver ~= "Hey!" then
@@ -394,8 +418,8 @@ function weeks:update(dt)
         end
 
         if #boyfriendNote > 0 then
-            if (not downscroll and (boyfriendNote[1].y-musicPos) < -130) or (downscroll and (boyfriendNote[1].y-musicPos) > 130) then
-                if voices then voices:setVolume(0) end
+            if (not settingsHandler:get("downscroll") and (boyfriendNote[1].y-musicPos) < -130) or (settingsHandler:get("downscroll") and (boyfriendNote[1].y-musicPos) > 130) then
+                if voices then audio.setMusicVolume(voices, 0) end
 
                 if girlfriend then
                     if combo >= 5 then
@@ -429,7 +453,7 @@ function weeks:update(dt)
 
                         notePos = math.abs(boyfriendNote[1].time - musicTime)
 
-                        if voices then voices:setVolume(1) end
+                        if voices then audio.setMusicVolume(voices, 1) end
 
                         if notePos <= 40 then
                             score = score + 350
@@ -489,8 +513,8 @@ function weeks:update(dt)
             end
         end
         
-        if #boyfriendNote > 0 and input:down(curInput) and ((not downscroll and (boyfriendNote[1].y-musicPos) <= -90) or (downscroll and (boyfriendNote[1].y-musicPos) >= 90)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
-            if voices then voices:setVolume(1) end
+        if #boyfriendNote > 0 and input:down(curInput) and ((not settingsHandler:get("downscroll") and (boyfriendNote[1].y-musicPos) <= -90) or (settingsHandler:get("downscroll") and (boyfriendNote[1].y-musicPos) >= 90)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
+            if voices then audio.setMusicVolume(voices, 1) end
 
             boyfriendArrow:animate("confirm")
             if boyfriend then
@@ -599,7 +623,7 @@ function weeks:topDraw()
             love.graphics.push()
                 love.graphics.translate(0, -musicPos)
                 for j = 1, #enemyNotes[i] do
-                    if (not downscroll and (enemyNotes[i][j].y-musicPos) < 120) or (downscroll and (enemyNotes[i][j].y-musicPos) > -120) then
+                    if (not settingsHandler:get("downscroll") and (enemyNotes[i][j].y-musicPos) < 120) or (settingsHandler:get("downscroll") and (enemyNotes[i][j].y-musicPos) > -120) then
                         enemyNotes[i][j]:draw()
                     else
                         break
@@ -607,7 +631,7 @@ function weeks:topDraw()
                 end
 
                 for j = 1, #boyfriendNotes[i] do
-                    if (not downscroll and (boyfriendNotes[i][j].y-musicPos) < 120) or (downscroll and (boyfriendNotes[i][j].y-musicPos) > -120) then
+                    if (not settingsHandler:get("downscroll") and (boyfriendNotes[i][j].y-musicPos) < 120) or (settingsHandler:get("downscroll") and (boyfriendNotes[i][j].y-musicPos) > -120) then
                         boyfriendNotes[i][j]:draw()
                     else
                         break
@@ -687,9 +711,9 @@ function weeks:exit()
     sounds = nil 
     images = nil 
     ratingAnim = ""
-    
-    if inst then inst:release() end
-    if voices then voices:release() end
+
+    inst = nil
+    voices = nil
 
     collectgarbage("collect")
 end

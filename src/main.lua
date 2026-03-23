@@ -27,11 +27,10 @@ function love.load()
     uiScroll = love.audio.newSource("assets/sounds/scrollMenu.ogg", "static")
 
     -- Modules
+    settingsHandler = require "modules.settings"
+    settingsHandler.load()
     graphics = require "modules.graphics"
-    audio = {play = function(sound)
-        sound:stop()
-        sound:play()
-    end}
+    audio = require "modules.audio"
 
     isErect = false
 
@@ -49,12 +48,12 @@ function love.load()
     title = require "states.menu.title"
     title.music = love.audio.newSource("assets/music/freakyMenu.ogg", "stream")
     title.music:setLooping(true)
-    title.music:setVolume(0.5)
-    title.music:play()
+    audio.playMusic(title.music, 0.5)
 
     menuSelect = require "states.menu.menuSelect"
     storyMode = require "states.menu.storyMode"
     freeplay = require "states.menu.freeplay"
+    settingsMenu = require "states.menu.settings"
 
     debugOffset = require "states.debug.offsets"
 
@@ -97,10 +96,10 @@ function love.load()
 end
 
 function love.update(dt)
-    local dt = math.min(dt, 1/30)
     input:update()
     Timer.update(dt)
     state.update(dt)
+    audio.update()
 end
 
 function love.keypressed(k)
@@ -127,17 +126,22 @@ function love.draw(screen)
     if screen == "bottom" or screen == "gamepad" then
         state.bottomDraw()
 
-        -- draw debug stuff
-        love.graphics.print(
-            "FPS: " .. love.timer.getFPS() .. "\n" ..
-            "Memory: " .. math.round(collectgarbage("count"), 2) .. "KB\n",
-            0, 190
-        )
+        if settingsHandler.data.debug ~= "OFF" then
+            local str = "FPS: " .. love.timer.getFPS() .. "\n"
+            if settingsHandler.data.debug ~= "FPS" then
+                str = str .. "Memory: " .. math.round(collectgarbage("count"), 2) .. "KB\n"
+            end
+            love.graphics.print(str, 0, 190 + (settingsHandler.data.debug == "FPS" and 20 or 0))
+        end
     else
         state.topDraw()
     end
 
     love.graphics.pop()
-    
+
     love.graphics.setColor(1,1,1,1)
+end
+
+function love.quit()
+    settingsHandler.save()
 end

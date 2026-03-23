@@ -47,8 +47,8 @@ end
 
 function week2:load()
     weeks:load()
-    inst = love.audio.newSource("assets/songs/" .. self.songs[song].."/spookeez/Inst.ogg", "stream")
-    voices = love.audio.newSource("assets/songs/" .. self.songs[song].."/spookeez/Voices.ogg", "stream")
+    inst = love.audio.newSource("assets/songs/week2/" .. self.songs[song].."/Inst.ogg", "stream")
+    voices = love.audio.newSource("assets/songs/week2/" .. self.songs[song].."/Voices.ogg", "stream")
 
     if song == 3 then
         enemy:release()
@@ -77,7 +77,7 @@ function week2:update(dt)
         house:animate("normal")
     end
     if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 * (love.math.random(17) + 7) / bpm) < 100 then
-        audio.play(thunder[love.math.random(#thunder)])
+        audio.playSound(thunder[love.math.random(#thunder)])
 
         house:animate("lightning", false)
         girlfriend:animate("fear", false)

@@ -1,4 +1,4 @@
-local title = {}
+local title = state()
 local confirmPressed = false
 
 function title:enter()
@@ -17,7 +17,7 @@ function title:enter()
     gfTitle.depth = 3
 
     if not title.music:isPlaying() then
-        title.music:play()
+        audio.playMusic(title.music, 0.5)
     end
     confirmPressed = false
 
@@ -30,7 +30,7 @@ function title:update(dt)
     logoBumpin:update(dt)
 
     if input:pressed("uiConfirm") and not confirmPressed then
-        audio.play(uiConfirm)
+        audio.playSound(uiConfirm)
         confirmPressed = true
         Timer.after(1, function()
             graphics.fadeOut(0.3, function()
@@ -40,7 +40,7 @@ function title:update(dt)
     end
 
     if input:pressed("uiBack") then
-        audio.play(uiBack)
+        audio.playSound(uiBack)
         graphics.fadeOut(0.5, function()
             love.event.quit()
         end)

@@ -71,6 +71,8 @@ return {
 			alpha = 1,
 			color = {1,1,1},
 			depth = 0,
+			flipX = false,
+			flipY = false,
 
 			setImage = function(self, imageData)
 				image = imageData
@@ -103,8 +105,8 @@ return {
 					self.x - (graphics.screenDepth(love.graphics.getActiveScreen()) * self.depth),
 					self.y,
 					self.orientation,
-					self.sizeX,
-					self.sizeY,
+					self.sizeX * (self.flipX and -1 or 1), 
+					self.sizeY * (self.flipY and -1 or 1),
 					math.floor(width / 2) + self.offsetX,
 					math.floor(height / 2) + self.offsetY,
 					self.shearX,
@@ -161,6 +163,8 @@ return {
 			color = {1,1,1},
 			secondary = optionsTable and optionsTable.secondary or nil,
 			depth = 0,
+			flipX = false,
+			flipY = false,
 
 			setSheet = function(self, imageData)
 				if type(imageData) == "string" then
@@ -297,8 +301,8 @@ return {
 						x - (graphics.screenDepth(love.graphics.getActiveScreen()) * self.depth),
 						y,
 						self.orientation,
-						self.sizeX,
-						self.sizeY,
+						self.sizeX * (self.flipX and -1 or 1),
+						self.sizeY * (self.flipY and -1 or 1),
 						width + anim.offsetX + self.offsetX,
 						height + anim.offsetY + self.offsetY,
 						self.shearX,

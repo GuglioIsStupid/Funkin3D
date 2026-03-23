@@ -18,7 +18,7 @@ local sky, school, street, treesBack
 local trees, petals, freaks
 
 function week6:enter(from, song_, diff)
-    song = _song or 1
+    song = song_ or 1
     difficulty = diff or ""
     weeks:enter({ pixelStage = true })
 
