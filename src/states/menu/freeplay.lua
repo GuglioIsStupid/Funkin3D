@@ -12,6 +12,8 @@ local songList = {}
 local scrollOffset = 0
 local maxVisibleSongs = 4
 
+local allWeeks
+
 function freeplay:enter()
     curSelect = 0
     diffSelect = 2
@@ -19,6 +21,19 @@ function freeplay:enter()
     selectedWeek = nil
     songSelect = 0
     scrollOffset = 0
+
+    allWeeks = {}
+    for _, week in ipairs(weekData) do
+        table.insert(allWeeks, week)
+    end
+    for modName, mod in pairs(modmanager._modList) do
+        if mod.weeks then
+            for _, week in ipairs(mod.weeks) do
+                week._mod = modName
+                table.insert(allWeeks, week)
+            end
+        end
+    end
 
     graphics.fadeIn(0.5)
 end
@@ -29,10 +44,10 @@ local function updateSelection(change)
     if screen == "weeks" then
         curSelect = curSelect + change
 
-        if curSelect > #weekData - 1 then
+        if curSelect > #allWeeks - 1 then
             curSelect = 0
         elseif curSelect < 0 then
-            curSelect = #weekData - 1
+            curSelect = #allWeeks - 1
         end
     elseif screen == "songs" then
         songSelect = songSelect + change
@@ -72,7 +87,7 @@ end
 local function loadSongsForWeek(weekIndex)
     songList = {}
 
-    local week = weekData[weekIndex]
+    local week = allWeeks[weekIndex]
     if week and week.list then
         for _, songName in ipairs(week.list) do
             table.insert(songList, songName)
@@ -122,7 +137,7 @@ function freeplay:update(dt)
 
             Timer.after(1, function()
                 graphics.fadeOut(0.3, function()
-                    state.switch(weekData[selectedWeek], songSelect + 1, diffs[diffSelect])
+                    state.switch(allWeeks[selectedWeek], songSelect + 1, diffs[diffSelect])
                 end)
                 if title.music then
                     title.music:stop()
@@ -151,7 +166,7 @@ function freeplay:topDraw()
             love.graphics.printf("FREEPLAY", -150, -100, 320, "center")
         elseif screen == "songs" then
             love.graphics.setFont(uiFont)
-            love.graphics.printf(weekData[selectedWeek].weekName, -150, -100, 320, "center")
+            love.graphics.printf(allWeeks[selectedWeek].weekName, -150, -100, 320, "center")
         end
     love.graphics.pop()
 end
@@ -162,9 +177,9 @@ function freeplay:bottomDraw()
 
         if screen == "weeks" then
             love.graphics.setFont(uiFont)
-            love.graphics.printf(weekData[curSelect+1].weekName, -150, -100, 320, "center")
+            love.graphics.printf(allWeeks[curSelect+1].weekName, -150, -100, 320, "center")
             love.graphics.setFont(uiFont2)
-            love.graphics.printf(unpackLines(weekData[curSelect+1].list, "\n"), -150, -50, 320, "center")
+            love.graphics.printf(unpackLines(allWeeks[curSelect+1].list, "\n"), -150, -50, 320, "center")
 
             love.graphics.setFont(uiFont)
             love.graphics.printf({{1,1,1},"Difficulty: ", diffColours[diffSelect],diffNames[diffSelect]}, -150, 50, 320, "center")

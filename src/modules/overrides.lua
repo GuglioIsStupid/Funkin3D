@@ -39,3 +39,11 @@ end
 function string.capitalize(str)
     return str:gsub("^%l", string.upper)
 end
+
+function rgb255(r, g, b)
+    return {r / 255, g / 255, b / 255}
+end
+
+function rgb255a(r, g, b, a)
+    return {r / 255, g / 255, b / 255, a}
+end

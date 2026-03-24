@@ -403,6 +403,9 @@ return {
 	end,
 	setColor = function(r, g, b, a)
 		local fade = fade[1]
+		if type(r) == "table" then
+			r, g, b, a = r[1], r[2], r[3], r[4] or 1
+		end
 
 		love.graphics.setColor(fade * r, fade * g, fade * b, a)
 	end,

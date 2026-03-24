@@ -27,10 +27,12 @@ function love.load()
     uiScroll = love.audio.newSource("assets/sounds/scrollMenu.ogg", "static")
 
     -- Modules
+    CONSTANTS = require "modules.constants"
     settingsHandler = require "modules.settings"
     settingsHandler.load()
     graphics = require "modules.graphics"
     audio = require "modules.audio"
+    modmanager = require "modules.modmanager"
 
     isErect = false
 
@@ -89,6 +91,8 @@ function love.load()
     pixelUiFont2 = love.graphics.newFont("assets/fonts/pixel.ttf", 18)
 
     love.graphics.setFont(uiFont)
+
+    modmanager:loadMods()
 
     state.switch(title)
 

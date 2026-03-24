@@ -6,9 +6,14 @@ local diffColours = {{0, 1, 0}, {1, 1, 0}, {1, 0, 0}}
 local diffSelect = 2
 local confirmPressed = false
 
+local weekImage
+local difficultySpr
+
 function story:enter()
     curSelect = 0
     diffSelect = 2
+
+    weekImage = graphics.newImage(graphics.imagePath("menu/storymenu/week/week"))
 
     graphics.fadeIn(0.5)
 end
@@ -78,7 +83,10 @@ end
 function story:topDraw()
     love.graphics.push()
         love.graphics.translate(200, 120)
-        
+
+        love.graphics.setFont(uiFont2)
+        love.graphics.printf(unpackLines(weekData[curSelect+1].list, "\n"), -150, -50, 320, "center")
+
     love.graphics.pop()
 end
 
@@ -86,12 +94,16 @@ function story:bottomDraw()
     love.graphics.push()
         love.graphics.translate(160, 120)
         love.graphics.setFont(uiFont)
-        love.graphics.printf(weekData[curSelect+1].weekName, -150, -100, 320, "center")
+        --[[ love.graphics.printf(weekData[curSelect+1].weekName, -150, -100, 320, "center") ]]
+        weekImage.x = -30
+        weekImage.y = -30
+        weekImage:draw()
         love.graphics.setFont(uiFont2)
-        love.graphics.printf(unpackLines(weekData[curSelect+1].list, "\n"), -150, -50, 320, "center")
+        love.graphics.printf(weekData[curSelect+1].weekNum, -100, -50, 320, "center")
 
         love.graphics.setFont(uiFont)
         love.graphics.printf({{1,1,1},"Difficulty: ", diffColours[diffSelect],diffNames[diffSelect]}, -150, 50, 320, "center")
+        
     love.graphics.pop()
 end
 

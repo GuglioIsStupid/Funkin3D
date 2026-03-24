@@ -3,6 +3,7 @@
         "love"
     ],
     "Lua.diagnostics.disable": [
-        "undefined-field"
+        "undefined-field",
+        "deprecated"
     ]
 }

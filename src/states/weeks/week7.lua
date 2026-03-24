@@ -1,4 +1,7 @@
 local week7 = {
+    weekNum = 7,
+    weekAsset = "week",
+    weekAssetCustom = false,
     weekName = "Week 7",
     songs = {
         "ugh",
