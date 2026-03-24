@@ -18,6 +18,13 @@ if IS_DESKTOP then
             gameDown =  { "axis:lefty+", "button:dpdown",  "axis:righty+", "button:y", "button:leftshoulder",  "key:down",  "key:s"   },
             gameUp =    { "axis:lefty-", "button:dpup",    "axis:righty-", "button:a", "button:rightshoulder", "key:up",    "key:w"   },
             gameRight = { "axis:leftx+", "button:dpright", "axis:rightx+", "button:b", "axis:triggerright+",   "key:right", "key:d"   },
+
+            _debugMoveUp =    { "key:w" },
+            _debugMoveDown =  { "key:s" },
+            _debugMoveLeft =  { "key:a" },
+            _debugMoveRight = { "key:d" },
+            _debugScaleUp =    { "key:e" },
+            _debugScaleDown =  { "key:q" },
         },
         joystick = love.joystick.getJoysticks()[1],
     }
@@ -39,6 +46,13 @@ else
             gameDown =  { "axis:lefty+",          "axis:righty+", "axis:triggerleft+",  "button:dpdown",  "button:b"   },
             gameUp =    { "axis:lefty-",          "axis:righty-", "axis:triggerright+", "button:dpup",    "button:x"   },
             gameRight = { "button:rightshoulder", "axis:leftx+",  "axis:rightx+",       "button:dpright", "button:a"   },
+
+            _debugMoveUp =    { "button:dpup" },
+            _debugMoveDown =  { "button:dpdown" },
+            _debugMoveLeft =  { "button:dpleft" },
+            _debugMoveRight = { "button:dpright" },
+            _debugScaleUp =    { "button:rightshoulder" },
+            _debugScaleDown =  { "button:leftshoulder" },
         },
         joystick = love.joystick.getJoysticks()[1],
     }

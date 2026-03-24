@@ -65,6 +65,9 @@ function framebuffer:draw()
     local alpha = 1
     if self.name == "right" then
         alpha = 0.75
+        if love.graphics.getDepth() == 0 then
+            return
+        end
     end
 
     love.graphics.setColor(1, 1, 1, alpha)

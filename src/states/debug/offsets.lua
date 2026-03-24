@@ -45,10 +45,62 @@ end
 
 function offset:update(dt)
     if menuID == 1 then
+        if input:pressed("uiUp") then
+            selection = selection - 1
+            if selection < 1 then
+                selection = #dirTable
+            end
+        elseif input:pressed("uiDown") then
+            selection = selection + 1
+            if selection > #dirTable then
+                selection = 1
+            end
+        end
 
+        if input:pressed("uiConfirm") then
+            if love.filesystem.getInfo(curDir .. "/" .. dirTable[selection], "directory") then
+                self:spriteViewerSearch(dirTable[selection])
+            else
+                self:spriteViewer(curDir .. "/" .. dirTable[selection])
+            end
+        end
     elseif menuID == 2 then
         sprite:update(dt)
         overlay:update(dt)
+
+        if input:pressed("_debugMoveUp") then
+            overlay.y = overlay.y - 1
+        elseif input:pressed("_debugMoveDown") then
+            overlay.y = overlay.y + 1
+        elseif input:pressed("_debugMoveLeft") then
+            overlay.x = overlay.x - 1
+        elseif input:pressed("_debugMoveRight") then
+            overlay.x = overlay.x + 1
+        elseif input:pressed("_debugScaleDown") then
+            overlay.sizeX = overlay.sizeX - 0.05
+            overlay.sizeY = overlay.sizeY - 0.05
+        elseif input:pressed("_debugScaleUp") then
+            overlay.sizeX = overlay.sizeX + 0.05
+            overlay.sizeY = overlay.sizeY + 0.05
+        end
+        
+        if input:pressed("uiUp") then
+            selection = selection - 1
+            if selection < 1 then
+                selection = #spriteAnims
+            end
+            sprite:animate(spriteAnims[selection])
+        elseif input:pressed("uiDown") then
+            selection = selection + 1
+            if selection > #spriteAnims then
+                selection = 1
+            end
+            sprite:animate(spriteAnims[selection])
+        end
+        if input:pressed("uiConfirm") then
+            sprite:animate(spriteAnims[selection])
+            overlay:animate(spriteAnims[selection])
+        end
     end
 end
 
@@ -103,7 +155,7 @@ function offset:bottomDraw()
     end
 end
 
-function offset:keypressed(key)
+--[[ function offset:keypressed(key)
     if menuID == 2 then
         if key == "w" then
             overlay.y = overlay.y - 1
@@ -160,6 +212,6 @@ function offset:keypressed(key)
             end
         end
     end
-end
+end ]]
 
 return offset

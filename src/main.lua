@@ -112,6 +112,7 @@ function love.keypressed(k)
 end
 
 function love.draw(screen)
+    if screen == "right" and love.graphics.getDepth() == 0 then return end
     love.graphics.push()
     if love._console and love._console == "Wii U" then
         if screen == "gamepad" then
