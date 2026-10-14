@@ -1,3 +1,10 @@
+# NOW DEFUNCT.
+
+### New repository can be found [here](https://github.com/larphang/Funkin3D)
+
+
+
+
 # Funkin3D
 3DS "Demake" of the game "Friday Night Funkin'"
 
